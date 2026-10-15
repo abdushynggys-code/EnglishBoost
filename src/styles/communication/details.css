@@ -1,0 +1,109 @@
+.reflection-checks input,
+.detail-choice input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: #3575d8;
+}
+.summary-steps,
+.summary-hints {
+  padding-left: 20px;
+  color: #607998;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.summary-steps li,
+.summary-hints li {
+  margin: 13px 0;
+}
+details.card > summary {
+  cursor: pointer;
+  color: #456e9f;
+  font-size: 14px;
+  padding: 6px 0;
+}
+.model-answer {
+  border-top: 1px solid #edf1f6;
+  margin-top: 18px;
+  padding-top: 18px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.summary-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin: 30px 0;
+}
+.summary-comparison > div {
+  padding: 22px;
+  border-radius: 10px;
+  background: #f4f7fc;
+  min-width: 0;
+}
+.summary-comparison small {
+  color: #7089a8;
+}
+.summary-comparison p {
+  white-space: pre-wrap;
+  line-height: 1.9;
+  margin-top: 13px;
+  overflow-wrap: anywhere;
+}
+.summary-done {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  background: #e8f5ee;
+  color: #3b956c;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  animation: quiet-pop 200ms ease-out;
+}
+.summary-result > h2 {
+  margin-bottom: 15px;
+}
+.summary-result > p {
+  margin-top: 10px;
+}
+.detail-choices {
+  display: grid;
+  gap: 13px;
+  margin: 22px 0;
+}
+.detail-choice {
+  padding: 18px;
+  border: 1px solid #e0e8f2;
+  border-radius: 10px;
+}
+.detail-choice label {
+  display: flex;
+  gap: 13px;
+  font-size: 15px;
+  line-height: 1.8;
+  cursor: pointer;
+}
+.detail-choice.useful {
+  border-color: #b8d8c5;
+  background: #f5faf7;
+}
+.detail-explanation {
+  margin: 15px 0 0 31px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.detail-explanation p {
+  margin-top: 5px;
+}
+.style-questions {
+  display: grid;
+  gap: 27px;
+  max-width: 650px;
+  margin: 30px 0;
+}
+.style-questions .field > span {
+  font-size: 17px;
+  line-height: 1.7;
+}

@@ -1,0 +1,111 @@
+.language-welcome {
+  min-height: 100dvh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  background: #f3f7fc;
+}
+.welcome-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #3973c7;
+}
+.welcome-brand strong {
+  font-size: 24px;
+  letter-spacing: -0.7px;
+  color: #284e7f;
+}
+.onboarding-card {
+  width: 100%;
+  max-width: 580px;
+  background: white;
+  padding: 38px;
+  border: 1px solid #dfe8f5;
+  border-radius: 17px;
+  box-shadow: 0 12px 40px #24477505;
+}
+.onboarding-card > .eyebrow {
+  margin-bottom: 27px;
+}
+.preferences-form h2 {
+  font-size: 23px;
+  line-height: 1.5;
+  letter-spacing: -0.6px;
+  margin-bottom: 10px;
+}
+.preferences-form > p {
+  font-size: 13px;
+}
+.language-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0 18px;
+}
+.language-choice {
+  background: white;
+  color: #627b9e;
+  border: 1px solid #dfe7f3;
+  padding: 14px;
+  justify-content: flex-start;
+  gap: 16px;
+  text-align: left;
+  min-height: 62px;
+  border-radius: 10px;
+}
+.language-choice:hover,
+.focus-choice:hover {
+  background: #f7faff;
+  color: #527db8;
+  box-shadow: none;
+}
+.language-choice.selected,
+.focus-choice.selected {
+  border-color: #7da9ec;
+  background: #f0f6ff;
+  color: #356bc0;
+}
+.language-choice strong {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 550;
+}
+.language-code {
+  height: 32px;
+  width: 36px;
+  display: grid;
+  place-items: center;
+  background: #edf2f9;
+  border-radius: 6px;
+  color: #7390b5;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+}
+.preferences-form .preference-hint {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #94a4bd;
+}
+.preference-focus {
+  margin-top: 30px;
+}
+.focus-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 20px;
+}
+.focus-choice {
+  padding: 19px;
+  border: 1px solid #dfe7f3;
+  background: white;
+  color: #6d87aa;
+  text-align: left;
+  justify-content: flex-start;
+  gap: 16px;
+  border-radius: 10px;
+}

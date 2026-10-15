@@ -1,0 +1,49 @@
+.content-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+  gap: 22px;
+}
+.journey-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #dce8fa;
+  background: #eaf3ff;
+  padding: 23px;
+  border-radius: 11px;
+  margin-bottom: 24px;
+}
+.journey-banner p {
+  font-size: 11px;
+  margin-top: 4px;
+}
+.journey-banner > .status-badge {
+  margin-left: auto;
+}
+.lesson-reading {
+  white-space: pre-line;
+  font-size: 15px;
+  line-height: 2;
+  color: #546e91;
+}
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.resource-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.resource-card p {
+  margin: 8px 0 20px;
+  font-size: 12px;
+}
+.resource-card h2 {
+  margin-top: 4px;
+}
+.resource-card .feature-icon {
+  background: #edf4ff;
+  color: #6c98d5;
+}

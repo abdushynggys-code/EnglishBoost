@@ -1,0 +1,108 @@
+@media (max-width: 1270px) {
+  :root {
+    --sidebar: 220px;
+  }
+  .main-content {
+    padding: 22px;
+  }
+  .topbar {
+    padding: 0 22px;
+  }
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(290px, 1fr);
+    gap: 18px;
+  }
+  .card {
+    padding: 16px;
+  }
+  .welcome-card {
+    padding: 21px 17px;
+  }
+  .welcome-eyebrow .eyebrow {
+    font-size: 7px;
+  }
+  .welcome-card h1 {
+    font-size: 26px;
+  }
+  .welcome-details {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .welcome-details > span {
+    font-size: 8px;
+  }
+  .welcome-details .welcome-detail-separator {
+    display: none;
+  }
+  .lesson-intro {
+    grid-template-columns: 1fr;
+  }
+  .lesson-objectives {
+    display: none;
+  }
+  .lesson-feature-top {
+    gap: 14px;
+  }
+  .lesson-feature h3 {
+    font-size: 13px;
+  }
+  .lesson-feature p {
+    font-size: 11px;
+  }
+  .lesson-feature .button {
+    font-size: 11px;
+  }
+  .lesson-row .status-badge {
+    font-size: 7px;
+    padding: 5px;
+  }
+  .progress-overview {
+    gap: 12px;
+  }
+  .progress-ring {
+    width: 105px;
+    height: 105px;
+  }
+  .skill-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .skill-icon svg {
+    width: 15px;
+  }
+  .skill-row {
+    gap: 7px;
+  }
+  .skill-list {
+    gap: 11px;
+  }
+  .quick-card {
+    padding: 11px 8px;
+    gap: 7px;
+  }
+  .quick-icon {
+    width: 27px;
+    height: 30px;
+  }
+  .quick-icon svg {
+    width: 18px;
+  }
+  .quick-card strong {
+    font-size: 8px;
+  }
+  .quick-card small {
+    font-size: 7px;
+  }
+  .quick-grid {
+    gap: 8px;
+  }
+  .topbar-right {
+    gap: 12px;
+  }
+  .brand strong {
+    font-size: 18px;
+  }
+  .profile-summary {
+    display: none;
+  }
+}

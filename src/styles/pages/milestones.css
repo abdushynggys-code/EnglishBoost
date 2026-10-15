@@ -1,0 +1,55 @@
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+.milestone {
+  text-align: center;
+  border: 1px dashed #e0e7f1;
+  border-radius: 9px;
+  padding: 22px 12px;
+  color: #a0afc4;
+}
+.milestone > span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: #f1f4f9;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+}
+.milestone h3 {
+  color: #8497b2;
+  font-size: 12px;
+}
+.milestone p {
+  font-size: 10px;
+  margin: 7px 0;
+  color: #a1aec2;
+}
+.milestone small {
+  font-size: 8px;
+  color: #a9b7cb;
+}
+.milestone.earned {
+  border-style: solid;
+  border-color: #dce9f9;
+  background: #f9fcff;
+}
+.milestone.earned > span {
+  color: #628dd0;
+  background: #e9f2ff;
+}
+.milestone.earned h3 {
+  color: #5579ac;
+}
+.milestone.earned small {
+  color: #65a685;
+}
+@media (max-width: 760px) {
+  .milestones-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}

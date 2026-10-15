@@ -1,0 +1,128 @@
+.sidebar {
+  position: fixed;
+  z-index: 40;
+  inset: 0 auto 0 0;
+  width: var(--sidebar);
+  background: linear-gradient(155deg, #152335, #111e2f 65%, #142337);
+  color: #b9c9dd;
+  padding: 27px 14px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 35px;
+  color: #fff;
+}
+.brand:hover {
+  color: #fff;
+}
+.brand strong {
+  display: block;
+  font-size: 20px;
+  letter-spacing: -0.65px;
+  font-weight: 700;
+}
+.brand small {
+  display: block;
+  font-size: 9px;
+  color: #9bb0ce;
+  letter-spacing: 0.9px;
+  margin-top: 6px;
+}
+.brand-dot {
+  color: #66a5ff;
+}
+.brand-icon {
+  width: 37px;
+  height: 39px;
+  color: #77b1ff;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 3px 5px #0003);
+}
+.nav-label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.7px;
+  color: #667d99;
+  padding: 0 14px 12px;
+}
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #b9c9de;
+  font-size: 12px;
+  font-weight: 450;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 7px;
+  transition: background 0.2s;
+}
+.nav-item > svg {
+  color: #9bb1d0;
+}
+.nav-item:hover {
+  background: #ffffff08;
+  color: white;
+}
+.nav-item.active {
+  background: #274c80;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px #5287c922;
+}
+.nav-item.active > svg {
+  color: #d8e7ff;
+}
+.active-dot {
+  width: 5px;
+  height: 5px;
+  background: #80b5ff;
+  border-radius: 50%;
+  margin-left: auto;
+}
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 28px;
+}
+.sidebar-bottom .nav-item {
+  font-size: 11px;
+}
+.sidebar-quote {
+  text-align: center;
+  margin: 31px auto 22px;
+  color: #8fa5c2;
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.9;
+}
+.sidebar-quote svg {
+  display: block;
+  width: 58px;
+  height: 26px;
+  margin: 15px auto;
+  opacity: 0.65;
+}
+.sidebar-foot {
+  border-top: 1px solid #ffffff09;
+  padding-top: 15px;
+  color: #617893;
+  font-size: 9px;
+  text-align: center;
+}
+.tiny-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #76ad98;
+  border-radius: 50%;
+  margin-right: 5px;
+}

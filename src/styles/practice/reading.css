@@ -1,0 +1,52 @@
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+.reading-text {
+  padding: 28px;
+}
+.reading-text article {
+  font-size: 14px;
+  line-height: 2;
+  margin-top: 20px;
+}
+.reading-text article p {
+  margin-bottom: 20px;
+  color: #536b8e;
+}
+.reading-text > .muted {
+  font-size: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 15px;
+}
+.reading-preview > .eyebrow {
+  display: block;
+  margin: 23px 0 10px;
+}
+.reading-preview h2 {
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+.reading-cover {
+  height: 150px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.reading-cover span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.cover-0 {
+  background: #e6f3f1;
+  color: #6ba399;
+}
+.cover-1 {
+  background: #f1edfa;
+  color: #a18fc8;
+}

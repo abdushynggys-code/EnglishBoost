@@ -1,0 +1,6 @@
+@import './classroom-games/base.css';
+@import './classroom-games/details.css';
+.live-answer-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.communication-history details { padding: 20px 0; border-top: 1px solid #e4ecf6; }
+.communication-history summary { display: flex; justify-content: space-between; gap: 20px; cursor: pointer; line-height: 1.8; }
+.communication-history small { color: #7b92ae; }

@@ -1,0 +1,61 @@
+.style-questions small {
+  font-size: 13px;
+}
+.communication-entry {
+  border-top: 1px solid #e8eef6;
+  padding: 20px 0;
+}
+.communication-entry summary {
+  cursor: pointer;
+  line-height: 1.8;
+}
+.communication-entry p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.communication-entry .summary-comparison {
+  margin: 18px 0;
+}
+@media (max-width: 1100px) {
+  .summary-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .summary-support {
+    max-width: none;
+  }
+}
+@media (max-width: 760px) {
+  .summary-mode-grid,
+  .summary-comparison {
+    grid-template-columns: 1fr;
+  }
+  .summary-mode-card {
+    padding: 22px 18px;
+    gap: 13px;
+  }
+  .summary-mode-card h2 {
+    font-size: 15px;
+  }
+  .summary-filters {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .summary-filters .field {
+    max-width: none;
+  }
+  .english-prompt {
+    font-size: 21px;
+  }
+  .summary-support .card {
+    padding: 22px;
+  }
+  .summary-comparison > div {
+    padding: 19px;
+  }
+  .detail-choice {
+    padding: 15px;
+  }
+  .detail-explanation {
+    margin-left: 0;
+  }
+}

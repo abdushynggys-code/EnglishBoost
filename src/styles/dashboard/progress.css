@@ -1,0 +1,114 @@
+.progress-overview {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+}
+.progress-ring {
+  position: relative;
+  width: 123px;
+  height: 123px;
+  flex-shrink: 0;
+}
+.progress-ring svg {
+  width: 100%;
+  transform: rotate(-90deg);
+  fill: none;
+  stroke-width: 10;
+}
+.ring-track {
+  stroke: #edf1f7;
+}
+.ring-value {
+  stroke: #5795f6;
+  stroke-linecap: round;
+}
+.progress-ring > div {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.progress-ring strong {
+  font-size: 26px;
+  letter-spacing: -0.8px;
+  font-weight: 700;
+}
+.progress-ring strong span {
+  font-size: 17px;
+}
+.progress-ring small {
+  color: #7c8fae;
+  font-size: 8px;
+}
+.skill-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  min-width: 0;
+}
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.skill-icon {
+  border-radius: 50%;
+  height: 29px;
+  width: 29px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.skill-row > div {
+  flex: 1;
+}
+.skill-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  margin-bottom: 6px;
+  gap: 10px;
+  color: #4e678b;
+}
+.skill-label strong {
+  font-weight: 500;
+  font-size: 8px;
+}
+.progress-track {
+  height: 4px;
+  background: #eef2f8;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+.progress-track .purple {
+  background: #9b7deb;
+}
+.progress-track .green {
+  background: #55b585;
+}
+.progress-track .blue {
+  background: #397ff1;
+}
+.progress-track .orange {
+  background: #f4a260;
+}
+.progress-track .rose {
+  background: #ef8b96;
+}
+.progress-caption {
+  text-align: center;
+  font-size: 9px;
+  color: #9cabc1;
+  border-top: 1px solid #f0f3f8;
+  margin-top: 17px;
+  padding-top: 12px;
+}

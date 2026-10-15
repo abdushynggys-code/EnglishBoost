@@ -1,0 +1,22 @@
+import type { PhraseMap } from '../lib/i18n';
+export const readingPhrases: PhraseMap = {
+  'The text describes both repairing objects and bringing neighbours together.': ['Der Text beschreibt sowohl das Reparieren als auch das Zusammenbringen von Nachbarn.', 'Текст рассказывает и о ремонте вещей, и о том, как соседи знакомятся и общаются.'],
+  'Eva says she will help, but Jonas will do the repairing.': ['Eva sagt, dass sie hilft, aber Jonas selbst repariert.', 'Ева говорит, что поможет, но чинить будет сам Йонас.'],
+  'At first he needed help. On his second visit he became a helper. Your tutor can discuss other ways to express this answer.': ['Zuerst brauchte er Hilfe. Beim zweiten Besuch half er selbst. Dein Tutor kann mit dir andere passende Antworten besprechen.', 'Сначала ему была нужна помощь. Во второй раз он сам стал помощником. Учитель поможет обсудить другие верные формулировки.'],
+  'He returns to help and describes understanding things as satisfying.': ['Er kommt zurück, um zu helfen, und findet es befriedigend, Dinge zu verstehen.', 'Он возвращается, чтобы помогать, и говорит, что ему нравится понимать, как устроены вещи.'],
+  'She searches for a seat and wishes she could disappear.': ['Sie sucht einen Platz und möchte am liebsten verschwinden.', 'Она ищет место и мечтает стать незаметной.'],
+  'Mila says “That’s incredible” after seeing the turtle city.': ['Mila sagt „That’s incredible“, nachdem sie die Schildkrötenstadt sieht.', 'Увидев город на черепахе, Мила говорит: «That’s incredible».'],
+  'Their interest in the comic turns an uncomfortable silence into a connection.': ['Ihr gemeinsames Interesse am Comic macht aus unangenehmem Schweigen eine Verbindung.', 'Общий интерес к комиксу превращает неловкое молчание в начало дружбы.'],
+  'To successfully reach a goal through effort.': ['Ein Ziel durch eigene Anstrengung erreichen.', 'Достичь цели благодаря усилиям.'],
+  'A piece of work that a teacher asks you to complete.': ['Eine Aufgabe, die dir eine Lehrkraft gibt.', 'Работа, которую задаёт учитель.'],
+  'Wanting to learn or know more about something.': ['Mehr über etwas wissen oder lernen wollen.', 'Желание узнать о чём-то больше.'],
+  'To become better or make something better.': ['Besser werden oder etwas besser machen.', 'Становиться лучше или улучшать что-то.'],
+  'To take care of a person, animal, or thing.': ['Sich um jemanden oder etwas kümmern.', 'Заботиться о человеке, животном или вещи.'],
+  'An act of travelling from one place to another.': ['Eine Reise von einem Ort zum anderen.', 'Поездка из одного места в другое.'],
+  'Feeling sure about your abilities.': ['An die eigenen Fähigkeiten glauben.', 'Чувствовать уверенность в своих способностях.'],
+  'Facts or details that support an idea.': ['Fakten oder Details, die eine Idee stützen.', 'Факты или детали, которые подтверждают мысль.'],
+  'To stop trying to do something.': ['Aufhören, etwas zu versuchen.', 'Перестать пытаться что-то сделать.'],
+  'To travel around a place or investigate an idea.': ['Einen Ort erkunden oder eine Idee untersuchen.', 'Исследовать место или идею.'],
+  'Something difficult that tests your skills.': ['Etwas Schwieriges, das dein Können fordert.', 'Сложная задача, которая проверяет умения.'],
+  'A word used to introduce a contrasting idea.': ['Ein Wort, das einen Gegensatz einleitet.', 'Слово, которое вводит противопоставление.'],
+};

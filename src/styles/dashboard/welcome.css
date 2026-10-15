@@ -1,0 +1,103 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.64fr) minmax(330px, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.dashboard-main,
+.dashboard-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  min-width: 0;
+}
+.welcome-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 11px;
+  background: linear-gradient(108deg, #e3efff, #edf6ff 68%, #dceeff);
+  border: 1px solid #dce9fd;
+  min-height: 186px;
+  padding: 23px 23px 18px;
+}
+.welcome-content {
+  position: relative;
+  z-index: 1;
+}
+.welcome-mountains {
+  position: absolute;
+  width: 64%;
+  right: -3%;
+  bottom: -12%;
+  opacity: 0.67;
+  pointer-events: none;
+}
+.welcome-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+.welcome-eyebrow .eyebrow {
+  font-size: 8px;
+  color: #6685b0;
+  letter-spacing: 1.1px;
+}
+.streak-pill {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 9px;
+  background: #ffffffa8;
+  border: 1px solid #dbe8fa;
+  border-radius: 15px;
+  padding: 5px 8px;
+  color: #4774b1;
+}
+.streak-pill svg {
+  color: #eb9a4e;
+}
+.welcome-card h1 {
+  color: #112c55;
+  font-size: 29px;
+  font-weight: 750;
+  letter-spacing: -0.9px;
+  margin-bottom: 9px;
+}
+.welcome-card p {
+  color: #42638f;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.welcome-details {
+  display: inline-flex;
+  gap: 12px;
+  margin-top: 18px;
+  border: 1px solid #dce8f9;
+  padding: 10px;
+  border-radius: 7px;
+  background: #ffffffb8;
+  align-items: center;
+  max-width: 100%;
+}
+.welcome-details > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 9px;
+  color: #5474a0;
+}
+.welcome-details strong {
+  color: #294f83;
+  font-weight: 600;
+}
+.welcome-details svg {
+  color: #3c7bd0;
+}
+.welcome-details .welcome-detail-separator {
+  display: block;
+  background: #ccddf5;
+  width: 1px;
+  height: 13px;
+}

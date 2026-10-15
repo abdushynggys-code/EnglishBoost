@@ -1,0 +1,6 @@
+@import './dashboard/welcome.css';
+@import './dashboard/current-lesson.css';
+@import './dashboard/roadmap.css';
+@import './dashboard/progress.css';
+@import './dashboard/session-practice.css';
+@import './dashboard/activity.css';

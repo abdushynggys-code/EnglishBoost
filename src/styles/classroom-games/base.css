@@ -1,0 +1,111 @@
+.classroom-slide {
+  min-height: 300px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.classroom-slide h2 {
+  font-size: 28px;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+.classroom-slide p {
+  font-size: 18px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+.classroom-controls .field > button {
+  margin-top: 8px;
+}
+.classroom-list a {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-top: 1px solid #e8eef5;
+  color: #6584aa;
+}
+.classroom-list a:first-child {
+  border-top: 0;
+}
+.classroom-list h3 {
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.quiet-empty {
+  padding: 35px 15px;
+  text-align: center;
+  color: #7490b1;
+}
+.quiet-empty h3 {
+  margin: 20px 0 10px;
+}
+.quiet-vocabulary-count {
+  font-size: 13px;
+  color: #6883a7;
+  margin-bottom: 22px;
+}
+.activity-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 25px;
+}
+.activity-tabs button {
+  color: #6b85a8;
+  background: white;
+  border: 1px solid #e0e8f3;
+  box-shadow: none;
+  padding: 12px 18px;
+}
+.activity-tabs .selected {
+  color: #2f6ccc;
+  border-color: #aecbf0;
+  background: #eef5ff;
+}
+.matching-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin: 25px 0;
+}
+.matching-grid > div {
+  display: grid;
+  gap: 13px;
+}
+.matching-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  width: 100%;
+  border: 1px solid #dce6f3;
+  background: #fafcff;
+  color: #49688e;
+  box-shadow: none;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  text-align: left;
+  padding: 16px;
+}
+.matching-card.selected {
+  border-color: #4d8bdd;
+  background: #eaf3ff;
+}
+.matching-card.matched,
+.matching-card.matched:disabled {
+  background: #eef7f1;
+  color: #599879;
+  border-color: #c5dece;
+  opacity: 1;
+}
+.practice-layout {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 850px;
+}
+.practice-layout > .stack {
+  display: none;
+}

@@ -1,0 +1,63 @@
+@media (max-width: 1050px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .welcome-card {
+    min-height: 195px;
+  }
+  .welcome-eyebrow .eyebrow {
+    font-size: 8px;
+  }
+  .welcome-details > span {
+    font-size: 10px;
+  }
+  .welcome-card h1 {
+    font-size: 31px;
+  }
+  .lesson-intro {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .lesson-objectives {
+    display: block;
+  }
+  .compact .lesson-row {
+    padding: 11px;
+  }
+  .compact .lesson-row-text strong {
+    font-size: 12px;
+  }
+  .compact .lesson-row-text small {
+    font-size: 10px;
+  }
+  .compact .status-badge {
+    font-size: 9px;
+  }
+  .content-two-column,
+  .reading-layout {
+    grid-template-columns: 1fr;
+  }
+  .practice-layout {
+    grid-template-columns: 1fr;
+  }
+  .practice-layout > .stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .search-box {
+    width: 60%;
+  }
+  .search-box kbd {
+    display: none;
+  }
+  .reading-layout .quiz-runner {
+    max-width: 100%;
+  }
+}

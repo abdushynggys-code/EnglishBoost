@@ -1,0 +1,109 @@
+.home-shortcuts strong {
+  color: #314d73;
+  font-size: 14px;
+  font-weight: 600;
+}
+.home-shortcuts small {
+  color: #8c9eb8;
+  line-height: 1.7;
+  font-size: 11px;
+}
+.home-shortcuts a > svg:last-child {
+  position: absolute;
+  right: 20px;
+  top: 26px;
+  color: #99aecb;
+}
+.quiet-assignment-list a {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+  color: #5a7499;
+  padding: 15px 0;
+  border-top: 1px solid #edf1f7;
+}
+.quiet-assignment-list a:first-child {
+  border: 0;
+}
+.quiet-assignment-list small {
+  display: block;
+  margin-top: 7px;
+  color: #97a8c0;
+}
+.practice-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 1000px;
+}
+.practice-hub-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #e0e8f4;
+  background: #fff;
+  color: #407acb;
+  padding: 25px;
+  border-radius: 12px;
+  min-width: 0;
+}
+.practice-hub-card > div {
+  flex: 1;
+  min-width: 0;
+}
+.practice-hub-card h2 {
+  font-size: 16px;
+  color: #355579;
+  line-height: 1.6;
+}
+.practice-hub-card p {
+  font-size: 12px;
+  margin-top: 7px;
+}
+.hub-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: #f0f5fd;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.book-mapping-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  background: #eff5fe;
+  border: 1px solid #dfebfc;
+  border-radius: 10px;
+  color: #7598c7;
+}
+.book-mapping-note strong {
+  font-size: 13px;
+  color: #5576a1;
+}
+.book-mapping-note p {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.book-topic-list a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 6px;
+  border-top: 1px solid #edf1f7;
+  color: #6c8db8;
+}
+.book-topic-list a:first-child {
+  border: 0;
+}
+.book-topic-list a > div {
+  flex: 1;
+}
+.book-topic-list strong {
+  color: #405e86;
+  font-size: 14px;
+  font-weight: 550;
+}

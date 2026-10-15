@@ -1,0 +1,78 @@
+.flashcard-wrap {
+  max-width: 690px;
+  margin: 0 auto;
+}
+.flashcard {
+  text-align: center;
+  padding: 28px 40px 32px;
+  box-shadow: 0 8px 25px #25457405;
+}
+.flashcard-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #7990b1;
+  margin-bottom: 42px;
+}
+.flashcard h2 {
+  font-size: 46px;
+  letter-spacing: -1.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+.flashcard h2 .icon-button {
+  color: #789ed2;
+}
+.word-definition {
+  font-size: 14px;
+  max-width: 410px;
+  margin: 0 auto;
+}
+.flashcard blockquote {
+  margin: 24px 0;
+  background: #f6f9fe;
+  border-radius: 8px;
+  color: #7a8fab;
+  padding: 17px;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.reveal-button {
+  margin: 5px auto 0;
+}
+.translation {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 45px;
+}
+.translation small {
+  color: #98a9c0;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+}
+.translation strong {
+  font-size: 20px;
+  color: #5683c4;
+  font-weight: 550;
+}
+.flashcard-actions {
+  border-top: 1px solid #edf1f7;
+  margin-top: 30px;
+  padding-top: 23px;
+  display: flex;
+  gap: 14px;
+}
+.flashcard-actions > button {
+  flex: 1;
+}
+.next-card {
+  display: flex;
+  margin: 18px auto 10px;
+}
+.flashcard-wrap > p {
+  font-size: 10px;
+}

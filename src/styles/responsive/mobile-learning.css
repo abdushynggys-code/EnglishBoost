@@ -1,0 +1,102 @@
+@media (max-width: 760px) {
+  .stat-value {
+    font-size: 25px;
+  }
+  .filter-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .segmented {
+    width: 100%;
+  }
+  .segmented button {
+    flex: 1;
+  }
+  .flashcard {
+    padding: 22px;
+  }
+  .flashcard h2 {
+    font-size: 36px;
+  }
+  .flashcard-top {
+    margin-bottom: 30px;
+  }
+  .flashcard-actions {
+    gap: 8px;
+  }
+  .flashcard-actions button {
+    padding: 10px 8px;
+    font-size: 10px;
+  }
+  .practice-start,
+  .quiz-runner {
+    padding: 22px;
+  }
+  .practice-layout > .stack {
+    display: flex;
+  }
+  .question-prompt {
+    font-size: 20px;
+  }
+  .practice-facts {
+    gap: 12px;
+  }
+  .journey-banner {
+    padding: 18px;
+    flex-wrap: wrap;
+    gap: 13px;
+  }
+  .journey-banner > div {
+    flex: 1;
+  }
+  .journey-banner .status-badge {
+    margin-left: 0;
+  }
+  .lesson-row {
+    padding: 12px 9px;
+    gap: 9px;
+  }
+  .lesson-row-text strong {
+    font-size: 11px;
+  }
+  .lesson-row-text small {
+    max-width: 160px;
+    font-size: 9px;
+  }
+  .lesson-row > .status-badge {
+    font-size: 7px;
+  }
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+  .auth-aside {
+    display: none;
+  }
+  .auth-main {
+    min-height: 100vh;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .editor-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .homework-header {
+    flex-wrap: wrap;
+  }
+  .writing-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .writing-toolbar select {
+    max-width: 100%;
+    width: 100%;
+  }
+  .reading-text {
+    padding: 22px;
+  }
+  .profile-card {
+    padding: 25px;
+  }
+}

@@ -1,0 +1,105 @@
+@media (max-width: 760px) {
+  .mobile-topbar-brand {
+    display: inline;
+    color: #365b8c;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+}
+@media (max-width: 760px) {
+  .language-shortcut {
+    font-size: 11px;
+    padding: 8px 9px;
+  }
+}
+@media (max-width: 760px) {
+  .profile-trigger .avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+@media (max-width: 760px) {
+  .calm-heading {
+    margin: 4px 0 23px;
+  }
+}
+@media (max-width: 760px) {
+  .calm-heading h1 {
+    font-size: 29px;
+  }
+}
+@media (max-width: 760px) {
+  .calm-heading > p:last-child {
+    font-size: 14px;
+  }
+}
+@media (max-width: 760px) {
+  .today-focus {
+    padding: 25px 22px;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+@media (max-width: 760px) {
+  .focus-symbol {
+    height: 48px;
+    width: 48px;
+    border-radius: 11px;
+  }
+}
+@media (max-width: 760px) {
+  .focus-symbol svg {
+    width: 24px;
+  }
+}
+@media (max-width: 760px) {
+  .today-focus h2 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 760px) {
+  .today-focus .button {
+    width: 100%;
+    font-size: 13px;
+    min-height: 48px;
+  }
+}
+@media (max-width: 760px) {
+  .today-focus > div {
+    width: 100%;
+  }
+}
+@media (max-width: 760px) {
+  .today-focus p:not(.eyebrow) {
+    font-size: 14px;
+  }
+}
+@media (max-width: 760px) {
+  .home-shortcuts a {
+    padding: 23px 20px;
+  }
+}
+@media (max-width: 760px) {
+  .home-shortcuts strong {
+    font-size: 14px;
+  }
+}
+@media (max-width: 760px) {
+  .home-shortcuts {
+    gap: 12px;
+    margin: 20px 0;
+  }
+}
+@media (max-width: 760px) {
+  .mobile-bottom-nav {
+    position: fixed;
+    z-index: 60;
+    inset: auto 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    background: #fff;
+    border-top: 1px solid #e2e9f4;
+    box-shadow: 0 -4px 20px #1d3e6510;
+  }
+}

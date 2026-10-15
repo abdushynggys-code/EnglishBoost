@@ -1,0 +1,78 @@
+.focus-choice strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 550;
+}
+.focus-choice small {
+  display: block;
+  color: #8b9fbb;
+  line-height: 1.8;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 400;
+}
+.sound-setting {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid #ebf0f7;
+}
+.sound-setting input {
+  margin-top: 4px;
+}
+.sound-setting strong {
+  font-size: 13px;
+  color: #6881a2;
+}
+.sound-setting small {
+  display: block;
+  font-size: 11px;
+  color: #94a7c0;
+  margin-top: 7px;
+}
+.settings-card {
+  max-width: 720px;
+  padding: 30px;
+}
+.settings-card > summary {
+  color: #6e85a5;
+  cursor: pointer;
+  font-size: 13px;
+}
+@media (max-width: 760px) {
+  .language-welcome {
+    justify-content: flex-start;
+    padding-top: 45px;
+    gap: 28px;
+  }
+  .onboarding-card {
+    padding: 27px 21px;
+  }
+  .preferences-form h2 {
+    font-size: 22px;
+  }
+  .onboarding-card > .eyebrow {
+    font-size: 8px;
+  }
+  .settings-card {
+    padding: 25px 21px;
+  }
+  .focus-choice {
+    padding: 17px 14px;
+  }
+  .focus-choice strong {
+    font-size: 13px;
+  }
+  .language-welcome .button-row > button:last-child {
+    flex: 1;
+  }
+  .language-choice {
+    min-height: 66px;
+  }
+  .sound-setting input {
+    flex-shrink: 0;
+  }
+}

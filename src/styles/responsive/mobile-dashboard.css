@@ -1,0 +1,127 @@
+@media (max-width: 760px) {
+  .compact .lesson-row {
+    gap: 9px;
+    padding: 10px 8px;
+  }
+  .compact .week-number {
+    width: 35px;
+  }
+  .compact .lesson-row-text strong {
+    font-size: 10px;
+  }
+  .compact .lesson-row-text small {
+    font-size: 8px;
+    max-width: 185px;
+  }
+  .compact .status-badge {
+    font-size: 7px;
+    padding: 4px;
+  }
+  .compact .lesson-row > svg {
+    width: 12px;
+  }
+  .lesson-card-footer {
+    font-size: 8px;
+  }
+  .lesson-card-footer > span {
+    max-width: 160px;
+    line-height: 1.7;
+  }
+  .dashboard-aside {
+    display: flex;
+  }
+  .progress-overview {
+    gap: 24px;
+  }
+  .progress-ring {
+    width: 130px;
+    height: 130px;
+  }
+  .skill-list {
+    gap: 13px;
+  }
+  .skill-label {
+    font-size: 10px;
+  }
+  .skill-label strong {
+    font-size: 9px;
+  }
+  .skill-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .quick-grid {
+    gap: 12px;
+  }
+  .quick-card {
+    padding: 15px 11px;
+    gap: 12px;
+  }
+  .quick-card strong {
+    font-size: 10px;
+  }
+  .quick-card small {
+    font-size: 8px;
+  }
+  .quick-icon {
+    width: 34px;
+    height: 36px;
+  }
+  .session-content h3 {
+    font-size: 14px;
+  }
+  .session-content h2 {
+    font-size: 14px;
+  }
+  .activity-item strong {
+    font-size: 11px;
+  }
+  .activity-item small {
+    font-size: 9px;
+  }
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 22px;
+  }
+  .page-heading h1 {
+    font-size: 26px;
+  }
+  .page-heading p {
+    font-size: 12px;
+  }
+  .page-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 8px;
+    gap: 9px;
+  }
+  .demo-notice {
+    flex-wrap: wrap;
+    line-height: 1.8;
+    justify-content: flex-start;
+    font-size: 8px;
+  }
+  .toast {
+    left: 15px;
+    right: 15px;
+    max-width: calc(100% - 30px);
+    font-size: 11px;
+    bottom: 15px;
+  }
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid,
+  .stats-grid.three {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 11px;
+  }
+  .stats-grid.three > :last-child {
+    grid-column: 1 / -1;
+  }
+  .stat-label {
+    font-size: 10px;
+  }
+}

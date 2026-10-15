@@ -1,0 +1,9 @@
+@media (max-width: 760px) {
+  .search-box,
+  .search-box input {
+    min-width: 0;
+  }
+  .topbar-right {
+    flex-shrink: 0;
+  }
+}

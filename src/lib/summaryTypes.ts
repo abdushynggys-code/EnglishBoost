@@ -1,0 +1,32 @@
+export type SummaryMode = 'main_idea' | 'sentences' | 'relevance' | 'shorten' | 'conversation' | 'styles';
+export type ResponseStyle = 'impression' | 'activities' | 'reason' | 'sequence';
+export type SummaryScenario = {
+  id: string;
+  level: number;
+  title: string;
+  question: string;
+  original: string;
+  models: string[];
+  details: { id: string; text: string; relevant: boolean | null; explanation: string }[];
+};
+export type Reflection = { main_idea: boolean; meaning: boolean; relevant: boolean };
+export type ConciseAttempt = {
+  id: string;
+  mode: SummaryMode;
+  scenario_id: string;
+  prompt: string;
+  level: number;
+  original: string;
+  improved: string;
+  selected_details: string[];
+  style_answers: Record<string, string>;
+  reflection: Reflection | Record<string, never>;
+  objective_correct: number;
+  objective_total: number;
+  points: number;
+  created_at: string;
+  source: 'practice' | 'classroom' | 'homework';
+  homework_id: string | null;
+  tutor_comment?: string | null;
+  tutor_score?: number | null;
+};

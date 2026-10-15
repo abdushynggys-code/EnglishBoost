@@ -1,0 +1,71 @@
+.demo-pill {
+  font-size: 8px;
+  font-weight: 650;
+  letter-spacing: 1.2px;
+  padding: 5px 7px;
+  background: #f1f5fb;
+  color: #7f91ae;
+  border: 1px solid #e5ecf5;
+  border-radius: 4px;
+}
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  background: none;
+  color: var(--ink);
+  padding: 0;
+  gap: 11px;
+  border: none;
+  box-shadow: none;
+}
+.profile-trigger:hover {
+  background: none;
+  box-shadow: none;
+}
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e5efff;
+  color: #2766c9;
+  border: 3px solid #f5f8ff;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.profile-summary {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 3px;
+}
+.profile-summary strong {
+  font-size: 11px;
+}
+.profile-summary small {
+  font-size: 8px;
+  color: var(--soft);
+  font-weight: 400;
+}
+.profile-trigger > svg {
+  color: #7a8ba7;
+  margin-left: 5px;
+}
+.notification-menu,
+.profile-menu {
+  position: relative;
+}
+.notification-button {
+  position: relative;
+}
+.notification-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f0777c;
+  right: 8px;
+  top: 6px;
+  box-shadow: 0 0 0 2px #fff;
+}

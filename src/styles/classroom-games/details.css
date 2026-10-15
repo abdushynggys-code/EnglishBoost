@@ -1,0 +1,67 @@
+.practice-start {
+  padding: 34px;
+}
+.practice-start .feature-icon,
+.practice-start > .eyebrow {
+  display: none;
+}
+.practice-start h2 {
+  margin-top: 0;
+}
+.practice-facts {
+  margin: 23px 0;
+}
+.practice-start > button {
+  max-width: 320px;
+}
+.submission-body {
+  overflow-wrap: anywhere;
+}
+.field,
+.card,
+.stack {
+  min-width: 0;
+}
+select {
+  max-width: 100%;
+}
+@media (max-width: 760px) {
+  .classroom-slide {
+    padding: 25px 21px;
+    min-height: 250px;
+  }
+  .classroom-slide h2 {
+    font-size: 24px;
+  }
+  .classroom-slide p {
+    font-size: 16px;
+  }
+  .matching-grid {
+    gap: 12px;
+  }
+  .matching-card {
+    padding: 13px 11px;
+    font-size: 14px;
+    min-height: 90px;
+  }
+  .activity-tabs {
+    gap: 7px;
+  }
+  .activity-tabs button {
+    flex: 1;
+    font-size: 12px;
+    padding: 12px;
+  }
+  .practice-start {
+    padding: 25px 20px;
+  }
+  .practice-start > button {
+    max-width: none;
+  }
+  .classroom-controls .button-row > button {
+    flex: 1;
+  }
+  .button-row {
+    flex-wrap: wrap;
+  }
+}

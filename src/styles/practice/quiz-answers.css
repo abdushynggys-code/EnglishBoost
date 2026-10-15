@@ -1,0 +1,90 @@
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.answer-option {
+  color: #536b90;
+  background: #fff;
+  border-color: #dfe7f3;
+  text-align: left;
+  justify-content: flex-start;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 450;
+  min-height: 50px;
+}
+.answer-option > span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: #f1f5fb;
+  color: #91a3bc;
+  font-size: 10px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.answer-option > svg {
+  margin-left: auto;
+}
+.answer-option:hover {
+  background: #f5f9ff;
+  border-color: #a9c7f7;
+  box-shadow: none;
+}
+.answer-option.selected {
+  border-color: #76a6f3;
+  background: #f0f6ff;
+  color: #2862b9;
+}
+.answer-option.selected > span {
+  background: #dceaff;
+  color: #3775ce;
+}
+.answer-option:disabled {
+  opacity: 1;
+}
+.answer-option.correct {
+  border-color: #8ac7a5;
+  background: #eef9f2;
+  color: #34845b;
+}
+.answer-option.incorrect {
+  border-color: #efb3ba;
+  background: #fff3f3;
+  color: #b46c72;
+}
+.answer-feedback {
+  display: flex;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 17px;
+  margin-top: 22px;
+  background: #f0f7ff;
+  color: #5b8ac6;
+}
+.answer-feedback.positive {
+  background: #f0f9f3;
+  color: #4b9b70;
+}
+.answer-feedback.negative {
+  background: #fff6ed;
+  color: #c39659;
+}
+.answer-feedback strong {
+  font-size: 12px;
+}
+.answer-feedback p {
+  font-size: 11px;
+  color: #6f829b;
+  margin-top: 5px;
+  line-height: 1.8;
+}
+.answer-feedback small {
+  display: block;
+  font-size: 10px;
+  color: #899bb2;
+  margin-top: 7px;
+}

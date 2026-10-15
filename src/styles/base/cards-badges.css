@@ -1,0 +1,68 @@
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 19px;
+  box-shadow: 0 2px 5px #193c6d02;
+  min-width: 0;
+}
+.card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.muted {
+  color: var(--soft);
+}
+.eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.45px;
+  color: #6480a7;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 550;
+  padding: 5px 9px;
+  border-radius: 6px;
+}
+.status-badge.blue,
+.skill-icon.blue {
+  background: #eaf2ff;
+  color: #2268ed;
+}
+.status-badge.green,
+.skill-icon.green {
+  background: #e9f6ed;
+  color: #2da66c;
+}
+.status-badge.gray {
+  background: #f0f3f8;
+  color: #8090a8;
+}
+.status-badge.purple,
+.skill-icon.purple {
+  background: #f0ecff;
+  color: #8c65e8;
+}
+.skill-icon.orange {
+  background: #fff1e6;
+  color: #f58f3c;
+}
+.skill-icon.rose {
+  background: #ffeef0;
+  color: #ed7482;
+}
+.green-text {
+  color: #30a56d;
+}
+.orange-text {
+  color: #e89848;
+}

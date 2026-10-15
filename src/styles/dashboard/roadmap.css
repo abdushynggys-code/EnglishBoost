@@ -1,0 +1,127 @@
+.curriculum-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 12px;
+}
+.curriculum-heading h3 {
+  font-size: 13px;
+}
+.curriculum-heading > span {
+  color: #8a9bb4;
+  font-size: 9px;
+}
+.lesson-list {
+  border: 1px solid #e5edf8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lesson-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 13px;
+  color: var(--ink);
+  border-bottom: 1px solid #ecf0f7;
+  transition: background 0.18s;
+}
+.lesson-row:last-child {
+  border: 0;
+}
+.lesson-row:hover,
+.lesson-row.current {
+  background: #f9fbff;
+  color: var(--ink);
+}
+.week-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f0f5fc;
+  border: 1px solid #ecf2fa;
+  width: 50px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  gap: 3px;
+}
+.week-number span {
+  font-size: 7px;
+  color: #8ca2c0;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+.week-number strong {
+  font-size: 13px;
+  color: #4b73ab;
+  font-weight: 600;
+}
+.lesson-row-text {
+  flex: 1;
+  min-width: 0;
+}
+.lesson-row-text strong {
+  display: block;
+  font-weight: 550;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.lesson-row-text small {
+  display: block;
+  color: #8396b2;
+  font-size: 10px;
+  line-height: 1.5;
+  margin-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.lesson-row > svg {
+  color: #7896bb;
+}
+.compact .lesson-row {
+  gap: 12px;
+  padding: 8px 10px;
+}
+.compact .week-number {
+  width: 48px;
+  height: 37px;
+}
+.compact .week-number span {
+  font-size: 6px;
+}
+.compact .week-number strong {
+  font-size: 11px;
+}
+.compact .lesson-row-text strong {
+  font-size: 10px;
+}
+.compact .lesson-row-text small {
+  font-size: 9px;
+  margin-top: 2px;
+}
+.compact .status-badge {
+  font-size: 8px;
+  padding: 5px 8px;
+}
+.lesson-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 9px;
+}
+.lesson-card-footer span,
+.lesson-card-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.lesson-card-footer > span {
+  color: #9aa9bd;
+}
+.lesson-card-footer a {
+  font-weight: 500;
+}

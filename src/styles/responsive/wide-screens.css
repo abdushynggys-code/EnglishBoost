@@ -1,0 +1,73 @@
+@media (min-width: 1600px) {
+  .main-content {
+    padding: 30px 34px 20px;
+  }
+  .dashboard-grid {
+    gap: 25px;
+  }
+  .welcome-card {
+    padding: 28px;
+    min-height: 210px;
+  }
+  .welcome-card h1 {
+    font-size: 34px;
+  }
+  .welcome-card p {
+    font-size: 14px;
+  }
+  .welcome-details > span {
+    font-size: 10px;
+  }
+  .lesson-feature h3 {
+    font-size: 14px;
+  }
+  .lesson-feature p {
+    font-size: 12px;
+  }
+  .lesson-objectives h4 {
+    font-size: 12px;
+  }
+  .lesson-objectives li {
+    font-size: 11px;
+  }
+  .compact .lesson-row {
+    padding: 11px;
+  }
+  .compact .lesson-row-text strong {
+    font-size: 12px;
+  }
+  .compact .lesson-row-text small {
+    font-size: 10px;
+  }
+  .compact .status-badge {
+    font-size: 9px;
+  }
+  .quick-card strong {
+    font-size: 11px;
+  }
+  .quick-card small {
+    font-size: 9px;
+  }
+  .activity-item strong {
+    font-size: 11px;
+  }
+  .activity-item small {
+    font-size: 9px;
+  }
+  .skill-label {
+    font-size: 11px;
+  }
+  .skill-label strong {
+    font-size: 10px;
+  }
+  .progress-ring {
+    width: 145px;
+    height: 145px;
+  }
+  .session-content h2 {
+    font-size: 15px;
+  }
+  .session-content h3 {
+    font-size: 14px;
+  }
+}

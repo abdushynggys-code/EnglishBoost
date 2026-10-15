@@ -1,0 +1,7 @@
+@import './responsive/wide-screens.css';
+@import './responsive/laptops.css';
+@import './responsive/tablets.css';
+@import './responsive/mobile-shell.css';
+@import './responsive/mobile-dashboard.css';
+@import './responsive/mobile-learning.css';
+@import './responsive/mobile-search.css';

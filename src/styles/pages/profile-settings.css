@@ -1,0 +1,57 @@
+.settings-card {
+  max-width: 720px;
+}
+.settings-card .form {
+  margin-top: 25px;
+}
+.settings-card .form > button {
+  align-self: flex-start;
+}
+.settings-role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #7e95b2;
+  font-size: 12px;
+  padding: 15px;
+  background: #f4f7fc;
+  border-radius: 7px;
+  margin-top: 20px;
+}
+.profile-card {
+  max-width: 650px;
+  text-align: center;
+  padding: 38px;
+  margin: 0 auto;
+}
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 20px;
+}
+.profile-initial {
+  display: grid;
+  place-items: center;
+  background: #ebf3ff;
+  color: #5b8cd1;
+  font-size: 28px;
+}
+.profile-card h1 {
+  font-size: 25px;
+}
+.profile-email {
+  margin: 10px 0 25px;
+}
+.profile-card .button-row {
+  justify-content: center;
+}
+.profile-detail {
+  padding: 18px;
+  background: #f5f8fd;
+  border-radius: 8px;
+  margin: 22px 0;
+  color: #7c93b0;
+  font-size: 12px;
+}

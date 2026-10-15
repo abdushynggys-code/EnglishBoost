@@ -1,0 +1,83 @@
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.full-width {
+  width: 100%;
+}
+.spaced {
+  margin-top: 20px;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.icon-button {
+  padding: 7px;
+  border: 0;
+  background: transparent;
+  color: #7587a5;
+  border-radius: 7px;
+  box-shadow: none;
+}
+.icon-button:hover {
+  color: var(--blue);
+  background: #f0f5fe;
+  box-shadow: none;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #526682;
+  font-size: 12px;
+  font-weight: 550;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  color: #637797;
+  font-size: 12px;
+}
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.7;
+}
+.checklist svg {
+  color: #72a6e9;
+  margin-top: 1px;
+}
+.callout {
+  padding: 17px;
+  background: #f0f6ff;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 22px;
+}
+.callout > svg {
+  color: var(--blue);
+  margin-top: 3px;
+}
+.callout p {
+  font-size: 12px;
+  color: #59749a;
+}

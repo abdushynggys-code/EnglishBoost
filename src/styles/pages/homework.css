@@ -1,0 +1,34 @@
+.homework-card {
+  margin-bottom: 20px;
+}
+.homework-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.homework-header h2 {
+  margin-top: 8px;
+}
+.homework-card > p {
+  margin-bottom: 20px;
+}
+.homework-due {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8298b6;
+  font-size: 10px;
+}
+.homework-materials {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.homework-materials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}

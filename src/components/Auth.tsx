@@ -1,14 +1,17 @@
+import { useI18n } from '../lib/i18n';
 import { useState } from 'react';
-import { isSupabaseConfigured, supabase } from '../lib/supabase';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { signInWithEmail, signInWithGoogle, signUpWithEmail } from '../lib/auth';
 import { SupabaseSetupMessage } from './SupabaseSetupMessage';
 
-// Вход и регистрация по email + паролю. Это пример — Codex поможет улучшить (Google-вход и т.д.).
 export function Auth() {
+  const { t } = useI18n();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  const [googleBusy, setGoogleBusy] = useState(false);
 
   if (!isSupabaseConfigured) return <SupabaseSetupMessage />;
 
@@ -17,53 +20,82 @@ export function Auth() {
     setBusy(true);
     setMessage('');
     try {
-      const fn =
-        mode === 'signup'
-          ? supabase.auth.signUp({
-              email,
-              password,
-              options: { emailRedirectTo: window.location.origin },
-            })
-          : supabase.auth.signInWithPassword({ email, password });
+      const fn = mode === 'signup' ? signUpWithEmail(email, password) : signInWithEmail(email, password);
       const { error } = await fn;
       if (error) setMessage(error.message);
-      else if (mode === 'signup') setMessage('Готово! Проверь почту, если нужна подтверждалка.');
+      else if (mode === 'signup') setMessage(t('Your account is ready. Check your inbox to confirm your email.'));
     } catch {
-      setMessage('Что-то пошло не так. Попробуй ещё раз.');
+      setMessage(t('Something went wrong. Please try again.'));
     } finally {
       setBusy(false);
     }
   }
 
+  async function handleGoogleSignIn() {
+    setGoogleBusy(true);
+    setMessage('');
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) {
+        setMessage(error.message);
+        setGoogleBusy(false);
+      }
+    } catch {
+      setMessage(t('Could not open Google sign-in. Please try again.'));
+      setGoogleBusy(false);
+    }
+  }
+
   return (
     <section className="card">
-      <h2>{mode === 'signin' ? 'Вход' : 'Регистрация'}</h2>
+      <h2>{mode === 'signin' ? t('Welcome to your next chapter.') : t('Your journey starts here.')}</h2>
+      <p className="auth-subtitle">
+        {mode === 'signin'
+          ? t('Sign in and pick up where you left off.')
+          : t('Create an account. Your tutor will approve your workspace.')}
+      </p>
+      <button type="button" className="google-sign-in" onClick={handleGoogleSignIn} disabled={busy || googleBusy}>
+        <span className="google-letter" aria-hidden="true">
+          {t('G')}
+        </span>
+        {googleBusy ? t('Opening Google…') : t('Sign in with Google')}
+      </button>
+      <p className="auth-divider">{t('or continue with email')}</p>
       <form onSubmit={handleSubmit} className="form">
         <input
           type="email"
-          placeholder="email"
+          aria-label={t('Email')}
+          autoComplete="email"
+          placeholder={t('Email address')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="пароль (6+ символов)"
+          aria-label={t('Password')}
+          autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+          placeholder={t('Password (6+ characters)')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           minLength={6}
           required
         />
-        <button type="submit" disabled={busy}>
-          {busy ? '…' : mode === 'signin' ? 'Войти' : 'Создать аккаунт'}
+        <button type="submit" disabled={busy || googleBusy}>
+          {busy ? t('Just a moment…') : mode === 'signin' ? t('Sign in') : t('Create account')}
         </button>
       </form>
-      {message && <p className="message">{message}</p>}
+      {message && (
+        <p className="message" role="status">
+          {message}
+        </p>
+      )}
       <button
         className="ghost"
+        disabled={busy || googleBusy}
         onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
       >
-        {mode === 'signin' ? 'Нет аккаунта? Зарегистрируйся' : 'Уже есть аккаунт? Войти'}
+        {mode === 'signin' ? t('New here? Create an account') : t('Already have an account? Sign in')}
       </button>
     </section>
   );

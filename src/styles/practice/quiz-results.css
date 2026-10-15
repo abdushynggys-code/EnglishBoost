@@ -1,0 +1,36 @@
+.quiz-results {
+  padding: 40px 25px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+}
+.result-trophy {
+  background: #fff7df;
+  color: #d8ae53;
+  display: grid;
+  place-items: center;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+.quiz-results h2 {
+  font-size: 24px;
+}
+.quiz-results p {
+  max-width: 420px;
+}
+.result-score {
+  font-size: 68px;
+  letter-spacing: -3px;
+  font-weight: 750;
+  color: #3e7bda;
+  margin-top: 10px;
+}
+.result-score span {
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0;
+}

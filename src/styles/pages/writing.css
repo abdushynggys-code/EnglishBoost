@@ -1,0 +1,82 @@
+.writing-editor {
+  min-height: 340px;
+  border: 0;
+  padding: 5px 0;
+  font-size: 15px;
+  line-height: 2;
+  color: #526c90;
+  resize: vertical;
+  box-shadow: none;
+}
+.writing-editor:focus {
+  box-shadow: none;
+}
+.writing-toolbar {
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  gap: 10px;
+  color: var(--soft);
+  font-size: 11px;
+}
+.writing-toolbar select {
+  width: auto;
+  max-width: 75%;
+  border: 0;
+  background: #f4f7fc;
+  font-size: 11px;
+}
+.editor-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 10px;
+  color: var(--soft);
+}
+.writing-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.writing-checklist label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #778aa7;
+  font-size: 11px;
+  cursor: pointer;
+}
+.feedback-card {
+  padding: 15px;
+  background: #f1f8f4;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+.feedback-card strong {
+  font-size: 12px;
+  color: #4c9670;
+}
+.feedback-card p {
+  font-size: 12px;
+  color: #698d7b;
+  margin-top: 7px;
+}
+.versions-list {
+  margin-top: 15px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+.versions-list button {
+  width: 100%;
+  justify-content: space-between;
+  background: none;
+  color: #6d84a4;
+  font-size: 10px;
+  box-shadow: none;
+}

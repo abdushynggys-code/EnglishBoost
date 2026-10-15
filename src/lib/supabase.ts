@@ -7,7 +7,4 @@ const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 export const isSupabaseConfigured = Boolean(url && anonKey);
 
 // Запасные значения позволяют показать понятную подсказку в интерфейсе вместо белого экрана.
-export const supabase = createClient(
-  url ?? 'https://not-configured.supabase.co',
-  anonKey ?? 'not-configured',
-);
+export const supabase = createClient(url ?? 'https://not-configured.supabase.co', anonKey ?? 'not-configured');
