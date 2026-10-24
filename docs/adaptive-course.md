@@ -1,6 +1,6 @@
 ﻿# Adaptive English course
 
-New visitors see an interactive sample at `/`, then sign in before opening the app. Sign-in remembers the requested app route across email or Google authentication. `/demo` explicitly opens a temporary preview; anonymous visits no longer load sample learning data automatically.
+New visitors see an interactive sample at `/`, then sign in before opening the app. Sign-in asks Student or Tutor and remembers the requested app route across email or Google authentication. The choice is saved as requested_role in Supabase Auth metadata; it never grants permissions. Actual tutor access remains controlled by the database, and approved tutors land on /tutor by default. `/demo` explicitly opens a temporary preview; anonymous visits no longer load sample learning data automatically.
 
 Home and the course path link directly to the first incomplete, unlocked lesson. Lesson results save before opening the next lesson; a failed save keeps the result available to retry. Finish for now saves and returns to the course path. Motion effects respect reduced-motion preferences.
 

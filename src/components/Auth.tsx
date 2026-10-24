@@ -1,3 +1,6 @@
+import { AccountRolePicker } from './AccountRolePicker';
+import { readAccountIntent, rememberAccountIntent } from '../lib/accountIntent';
+import type { AccountIntent } from '../lib/accountIntent';
 import { useI18n } from '../lib/i18n';
 import { useState } from 'react';
 import { isSupabaseConfigured } from '../lib/supabase';
@@ -6,6 +9,7 @@ import { SupabaseSetupMessage } from './SupabaseSetupMessage';
 
 export function Auth() {
   const { t } = useI18n();
+  const [role, setRole] = useState<AccountIntent | null>(readAccountIntent);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -17,10 +21,12 @@ export function Auth() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!role) return;
+    rememberAccountIntent(role);
     setBusy(true);
     setMessage('');
     try {
-      const fn = mode === 'signup' ? signUpWithEmail(email, password) : signInWithEmail(email, password);
+      const fn = mode === 'signup' ? signUpWithEmail(email, password, role) : signInWithEmail(email, password);
       const { error } = await fn;
       if (error) setMessage(error.message);
       else if (mode === 'signup') setMessage(t('Your account is ready. Check your inbox to confirm your email.'));
@@ -32,6 +38,8 @@ export function Auth() {
   }
 
   async function handleGoogleSignIn() {
+    if (!role) return;
+    rememberAccountIntent(role);
     setGoogleBusy(true);
     setMessage('');
     try {
@@ -52,9 +60,10 @@ export function Auth() {
       <p className="auth-subtitle">
         {mode === 'signin'
           ? t('Sign in and pick up where you left off.')
-          : t('Create an account. Your tutor will approve your workspace.')}
+          : t(role === 'tutor' ? 'Create your account to get started. Tutor access requires approval.' : 'Create an account. Your tutor will approve your workspace.')}
       </p>
-      <button type="button" className="google-sign-in" onClick={handleGoogleSignIn} disabled={busy || googleBusy}>
+      <AccountRolePicker value={role} onChange={setRole} disabled={busy || googleBusy} />
+      <button type="button" className="google-sign-in" onClick={handleGoogleSignIn} disabled={!role || busy || googleBusy}>
         <span className="google-letter" aria-hidden="true">
           {t('G')}
         </span>
@@ -81,7 +90,7 @@ export function Auth() {
           minLength={6}
           required
         />
-        <button type="submit" disabled={busy || googleBusy}>
+        <button type="submit" disabled={!role || busy || googleBusy}>
           {busy ? t('Just a moment…') : mode === 'signin' ? t('Sign in') : t('Create account')}
         </button>
       </form>

@@ -1,4 +1,5 @@
-﻿import { useEffect } from 'react';
+import { PageLoading } from '../components/PageLoading';
+import { useEffect, useState } from 'react';
 import { Link, Redirect, useSearch } from 'wouter';
 import { Auth } from '../components/Auth';
 import { useLearning } from '../lib/learningContext';
@@ -10,14 +11,15 @@ import { Icon } from '../components/Icon';
 
 export function SignInPage() {
   const { t } = useI18n();
-  const { session, loading, error } = useLearning();
+  const { session, profile, loading, error } = useLearning();
   const search = useSearch();
-  const next = rememberedDestination(new URLSearchParams(search).get('next'));
+  const [next] = useState(() => rememberedDestination(new URLSearchParams(search).get('next')));
   useEffect(() => {
     if (session) clearDestination(); else rememberDestination(next);
   }, [next, session]);
   useEffect(() => { document.title = t('Sign in') + ' · EnglishBoost'; }, [t]);
-  if (session) return <Redirect to={next} replace />;
+  if (session && loading) return <PageLoading />;
+  if (session) return <Redirect to={profile?.role === 'tutor' && next === '/course' ? '/tutor' : next} replace />;
   return <div className="entry-sign-in">
     <header className="welcome-nav"><ProductBrand /><PublicLanguagePicker /></header>
     <main className="entry-sign-in-main">

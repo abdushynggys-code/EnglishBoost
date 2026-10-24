@@ -1,3 +1,4 @@
+import type { AccountIntent } from './accountIntent';
 import { supabase } from './supabase';
 
 export function signInWithGoogle() {
@@ -11,11 +12,11 @@ export function signInWithEmail(email: string, password: string) {
   return supabase.auth.signInWithPassword({ email, password });
 }
 
-export function signUpWithEmail(email: string, password: string) {
+export function signUpWithEmail(email: string, password: string, role: AccountIntent) {
   return supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${window.location.origin}/sign-in` },
+    options: { emailRedirectTo: `${window.location.origin}/sign-in`, data: { requested_role: role } },
   });
 }
 

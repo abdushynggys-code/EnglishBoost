@@ -1,3 +1,4 @@
+import { saveAccountIntent } from '../lib/accountIntent';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { LearningContext } from '../lib/learningContext';
@@ -28,6 +29,7 @@ export function LearningProvider({ children }: { children: ReactNode }) {
         setData(emptyWorkspace());
         return;
       }
+      if (session?.user) await saveAccountIntent(session.user);
       const nextProfile = await loadProfile(userId);
       const workspace = nextProfile.approved ? await loadWorkspace(userId) : emptyWorkspace();
       if (version !== request.current) return;

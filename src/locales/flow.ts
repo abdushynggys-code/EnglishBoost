@@ -1,4 +1,4 @@
-﻿const translations: Record<string, readonly [string,string,string]> = {
+const translations: Record<string, readonly [string,string,string]> = {
   'English for the things you want to say.':['Englisch für das, was du sagen möchtest.','Английский для того, что ты хочешь сказать.','Айтқың келген ойға арналған ағылшын тілі.'],
   'A LITTLE ENGLISH, EVERY DAY':['JEDEN TAG EIN BISSCHEN ENGLISCH','НЕМНОГО АНГЛИЙСКОГО КАЖДЫЙ ДЕНЬ','КҮН САЙЫН АЗДАП АҒЫЛШЫНША'],
   'Find your level. Learn something useful. Come back tomorrow knowing exactly what to do next.':['Finde dein Niveau. Lerne etwas Nützliches. Und weiß morgen genau, wie es weitergeht.','Узнай свой уровень. Выучи что-то полезное. А завтра сразу знай, с чего начать.','Деңгейіңді анықта. Пайдалы нәрсе үйрен. Ертең қай жерден жалғастыруды бірден біл.'],
@@ -42,5 +42,14 @@
   'Start here':['Hier starten','Начни здесь','Осы жерден баста'],
   'Finish for now':['Für heute aufhören','На сегодня всё','Әзірге аяқтау'],
   'Your progress saves when you continue.':['Dein Fortschritt wird beim Fortfahren gespeichert.','Прогресс сохранится, когда продолжишь.','Жалғастырған кезде жетістігің сақталады.'],
+  'Are you a student or a tutor?':['Bist du Schüler oder Tutor?','Ты ученик или репетитор?','Сен оқушысың ба, әлде репетиторсың ба?'],
+  'Student':['Schüler','Ученик','Оқушы'],
+  'Tutor':['Tutor','Репетитор','Репетитор'],
+  'I want to learn English':['Ich möchte Englisch lernen','Хочу изучать английский','Ағылшын тілін үйренгім келеді'],
+  'I help students learn':['Ich unterstütze Lernende','Помогаю ученикам учиться','Оқушыларға білім алуға көмектесемін'],
+  'Tutor tools are available to approved tutor accounts.':['Tutor-Funktionen sind für freigeschaltete Tutor-Konten verfügbar.','Инструменты репетитора доступны одобренным аккаунтам репетиторов.','Репетитор құралдары мақұлданған репетитор аккаунттарына қолжетімді.'],
+  'Your lessons and progress, all in one place.':['Deine Lektionen und Fortschritte an einem Ort.','Твои уроки и прогресс в одном месте.','Сабақтарың мен жетістіктерің бір жерде.'],
+  'Choose how you will use EnglishBoost to continue.':['Wähle, wie du EnglishBoost nutzen möchtest.','Выбери, как будешь пользоваться EnglishBoost.','Жалғастыру үшін EnglishBoost қолдану мақсатыңды таңда.'],
+  'Create your account to get started. Tutor access requires approval.':['Erstelle dein Konto. Der Tutor-Zugang muss freigeschaltet werden.','Создай аккаунт. Доступ репетитора требует одобрения.','Аккаунт жаса. Репетитор рұқсаты мақұлдауды қажет етеді.'],
 };
 export const flowPhrases = Object.fromEntries(Object.entries(translations).map(([key,value])=>[key,[key,...value]]));

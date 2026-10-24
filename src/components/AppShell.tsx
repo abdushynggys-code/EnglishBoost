@@ -59,7 +59,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Icon name="shield" size={36} />
               <h1>{t('You’re on the list.')}</h1>
               <p>
-                {t('Ask your tutor to approve {email}.', { email: profile.email })}{' '}
+                {t(session?.user.user_metadata.requested_role === 'tutor' ? 'Tutor tools are available to approved tutor accounts.' : 'Ask your tutor to approve {email}.', { email: profile.email })}{' '}
                 {t('Your tutoring content stays private.')}
               </p>
               <button onClick={() => void refresh()}>{t('Check approval')}</button>

@@ -79,3 +79,17 @@
 @media(max-width:380px) { .welcome-nav { padding:18px 15px; } .public-language { max-width:86px; } .welcome-main { padding-inline:20px; } .welcome-nav > div { gap:9px; } }
 @media(max-width:380px) { .welcome-nav .welcome-sign-in { display:none; } }
 .welcome-eyebrow { justify-content:flex-start; }
+.account-role-picker { border:0; padding:0; margin:24px 0 20px; min-width:0; }
+.account-role-picker legend { padding:0; font-size:13px; font-weight:650; color:#303b36; margin-bottom:12px; }
+.account-role-picker > div { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.account-role-picker label { cursor:pointer; position:relative; display:flex; align-items:center; gap:9px; min-height:88px; padding:13px 11px; border:1px solid #dfe3da; border-bottom-width:3px; border-radius:12px; background:#fafbf7; }
+.account-role-picker label.selected { background:#edf3e7; border-color:#86a577; color:#3e6336; }
+.account-role-picker label > svg { flex-shrink:0; }
+.account-role-picker label > svg:last-child:not(:first-of-type) { position:absolute; top:7px; right:7px; width:12px; }
+.account-role-picker input { position:absolute; opacity:0; width:1px; height:1px; }
+.account-role-picker label:has(input:focus-visible) { outline:3px solid #315be5; outline-offset:3px; }
+.account-role-picker strong { display:block; font-size:13px; } .account-role-picker small { display:block; font-size:10px; color:#6d7b66; margin-top:5px; line-height:1.5; }
+.account-role-picker > p { font-size:11px; line-height:1.6; color:#74816e; margin:12px 0 0; min-height:35px; }
+.account-role-picker:disabled { opacity:.65; }
+@media(prefers-reduced-motion:no-preference) { .account-role-picker label { transition:background 150ms,border-color 150ms,transform 120ms; } .account-role-picker label:active { transform:translateY(2px); } }
+@media(max-width:380px) { .account-role-picker label { flex-direction:column; align-items:flex-start; } }
