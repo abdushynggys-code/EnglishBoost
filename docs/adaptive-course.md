@@ -1,4 +1,4 @@
-﻿# Connected learning and progression
+# Connected learning and progression
 
 EnglishBoost supports independent study immediately after sign-up. Joining a class is optional. Student navigation hides classrooms and homework until a class is joined. Settings contains the class-code form and language preferences. Only the public introduction has a language popover; the app header contains streaks, notifications and the profile menu.
 
@@ -51,7 +51,7 @@ Supabase enforces ownership, lesson gates, reward amounts, duplicate protection 
 
 ## Private development sandbox
 
-There is no public demo route or demo sign-in link. Developer access is an additional per-account allowlist in `developer_accounts`, separate from student/tutor roles. The owner nominated `abdushynggys@mail.com`. A database trigger grants that account access only after Supabase verifies its authentication email, including future sign-ups, and revokes that grant if the authentication email changes. Browser email checks and user metadata cannot grant permissions.
+There is no public demo route or demo sign-in link. Developer access is an additional per-account allowlist in `developer_accounts`, separate from student/tutor roles. The owner nominated `abdushynggys@gmail.com`. A database trigger grants that account access only after Supabase verifies its authentication email, including future sign-ups, and revokes that grant if the authentication email changes. Browser email checks and user metadata cannot grant permissions.
 
 Authorised accounts get a Developer tools entry in Settings that opens a separate tab. The developer workspace can choose:
 

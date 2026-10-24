@@ -81,8 +81,8 @@ do $$begin if (select count(*) from public.class_members)<>0 or (select count(*)
 end $$;
 reset role;
 do $$begin
- if not exists(select 1 from auth.users where lower(email)='abdushynggys@mail.com') then
- insert into auth.users(id,email,email_confirmed_at,raw_user_meta_data) values('822c5e54-7077-47ef-af0a-22f940f6be13','abdushynggys@mail.com',now(),'{}');
+ if not exists(select 1 from auth.users where lower(email)='abdushynggys@gmail.com') then
+ insert into auth.users(id,email,email_confirmed_at,raw_user_meta_data) values('822c5e54-7077-47ef-af0a-22f940f6be13','abdushynggys@gmail.com',now(),'{}');
  if not exists(select 1 from public.developer_accounts where user_id='822c5e54-7077-47ef-af0a-22f940f6be13') then raise exception 'Named verified developer not granted';end if;
  update auth.users set email='developer-changed@example.invalid' where id='822c5e54-7077-47ef-af0a-22f940f6be13';
  if exists(select 1 from public.developer_accounts where user_id='822c5e54-7077-47ef-af0a-22f940f6be13') then raise exception 'Developer access survived email change';end if;
