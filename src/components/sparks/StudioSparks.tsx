@@ -1,5 +1,4 @@
 import {
-  AudioLines,
   Drum,
   Guitar,
   Piano,
@@ -21,8 +20,9 @@ import {
   Origami,
 } from "lucide-react";
 import { CollectionArtwork } from "./CollectionArtwork";
+import { SoundwaveSpark } from "./SoundwaveSpark";
 export const drawings = [
-  AudioLines,
+  SoundwaveSpark,
   Drum,
   Guitar,
   Piano,

@@ -1,0 +1,26 @@
+.streaker-core .studio-soundwave {
+  width: 1.16em;
+  height: 1.16em;
+  color: #a13b69;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 1px 2px #a13b6920);
+}
+.studio-soundwave path {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .studio-soundwave path { animation: studio-beat 950ms ease-in-out infinite; }
+  .studio-soundwave path:nth-child(2) { animation-duration: 720ms; animation-delay: -340ms; }
+  .studio-soundwave path:nth-child(3) { animation-duration: 1080ms; animation-delay: -580ms; }
+  .studio-soundwave path:nth-child(4) { animation-duration: 820ms; animation-delay: -180ms; }
+  .studio-soundwave path:nth-child(5) { animation-duration: 1170ms; animation-delay: -760ms; }
+  .studio-soundwave path:nth-child(6) { animation-duration: 880ms; animation-delay: -420ms; }
+  .studio-soundwave path:nth-child(7) { animation-duration: 1020ms; animation-delay: -630ms; }
+  @keyframes studio-beat {
+    0%, 100% { transform: scaleY(.32); }
+    28% { transform: scaleY(.85); }
+    52% { transform: scaleY(1.05); }
+    76% { transform: scaleY(.55); }
+  }
+}
