@@ -52,7 +52,8 @@ export function SandboxPage() {
         const value = Number(params.get(key) ?? fallback);
         return Number.isFinite(value) ? Math.max(0, Math.min(max, Math.floor(value))) : fallback;
       };
-      configureSandbox({ xp: number("xp", 20000, 1000000), coins: number("coins", 5000, 100000), equipped: "seed" });
+      const legend = params.get("legend") === "1";
+      configureSandbox({ xp: number("xp", 20000, 1000000), coins: number("coins", 5000, 100000), equipped: legend ? "unknown" : "seed" }, legend);
       const destination = params.get("screen");
       navigate(["/course", "/shop", "/classroom", "/tutor", "/settings"].includes(destination ?? "") ? destination! : "/course", { replace: true });
     }, 0);

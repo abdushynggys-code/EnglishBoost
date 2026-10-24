@@ -23,7 +23,7 @@ export function ShopSparkCard({ item, busy, buy }: { item: ShopItem; busy: strin
       <p>
         {t("Player level")} {gameLevel(item.required_xp)} · {t("Streak Spark")}
       </p>
-      {item.tier === 11 && <p>{t("A single worldwide claim. Requires at least 70,000 XP. First eligible learner to claim it wins.")}</p>}
+      {item.tier === 11 && <p>{t("A single worldwide claim. Requires at least 40,000 XP. First eligible learner to claim it wins.")}</p>}
       <button
         className={equipped ? "secondary" : ""}
         disabled={!!busy || equipped || (!owned && state.wallet.coins < item.price)}

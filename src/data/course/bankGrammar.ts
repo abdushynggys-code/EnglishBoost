@@ -52,7 +52,7 @@ export const bankGrammar: Record<CourseLevel, GrammarSeed[]> = {
  ['I would rather you ___ tomorrow instead.','came','come to','will come','Would rather plus a different subject takes a past form.'],
  ],
  C1:[
- ['Had {name} known, they ___ acted differently.','would have','had','would to','Inverted third conditionals omit if.'],
+ ['Had {name} known about the delay, they ___ acted differently.','would have','had','would to','Inverted third conditionals omit if.'],
  ['Rarely ___ such a persuasive presentation.','have I heard','I have heard','I heard have','Negative adverbials at the front trigger inversion.'],
  ['The committee insisted that the proposal ___ revised.','be','is being to','was to been','The mandative subjunctive uses the base form.'],
  ['No sooner had we arrived ___ the alarm sounded.','than','when','that','No sooner pairs with than.'],

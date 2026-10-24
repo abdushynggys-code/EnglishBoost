@@ -10,6 +10,7 @@ import { signInPath } from "../lib/authNavigation";
 import { MobileNavigation } from "./MobileNavigation";
 import { PageLoading } from "./PageLoading";
 import { ExperimentalTools } from "./ExperimentalTools";
+import { LegendBar } from "./LegendBar";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,6 +41,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="main-shell">
         <Topbar onMenu={() => setMenuOpen(true)} />
         <main className="main-content" id="main-content" tabIndex={-1}>
+          {!loading && <LegendBar />}
           {loading ? (
             <div className="loading-state">
               <Icon name="loading" className="spin" size={28} />

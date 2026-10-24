@@ -42,10 +42,13 @@ Notifications cover class joining, new assignments, tutor feedback and scheduled
 - A perfect scored session adds 20 XP. Consecutive learner-local study days add up to 20 XP. A server-timed run completed between 45 seconds and 3 minutes adds 10 XP; no bonus is awarded for rushing faster.
 - Coins per rewarded session are `max(1, floor(awarded XP / 10)) + min(5, floor(streak / 3))`.
 - Lifetime XP, coins, streaks and owned items survive a placement retake. Replays and repeated saves cannot grant the same lesson reward twice.
-- Fame begins at 40,000 XP and rises by one per further 10,000 XP. This is separate from the 70,000 XP requirement for the unique worldwide Spark.
+- Fame begins at 40,000 XP and rises by one per further 10,000 XP. Unknown also becomes eligible at 40,000 XP.
 - Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 distinct designs each (200 regular Sparks): Garden, Hearth, Coast, Trailblazers, Arcade, Workshop, Studio, Mythic, Starforge and Singularity. Designs have individual names and unique base geometry, with a separately drawn rare reward in Tier 11. Names are available in all four languages. Artwork loads one collection at a time. Existing inventory IDs, prices, equipped choices and unlock requirements remain intact; the original free item is now First sprout.
 - Tier numbers and XP requirements remain visible. Higher-tier Spark designs stay hidden until unlocked, both in the UI and through the catalog's RLS policy. Selecting a tier shows only that collection.
-- Tier 11 is Unknown: at least 70,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
+- Tier 11 is Unknown: at least 40,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
+- Tiers 1–11 unlock at 0, 250, 700, 1,500, 2,600, 4,200, 6,700, 10,400, 14,900, 21,200 and 40,000 XP. Existing purchases remain owned; new coin prices scale with the earlier unlocks.
+- Unknown's owner receives an animated gold legend bar throughout the app. Reduced motion keeps its effects static. Developer settings can preview temporary ownership in the isolated experimental sandbox.
+- Vocabulary questions include a complete usage sentence, and grammar clozes directly show the sentence to complete. The custom book-and-boost mark appears in navigation, the welcome page and the browser tab.
 - Purchases lock the learner's wallet, check XP and coin requirements, deduct once and record ownership. Equipping an owned item does not charge again.
 
 Supabase enforces ownership, lesson gates, reward amounts, duplicate protection and purchases. Answer correctness is graded in the browser; this educational build is not an invigilated or cheat-proof exam. All new tables use RLS, and sensitive writes go through authenticated functions.

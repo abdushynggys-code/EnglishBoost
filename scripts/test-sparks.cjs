@@ -3,7 +3,7 @@ const React=require('react'),{renderToStaticMarkup}=require('react-dom/server');
 const compile=(module,file)=>module._compile(ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText,file);
 require.extensions['.ts']=compile;require.extensions['.tsx']=compile;
 const {sparkCollections}=require('../src/data/sparkCollections.ts');
-const {sandboxSparkCatalog,sparkAppearance}=require('../src/data/streakSparks.ts');
+const {sandboxSparkCatalog,sparkAppearance,sparkTiers}=require('../src/data/streakSparks.ts');
 const {translate}=require('../src/lib/i18n.ts');
 const themes=['Garden','Hearth','Coast','Trailblazers','Arcade','Workshop','Studio','Mythic','Starforge','Singularity','Unknown'];
 const names=new Set(),geometry=new Set();
@@ -20,5 +20,6 @@ for(const [index,theme] of themes.entries()){
  }
 }
 const catalog=sandboxSparkCatalog();assert.equal(catalog.length,201);assert.equal(new Set(catalog.map(item=>item.id)).size,201);
-for(const item of catalog){const appearance=sparkAppearance(item.id);assert.equal(appearance.tier,item.tier);assert.equal(sparkCollections[item.tier-1].names[appearance.motif],item.title);}
+assert.deepEqual(sparkTiers.map(tier=>tier.xp),[0,250,700,1500,2600,4200,6700,10400,14900,21200,40000]);
+for(const item of catalog){const appearance=sparkAppearance(item.id);assert.equal(appearance.tier,item.tier);assert.equal(sparkCollections[item.tier-1].names[appearance.motif],item.title);assert.equal(item.required_xp,sparkTiers[item.tier-1].xp);}
 console.log('Spark checks passed: 201 distinct names and base drawings, themed collections, stable ownership IDs and four languages.');

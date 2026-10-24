@@ -11,11 +11,14 @@ export function quickPractice(question: CourseQuestion): CourseQuestion {
   if (question.quick || question.type === "order") return question;
   let prompt = question.prompt;
   if (question.skill === "grammar") prompt = prompt.split('reads: "')[1]?.slice(0, -1) ?? prompt;
-  if (question.skill === "vocabulary") prompt = `What does "${prompt.match(/what does "(.+?)" mean\?/)?.[1] ?? question.answer}" mean?`;
+  if (question.skill === "vocabulary") {
+    const word = question.target_word ?? prompt.match(/what does "(.+?)" mean\?/i)?.[1];
+    if (word) prompt = `What does "${word}" mean?`;
+  }
   if (question.skill === "reading" || question.skill === "listening") prompt = prompt.replace(/^[^:]+: /, "");
   const text = question.passage ?? question.audio;
   let excerpt = text;
-  if (text) {
+  if (text && (question.skill === "reading" || question.skill === "listening")) {
     const sentences = text.match(/[^.!?]+(?:[.!?](?=\s+[A-Z]|$)|$)/g)?.map((s) => s.trim()) ?? [text];
     const variant = Number(question.id.match(/\d+$/)?.[0]) % 10;
     const evidence = (levelNumber(question.level) >= 4 ? advancedEvidence : question.level === "B1" ? middleEvidence : basicEvidence)[variant];

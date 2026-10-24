@@ -35,6 +35,7 @@ reset role;
 do $$begin
  if (select count(distinct title) from public.shop_items)<>201 then raise exception 'Spark names are not unique';end if;
  if exists(select 1 from public.shop_items where title like '% · %') then raise exception 'Generic tier and motif names remain';end if;
- if not exists(select 1 from public.shop_items where id='black-hole' and title='Black hole' and required_xp=37101 and price=4000) then raise exception 'Existing purchase requirements changed';end if;
+ if not exists(select 1 from public.shop_items where id='black-hole' and title='Black hole' and required_xp=21200 and price=2200) then raise exception 'Tier ten progression incorrect';end if;
+ if not exists(select 1 from public.shop_items where id='unknown' and required_xp=40000 and price=0) then raise exception 'Unknown must unlock at 40000 XP';end if;
 end $$;
 rollback;

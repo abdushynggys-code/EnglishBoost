@@ -13,6 +13,7 @@ export function DeveloperPage() {
   const [screen, setScreen] = useState("/course");
   const [xp, setXp] = useState(20000);
   const [coins, setCoins] = useState(5000);
+  const [legend, setLegend] = useState(false);
   if (loading) return <PageLoading />;
   if (!state.developer)
     return (
@@ -95,11 +96,18 @@ export function DeveloperPage() {
             <input type="number" min={0} max={100000} value={coins} onChange={(e) => setCoins(Number(e.target.value))} />
           </label>
         </div>
+        <label className="legend-preview-option spaced">
+          <input type="checkbox" checked={legend} onChange={(e) => setLegend(e.target.checked)} />
+          <span>
+            {t("Preview Unknown reward")}
+            <small>{t("Temporary ownership in this sandbox only.")}</small>
+          </span>
+        </label>
         <a
           className="button spaced"
           target="_blank"
           rel="noreferrer"
-          href={`/developer/sandbox?mode=experimental&level=${level}&scenario=${scenario}&role=${role}&screen=${encodeURIComponent(screen)}&xp=${xp}&coins=${coins}`}
+          href={`/developer/sandbox?mode=experimental&level=${level}&scenario=${scenario}&role=${role}&screen=${encodeURIComponent(screen)}&xp=${xp}&coins=${coins}&legend=${legend ? 1 : 0}`}
         >
           {t("Open experimental demo")} ↗
         </a>

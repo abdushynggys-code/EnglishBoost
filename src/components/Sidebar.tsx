@@ -5,6 +5,7 @@ import { navigation, isPracticePath } from "../lib/navigation";
 import { useI18n } from "../lib/i18n";
 import { useLearning } from "../lib/learningContext";
 import { useNavigationDrawer } from "../lib/useNavigationDrawer";
+import { BrandMark } from "./BrandMark";
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [location] = useLocation();
@@ -26,7 +27,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
       <aside ref={drawer} className={`sidebar ${open ? "is-open" : ""}`} aria-label={t("Main navigation")}>
         <Link href="/" className="brand" onClick={onClose}>
           <span className="brand-icon">
-            <Icon name="book" size={29} />
+            <BrandMark size={40} />
           </span>
           <span>
             <strong>

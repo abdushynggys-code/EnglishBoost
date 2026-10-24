@@ -4,6 +4,7 @@ export type CourseInterest = "everyday" | "travel" | "stories" | "school";
 export type StudySettings = { daily_minutes: 5 | 10 | 15; interest: CourseInterest };
 
 export type CourseQuestion = {
+  target_word?: string;
   quick?: boolean;
   type?: "choice" | "blank" | "order";
   id: string;

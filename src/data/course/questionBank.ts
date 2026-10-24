@@ -1,6 +1,7 @@
 import type { CourseLevel, CourseQuestion } from "../../lib/course/types";
 import { bankGrammar } from "./bankGrammar";
 import { bankVocabulary } from "./bankVocabulary";
+import { vocabularyExamples } from "./vocabularyExamples";
 import { levelNumber } from "../../lib/course/levels";
 const scenes = [
   ["Maya", "library", "notebook", "a reading club"],
@@ -38,7 +39,7 @@ export function buildQuestionBank(level: CourseLevel): CourseQuestion[] {
         id,
         level,
         skill: "grammar",
-        prompt: `At the ${place}, ${name} reads: "${fill(prompt)}"`,
+        prompt: fill(prompt),
         answer,
         options: shuffled([answer, a, b], id),
         explanation,
@@ -50,10 +51,12 @@ export function buildQuestionBank(level: CourseLevel): CourseQuestion[] {
         id,
         level,
         skill: "vocabulary",
-        prompt: `${name} is preparing notes about ${project}. In these notes, what does "${word}" mean?`,
+        prompt: `What does "${word}" mean?`,
+        target_word: word,
+        passage: fill(vocabularyExamples[level][index]),
         answer,
         options: shuffled([answer, a, b], id),
-        explanation: `${word}: ${answer}. Try using it in your own sentence about ${project}.`,
+        explanation: `${word}: ${answer}. Example: ${fill(vocabularyExamples[level][index])}`,
       });
     });
     for (let variant = 0; variant < 10; variant++) {

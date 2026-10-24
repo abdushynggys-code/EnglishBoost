@@ -36,6 +36,7 @@ export function CourseQuestionCard({
       {question.audio && (
         <AudioPrompt key={question.id} text={question.audio} onReveal={() => setAssisted(true)} onPlayed={() => setListened(true)} />
       )}
+      {question.skill === "grammar" && question.prompt.includes("___") && <p className="eyebrow">{t("Complete the sentence.")}</p>}
       <h2 id="course-prompt" lang="en">
         {question.prompt}
       </h2>

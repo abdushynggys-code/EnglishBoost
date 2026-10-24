@@ -26,7 +26,7 @@ export const PlatformContext = createContext<{
   loading: boolean;
   error: string;
   refresh: () => Promise<void>;
-  configureSandbox: (wallet: Wallet) => void;
+  configureSandbox: (wallet: Wallet, legend?: boolean) => void;
 } | null>(null);
 export function usePlatform() {
   const value = useContext(PlatformContext);

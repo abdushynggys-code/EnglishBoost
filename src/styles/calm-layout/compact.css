@@ -1,6 +1,6 @@
 @media (max-width: 760px) {
   .mobile-topbar-brand {
-    display: inline;
+    display: inline-flex;
     color: #365b8c;
     font-size: 16px;
     font-weight: 700;

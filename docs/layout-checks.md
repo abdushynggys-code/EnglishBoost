@@ -20,3 +20,5 @@ Checks covered page overflow, content extending beyond the viewport, clipped hea
 The first pass found a tutor student card where the report button overflowed at 320 px in German. The row now wraps, its text can shrink/wrap, and the action uses the available width. The completed rerun found no overflow or clipped-heading/button failures and no browser errors.
 
 Separate interaction checks covered all 201 Spark drawings, Fame immediately below/at 40,000 XP, thirty-question practice with round breaks, typed checkpoint answers, lesson saves, class joins/deletion, notifications and sandbox write protection. These checks cover the tested content and states; future content changes should be checked again.
+
+The logo and 40,000-XP update also passed 16 owner-banner layouts (four languages, 320/390/768/1440 px), reduced-motion checks, favicon loading, unlock boundaries, developer preview/exit isolation and the corrected journey question in review. Database tests reject an Unknown claim at 39,999 XP, allow it at 40,000 XP and reject a second worldwide owner; fixtures are rolled back.

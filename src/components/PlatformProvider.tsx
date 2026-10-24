@@ -70,8 +70,8 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
         loading,
         error,
         refresh,
-        configureSandbox: (wallet) => {
-          if (preview) setState((current) => ({ ...current, wallet }));
+        configureSandbox: (wallet, legend = false) => {
+          if (preview) setState((current) => ({ ...current, wallet, owned: legend ? ["seed", "unknown"] : ["seed"] }));
         },
       }}
     >
