@@ -1,10 +1,11 @@
-export type CourseLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
-export type CourseSkill = 'grammar' | 'vocabulary' | 'reading' | 'listening';
-export type CourseInterest = 'everyday' | 'travel' | 'stories' | 'school';
+export type CourseLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+export type CourseSkill = "grammar" | "vocabulary" | "reading" | "listening";
+export type CourseInterest = "everyday" | "travel" | "stories" | "school";
 export type StudySettings = { daily_minutes: 5 | 10 | 15; interest: CourseInterest };
 
 export type CourseQuestion = {
-  type?: 'choice' | 'blank' | 'order';
+  quick?: boolean;
+  type?: "choice" | "blank" | "order";
   id: string;
   skill: CourseSkill;
   level: CourseLevel;
@@ -57,10 +58,11 @@ export type CourseState = {
   reviews: ReviewCard[];
 };
 export type CourseLesson = {
+  difficulty?: "quick" | "stretch" | "assessment";
   id: string;
   title: string;
   description: string;
-  kind: 'story' | 'grammar' | 'practice' | 'listening' | 'writing' | 'review' | 'checkpoint';
+  kind: "story" | "grammar" | "practice" | "listening" | "writing" | "review" | "checkpoint";
   questions: CourseQuestion[];
   text?: string;
   source_url?: string;

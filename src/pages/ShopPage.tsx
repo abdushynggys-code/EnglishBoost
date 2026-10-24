@@ -4,6 +4,7 @@ import type { ShopItem } from "../lib/platform";
 import { useLearning } from "../lib/learningContext";
 import { useI18n } from "../lib/i18n";
 import { sparkTiers, sandboxSparkCatalog } from "../data/streakSparks";
+import { sparkCollections } from "../data/sparkCollections";
 import { ShopSparkCard } from "../components/ShopSparkCard";
 import { ShopWallet } from "../components/ShopWallet";
 export function ShopPage() {
@@ -84,7 +85,7 @@ export function ShopPage() {
         <div>
           <p className="eyebrow">{t("YOUR COLLECTION")}</p>
           <h2>
-            {t("Tier")} {tier} · {t(sparkTiers[tier - 1].title)}
+            {t("Tier")} {tier} · {t(sparkCollections[tier - 1].title)}
           </h2>
           <p>{t(tier === 11 ? "One worldwide Spark. One extraordinary learner." : "20 Sparks to discover. Choose the one that feels like you.")}</p>
         </div>
@@ -132,7 +133,7 @@ export function ShopPage() {
             "Accuracy, daily streaks and focused completion add bonuses. Speed bonuses only apply between 45 seconds and 3 minutes; learning well comes first.",
           )}
         </p>
-        <p>{t("Fame starts at 70,000 XP, then rises every 10,000 XP. Player level 200 is about 60,000 XP.")}</p>
+        <p>{t("Fame starts at 40,000 XP, then rises every 10,000 XP. Player level 200 is about 60,000 XP.")}</p>
       </details>
     </div>
   );

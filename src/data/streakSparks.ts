@@ -1,26 +1,5 @@
 import type { ShopItem } from "../lib/platform";
-export const sparkMotifs = [
-  "Seed",
-  "Leaf",
-  "Blossom",
-  "Sun",
-  "Moon",
-  "Star",
-  "Sparkle",
-  "Feather",
-  "Shell",
-  "Heart",
-  "Mountain",
-  "Cloud",
-  "Flame",
-  "Droplet",
-  "Wind",
-  "Planet",
-  "Lightning",
-  "Diamond",
-  "Crown",
-  "Infinity",
-] as const;
+import { sparkCollections } from "./sparkCollections";
 export const sparkTiers = [
   { id: "seed", title: "Seed", xp: 0, price: 0, color: "#6a975c" },
   { id: "fire", title: "Fire", xp: 416, price: 75, color: "#e09238" },
@@ -34,16 +13,18 @@ export const sparkTiers = [
   { id: "black-hole", title: "Black hole", xp: 37101, price: 4000, color: "#8c6cd0" },
   { id: "unknown", title: "Unknown", xp: 70000, price: 0, color: "#b5ad83" },
 ] as const;
-const colors = ["#648b52", "#b47a49", "#548aab", "#9a739e", "#ad8450", "#5f9592", "#81855b", "#8e7ca5", "#b57670", "#5d8299"];
+const hues = [100, 30, 200, 160, 265, 210, 345, 280, 40, 255, 48];
+export const sparkColor = (tier: number, motif: number) =>
+  `hsl(${hues[tier - 1] + ((motif % 5) - 2) * 4} ${tier === 11 ? 32 : 40 + (motif % 3) * 4}% ${tier >= 8 ? 43 : 42 + (motif % 4) * 3}%)`;
 export function sandboxSparkCatalog(): ShopItem[] {
   return sparkTiers.flatMap((base, index) =>
-    sparkMotifs.slice(0, index === 10 ? 1 : 20).map((motif, n) => ({
+    sparkCollections[index].names.map((name, n) => ({
       id: n ? `${base.id}-${String(n).padStart(2, "0")}` : base.id,
-      title: n ? `${base.title} · ${motif}` : base.title,
+      title: name,
       tier: index + 1,
       price: n ? (index === 0 ? 15 + n * 3 : base.price + (n - 1) * Math.max(5, Math.floor(base.price / 20))) : base.price,
       required_xp: base.xp,
-      color: n ? colors[n % 10] : base.color,
+      color: sparkColor(index + 1, n),
     })),
   );
 }
@@ -51,5 +32,6 @@ export function sparkAppearance(id: string) {
   const match = id.match(/^(.*)-(\d{2})$/);
   const family = match?.[1] ?? id;
   const motif = match ? Number(match[2]) : 0;
-  return { family, motif, tier: sparkTiers.findIndex((t) => t.id === family) + 1, color: motif ? colors[motif % 10] : undefined };
+  const tier = sparkTiers.findIndex((t) => t.id === family) + 1;
+  return { family, motif, tier, color: sparkColor(tier || 1, motif) };
 }

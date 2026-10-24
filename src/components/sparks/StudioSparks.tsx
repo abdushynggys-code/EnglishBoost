@@ -1,0 +1,48 @@
+import {
+  AudioLines,
+  Drum,
+  Guitar,
+  Piano,
+  Speaker,
+  Headphones,
+  Mic,
+  Radio,
+  Disc3,
+  CassetteTape,
+  Bell,
+  AlarmClock,
+  Clapperboard,
+  Film,
+  Video,
+  Theater,
+  Palette,
+  Brush,
+  Amphora,
+  Origami,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  AudioLines,
+  Drum,
+  Guitar,
+  Piano,
+  Speaker,
+  Headphones,
+  Mic,
+  Radio,
+  Disc3,
+  CassetteTape,
+  Bell,
+  AlarmClock,
+  Clapperboard,
+  Film,
+  Video,
+  Theater,
+  Palette,
+  Brush,
+  Amphora,
+  Origami,
+];
+export default function StudioSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

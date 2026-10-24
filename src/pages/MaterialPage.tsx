@@ -5,8 +5,10 @@ import { buildCourseUnits } from "../data/course/units";
 import { shuffled } from "../data/course/questionBank";
 import { CourseQuestionCard } from "../components/course/CourseQuestionCard";
 import { useI18n } from "../lib/i18n";
+import { usePlatform } from "../lib/platform";
 export function MaterialPage({ params }: { params: { level: string; module: string } }) {
   const { t } = useI18n();
+  const { state } = usePlatform();
   const [seed] = useState(() => crypto.randomUUID());
   const [answers, setAnswers] = useState<boolean[]>([]);
   const level = courseLevels.find((l) => l === params.level);
@@ -18,7 +20,7 @@ export function MaterialPage({ params }: { params: { level: string; module: stri
         <Link href="/course">{t("Back to my path")}</Link>
       </section>
     );
-  const pool = shuffled(unit.lessons[6].questions, seed).slice(0, 15);
+  const pool = shuffled(unit.lessons[0].questions, seed);
   const question = pool[answers.length];
   return (
     <div className="stack">
@@ -28,7 +30,7 @@ export function MaterialPage({ params }: { params: { level: string; module: stri
         </span>
         <h1>{t(unit.title)}</h1>
         <p className="cefr-caption">
-          {unit.level} · {t("Class material · practice without changing your personal path")}
+          {unit.level} · {t("Extra practice · your personal path stays unchanged")}
         </p>
         <p className="course-passage" lang="en">
           {unit.lessons[0].text}
@@ -47,8 +49,8 @@ export function MaterialPage({ params }: { params: { level: string; module: stri
             <p>
               {answers.filter(Boolean).length}/{answers.length}
             </p>
-            <Link href="/homework" className="text-link">
-              {t("Open your assignment to submit your response")}
+            <Link href={state.classes.length ? "/homework" : "/materials"} className="text-link">
+              {t(state.classes.length ? "Open your assignment to submit your response" : "Explore more modules")}
             </Link>
           </>
         )}

@@ -9,7 +9,8 @@ EnglishBoost supports independent study immediately after sign-up. Joining a cla
 - Placement starts around the middle, moves up and down, and rotates grammar, vocabulary, reading and listening. The first 12 answers set the session length: 15 for strong independent performance, 20 for mixed performance, 30 for learners needing more evidence. Assisted and skipped answers do not establish a listening level.
 - There are 400 contextual question variants per level (2,400 total): 100 each for grammar, vocabulary, reading and listening. They are generated from original language patterns, definitions and contextual notices. This is a varied practice bank, not 2,400 independently authored concepts or a certified proficiency exam.
 - Each module includes an original real-world text, a pattern explanation and an application task. Topics progress from introductions and shopping to argument, uncertainty, register, subtext and mediation.
-- Ordinary lessons have 30 questions at Levels 1–2, 20 at Levels 3–4 and 15 at Levels 5–6. Writing lessons are open responses. Sentence building includes both typed gaps and word ordering.
+- Ordinary lessons now have 30 quick questions at every level, split into three rounds of ten. They use two answer choices and short evidence extracts instead of repeating a whole text. The underlying language level stays the same. Writing is a short response: 2–3 sentences at Levels 1–2, or 3–4 sentences at higher levels.
+- Modules 2 and 4 include a stretch lesson with more typed responses and longer input. Module assessments retain 30 / 20 / 15 questions at Levels 1–2 / 3–4 / 5–6, balance grammar, vocabulary, reading and listening, and require typed grammar recall. Full passages remain in assessments. Old in-progress session sizes remain accepted by the server.
 - A stable placement ID seeds each learner's selection and question order. Different learners receive different combinations. Review prioritises errors and due items at 1, 3, 7, 14 and 28 days.
 - Module checkpoints need 80%. Completing a level opens the next level without another placement or a progress reset.
 - Transcript-assisted lesson answers count as reading practice and are clearly labelled. They do not create an independent listening assessment. Writing and speaking samples remain ungraded practice.
@@ -41,8 +42,8 @@ Notifications cover class joining, new assignments, tutor feedback and scheduled
 - A perfect scored session adds 20 XP. Consecutive learner-local study days add up to 20 XP. A server-timed run completed between 45 seconds and 3 minutes adds 10 XP; no bonus is awarded for rushing faster.
 - Coins per rewarded session are `max(1, floor(awarded XP / 10)) + min(5, floor(streak / 3))`.
 - Lifetime XP, coins, streaks and owned items survive a placement retake. Replays and repeated saves cannot grant the same lesson reward twice.
-- Fame begins at 70,000 XP and rises by one per further 10,000 XP.
-- Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 designs each (200 regular Sparks). The original Seed remains free. Fire is Tier 2, and Black hole is Tier 10, unlocked at player level 150 / 37,101 XP. Later tiers have richer motion. Reduced-motion preferences disable decorative animation.
+- Fame begins at 40,000 XP and rises by one per further 10,000 XP. This is separate from the 70,000 XP requirement for the unique worldwide Spark.
+- Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 distinct designs each (200 regular Sparks): Garden, Hearth, Coast, Trailblazers, Arcade, Workshop, Studio, Mythic, Starforge and Singularity. Designs have individual names and unique base geometry, with a separately drawn rare reward in Tier 11. Names are available in all four languages. Artwork loads one collection at a time. Existing inventory IDs, prices, equipped choices and unlock requirements remain intact; the original free item is now First sprout.
 - Tier numbers and XP requirements remain visible. Higher-tier Spark designs stay hidden until unlocked, both in the UI and through the catalog's RLS policy. Selecting a tier shows only that collection.
 - Tier 11 is Unknown: at least 70,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
 - Purchases lock the learner's wallet, check XP and coin requirements, deduct once and record ownership. Equipping an owned item does not charge again.
@@ -69,6 +70,9 @@ The sandbox uses in-memory course progress, fictional people and classes, and a 
 
 - `npm run test:course`: all six banks, unique IDs, correct choices, lesson sizes, personalisation, 15/20/30 assessment lengths, cross-level gates, progression thresholds, SRS and transcript grading.
 - `npm run build`: TypeScript and production bundling.
+- `npm run test:quick`: short-input evidence, repeat-review stability, round sizes, balanced assessment coverage and stretch tasks.
+- `npm run test:sparks`: 201 unique names and drawings, translations, stable ownership IDs and collection sizes.
+- `supabase/tests/quick_practice.sql`: saves thirty-question advanced practice, accepts old session sizes, enforces assessment thresholds and checks renamed catalog items without changing prices.
 - `supabase/tests/connected_learning.sql`: database-owner test transaction, always rolled back. Covers independent access, role safety, classes, private assignments, notifications, server XP, timed bonuses, duplicate and retake protection, continuing a daily review, own-row RLS, tutor reports, purchases and the unique worldwide item.
 - Browser checks exercise public samples and language switching, independent navigation, full lesson saves, placement, class joining, tutor assignments, all shop tiers, mobile widths, private developer entry and the absence of sandbox writes.
 

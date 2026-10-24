@@ -1,7 +1,8 @@
 import type { CourseLevel } from "./types";
 export const courseLevels: CourseLevel[] = ["A1", "A2", "B1", "B2", "C1", "C2"];
 export const levelNumber = (level: CourseLevel) => courseLevels.indexOf(level) + 1;
-export const questionCount = (level: CourseLevel) => (levelNumber(level) <= 2 ? 30 : levelNumber(level) <= 4 ? 20 : 15);
+export const questionCount = (_level: CourseLevel) => 30;
+export const assessmentQuestionCount = (level: CourseLevel) => (levelNumber(level) <= 2 ? 30 : levelNumber(level) <= 4 ? 20 : 15);
 export const levelThemes = [
   "Everyday beginnings",
   "Life in motion",

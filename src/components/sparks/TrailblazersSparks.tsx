@@ -1,0 +1,48 @@
+import {
+  Bike,
+  BusFront,
+  CarFront,
+  TrainFront,
+  TramFront,
+  CableCar,
+  Plane,
+  Helicopter,
+  Rocket,
+  Backpack,
+  Luggage,
+  Ticket,
+  Mountain,
+  Tent,
+  Signpost,
+  FlagTriangleRight,
+  Route,
+  Hotel,
+  Camera,
+  MapPin,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Bike,
+  BusFront,
+  CarFront,
+  TrainFront,
+  TramFront,
+  CableCar,
+  Plane,
+  Helicopter,
+  Rocket,
+  Backpack,
+  Luggage,
+  Ticket,
+  Mountain,
+  Tent,
+  Signpost,
+  FlagTriangleRight,
+  Route,
+  Hotel,
+  Camera,
+  MapPin,
+];
+export default function TrailblazersSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

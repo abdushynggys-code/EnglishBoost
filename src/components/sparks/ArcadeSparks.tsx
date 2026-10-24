@@ -1,0 +1,48 @@
+import {
+  Gamepad2,
+  Joystick,
+  Dice5,
+  Puzzle,
+  ChessKnight,
+  ChessRook,
+  ChessBishop,
+  ChessPawn,
+  Volleyball,
+  Goal,
+  Trophy,
+  Medal,
+  Target,
+  Spade,
+  Club,
+  Heart,
+  Diamond,
+  Dumbbell,
+  RugbyBall,
+  ChessKing,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Gamepad2,
+  Joystick,
+  Dice5,
+  Puzzle,
+  ChessKnight,
+  ChessRook,
+  ChessBishop,
+  ChessPawn,
+  Volleyball,
+  Goal,
+  Trophy,
+  Medal,
+  Target,
+  Spade,
+  Club,
+  Heart,
+  Diamond,
+  Dumbbell,
+  RugbyBall,
+  ChessKing,
+];
+export default function ArcadeSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

@@ -1,0 +1,48 @@
+import {
+  Sprout,
+  Leaf,
+  Clover,
+  Flower2,
+  Flower,
+  TreePine,
+  TreeDeciduous,
+  Trees,
+  Wheat,
+  Apple,
+  Cherry,
+  Citrus,
+  Grape,
+  Carrot,
+  Bean,
+  Nut,
+  Banana,
+  Salad,
+  Vegan,
+  Hop,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Sprout,
+  Leaf,
+  Clover,
+  Flower2,
+  Flower,
+  TreePine,
+  TreeDeciduous,
+  Trees,
+  Wheat,
+  Apple,
+  Cherry,
+  Citrus,
+  Grape,
+  Carrot,
+  Bean,
+  Nut,
+  Banana,
+  Salad,
+  Vegan,
+  Hop,
+];
+export default function GardenSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

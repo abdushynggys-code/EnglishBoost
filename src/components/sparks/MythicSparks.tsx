@@ -1,0 +1,48 @@
+import {
+  Castle,
+  Crown,
+  Key,
+  Shield,
+  Sword,
+  WandSparkles,
+  Scroll,
+  BookOpen,
+  Gem,
+  Skull,
+  FlaskConical,
+  Hourglass,
+  Ghost,
+  Eye,
+  DoorOpen,
+  Cat,
+  PawPrint,
+  Snowflake,
+  ChessQueen,
+  Fingerprint,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Castle,
+  Crown,
+  Key,
+  Shield,
+  Sword,
+  WandSparkles,
+  Scroll,
+  BookOpen,
+  Gem,
+  Skull,
+  FlaskConical,
+  Hourglass,
+  Ghost,
+  Eye,
+  DoorOpen,
+  Cat,
+  PawPrint,
+  Snowflake,
+  ChessQueen,
+  Fingerprint,
+];
+export default function MythicSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

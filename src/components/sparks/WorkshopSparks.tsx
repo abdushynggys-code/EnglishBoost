@@ -1,0 +1,48 @@
+import {
+  Cog,
+  Wrench,
+  Hammer,
+  Drill,
+  Anvil,
+  Pickaxe,
+  Axe,
+  Ruler,
+  Scissors,
+  Paintbrush,
+  PaintRoller,
+  PencilRuler,
+  DraftingCompass,
+  CircuitBoard,
+  Cpu,
+  Bot,
+  Lightbulb,
+  Magnet,
+  BatteryCharging,
+  Microscope,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Cog,
+  Wrench,
+  Hammer,
+  Drill,
+  Anvil,
+  Pickaxe,
+  Axe,
+  Ruler,
+  Scissors,
+  Paintbrush,
+  PaintRoller,
+  PencilRuler,
+  DraftingCompass,
+  CircuitBoard,
+  Cpu,
+  Bot,
+  Lightbulb,
+  Magnet,
+  BatteryCharging,
+  Microscope,
+];
+export default function WorkshopSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

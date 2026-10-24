@@ -1,5 +1,7 @@
 import { experiencePhrases } from "../locales/experience";
 import { connectedExperiencePhrases } from "../locales/connectedExperience";
+import { sparkCollectionPhrases } from "../locales/sparkCollections";
+import { lessonPolishPhrases } from "../locales/lessonPolish";
 import { platformPhrases } from "../locales/platform";
 import { courseExpansionPhrases } from "../locales/courseExpansion";
 import { createContext, useContext } from "react";
@@ -42,6 +44,8 @@ const polished = Object.fromEntries(
     ...courseExpansionPhrases,
     ...experiencePhrases,
     ...connectedExperiencePhrases,
+    ...sparkCollectionPhrases,
+    ...lessonPolishPhrases,
   }).map(([key, value]) => [key.toLowerCase(), value]),
 );
 const languageIndex = { en: 0, de: 1, ru: 2, kk: 3 } as const;

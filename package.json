@@ -17,7 +17,9 @@
     "keep-awake:setup": "node scripts/setup-keep-awake.mjs",
     "ai:secret": "node scripts/setup-ai-secret.mjs",
     "ai:deploy": "supabase functions deploy ai",
-    "test:course": "node scripts/test-course.cjs"
+    "test:course": "node scripts/test-course.cjs",
+    "test:sparks": "node scripts/test-sparks.cjs",
+    "test:quick": "node scripts/test-quick-practice.cjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

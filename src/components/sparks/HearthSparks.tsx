@@ -1,0 +1,48 @@
+import {
+  Flame,
+  FireExtinguisher,
+  Heater,
+  CookingPot,
+  Soup,
+  Coffee,
+  CupSoda,
+  Microwave,
+  Utensils,
+  Croissant,
+  Pizza,
+  Sandwich,
+  Cookie,
+  CakeSlice,
+  Popcorn,
+  EggFried,
+  Drumstick,
+  ChefHat,
+  Beef,
+  Milk,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Flame,
+  FireExtinguisher,
+  Heater,
+  CookingPot,
+  Soup,
+  Coffee,
+  CupSoda,
+  Microwave,
+  Utensils,
+  Croissant,
+  Pizza,
+  Sandwich,
+  Cookie,
+  CakeSlice,
+  Popcorn,
+  EggFried,
+  Drumstick,
+  ChefHat,
+  Beef,
+  Milk,
+];
+export default function HearthSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}

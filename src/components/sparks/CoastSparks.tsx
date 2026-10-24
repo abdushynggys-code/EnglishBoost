@@ -1,0 +1,48 @@
+import {
+  Waves,
+  Shell,
+  Fish,
+  Turtle,
+  Snail,
+  Ship,
+  Anchor,
+  Compass,
+  Sailboat,
+  LifeBuoy,
+  Map,
+  Navigation,
+  TreePalm,
+  Shovel,
+  Binoculars,
+  Footprints,
+  BottleWine,
+  Container,
+  FerrisWheel,
+  Umbrella,
+} from "lucide-react";
+import { CollectionArtwork } from "./CollectionArtwork";
+export const drawings = [
+  Waves,
+  Shell,
+  Fish,
+  Turtle,
+  Snail,
+  Ship,
+  Anchor,
+  Compass,
+  Sailboat,
+  LifeBuoy,
+  Map,
+  Navigation,
+  TreePalm,
+  Shovel,
+  Binoculars,
+  Footprints,
+  BottleWine,
+  Container,
+  FerrisWheel,
+  Umbrella,
+];
+export default function CoastSparks({ motif }: { motif: number }) {
+  return <CollectionArtwork drawings={drawings} motif={motif} />;
+}
