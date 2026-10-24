@@ -17,6 +17,7 @@ export function SandboxPage() {
   useEffect(() => {
     if (loading || !state.developer || started.current) return;
     started.current = true;
+    sessionStorage.setItem("englishboost-lab-mode", new URLSearchParams(search).get("mode") === "experimental" ? "experimental" : "demo");
     void exploreDemo(new URLSearchParams(search).get("role") === "tutor" ? "tutor" : "student").catch(() => setNotice("Developer access required"));
   }, [loading, state.developer, exploreDemo, setNotice]);
   useEffect(() => {

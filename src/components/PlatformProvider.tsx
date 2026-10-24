@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { emptyPlatform, loadPlatform, PlatformContext } from "../lib/platform";
 import { useLearning } from "../lib/learningContext";
-import { supabase } from "../lib/supabase";
+import { useLiveSync } from "../lib/liveSync";
 export function PlatformProvider({ children }: { children: ReactNode }) {
   const { session, preview } = useLearning();
   const userId = session?.user.id;
@@ -12,6 +12,7 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState("");
   const generation = useRef(0);
   const sandboxReady = useRef(false);
+  const loaded = useRef(false);
   const refresh = useCallback(async () => {
     const version = ++generation.current;
     if (preview) {
@@ -33,10 +34,11 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
-    setLoading(true);
+    if (!loaded.current) setLoading(true);
     try {
       const next = await loadPlatform(userId);
       if (version === generation.current) {
+        loaded.current = true;
         setState(next);
         setError("");
       }
@@ -48,20 +50,19 @@ export function PlatformProvider({ children }: { children: ReactNode }) {
     }
   }, [userId, preview]);
   useEffect(() => {
+    loaded.current = false;
     if (!preview) setState(emptyPlatform());
     void refresh();
-    if (!userId) return;
-    const channel = supabase
-      .channel(`learning-updates:${userId}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "notifications", filter: `user_id=eq.${userId}` }, () => void refresh())
-      .subscribe();
-    const poll = window.setInterval(() => void refresh(), 30000);
     return () => {
       generation.current++;
-      clearInterval(poll);
-      void supabase.removeChannel(channel);
     };
   }, [refresh, userId]);
+  useLiveSync(
+    userId,
+    preview,
+    ["notifications", "learning_classes", "class_members", "learning_wallets", "streak_inventory", "developer_accounts"],
+    refresh,
+  );
   return (
     <PlatformContext.Provider
       value={{

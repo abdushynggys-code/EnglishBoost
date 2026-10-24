@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useI18n } from "../lib/i18n";
 import { courseLevels, levelNumber } from "../lib/course/levels";
+import { useLiveSync } from "../lib/liveSync";
 type Report = { user_id: string; full_name: string; email: string; course_level: string | null; lessons: number; xp: number; pending: number };
 export function TutorCourseReports() {
   const { t } = useI18n();
-  const { preview } = useLearning();
+  const { preview, session } = useLearning();
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -17,8 +18,7 @@ export function TutorCourseReports() {
       setLoading(false);
       return;
     }
-    setLoading(true);
-    const { data, error } = await supabase.rpc("tutor_course_reports");
+    const { data, error } = await supabase.rpc("tutor_course_reports", {}, { get: true });
     if (error) setError("Could not load student progress.");
     else {
       setReports((data ?? []) as Report[]);
@@ -29,6 +29,7 @@ export function TutorCourseReports() {
   useEffect(() => {
     void refresh();
   }, []);
+  useLiveSync(session?.user.id, preview, ["tutor_students", "class_members", "homework_submissions"], refresh);
   return (
     <section className="card spaced">
       <h2>{t("Your students, moving forward")}</h2>

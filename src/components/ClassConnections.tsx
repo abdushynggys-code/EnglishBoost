@@ -11,7 +11,9 @@ export function ClassConnections() {
   const [value, setValue] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [joining, setJoining] = useState(false);
   const tutor = profile?.role === "tutor";
+  const joined = state.classes.length > 0;
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -20,6 +22,7 @@ export function ClassConnections() {
       if (tutor) await createLearningClass(value);
       else await joinLearningClass(value);
       setValue("");
+      setJoining(false);
       await Promise.all([refresh(), refreshWorkspace()]);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not connect to the class.");
@@ -29,32 +32,41 @@ export function ClassConnections() {
   }
   return (
     <section className="card class-connections">
-      <h2>{t(tutor ? "Your classes" : "Learn your way")}</h2>
+      <h2>{t(tutor || joined ? "Your classes" : "Learn your way")}</h2>
       <p>
         {t(
           tutor
             ? "Create a class, share its code, then assign work to everyone."
-            : "Your course works on its own. Join a class only if you have a tutor.",
+            : joined
+              ? "You are connected. Open a class to see your group and homework."
+              : "Your course works on its own. Join a class only if you have a tutor.",
         )}
       </p>
-      <form className="form spaced" onSubmit={(e) => void submit(e)}>
-        <label className="field">
-          {t(tutor ? "Class name" : "Class code")}
-          <input
-            value={value}
-            onChange={(e) => setValue(tutor ? e.target.value : e.target.value.toUpperCase())}
-            minLength={tutor ? 2 : 10}
-            maxLength={tutor ? 100 : 10}
-            autoComplete="off"
-            placeholder={t(tutor ? "e.g. Thursday English" : "10-character code")}
-            required
-          />
-        </label>
-        <button disabled={busy || loading}>
-          <Icon name={tutor ? "plus" : "arrow"} size={16} />
-          {t(busy ? "Saving…" : tutor ? "Create class" : "Join class")}
+      {!tutor && joined && (
+        <button className="secondary spaced" aria-expanded={joining} onClick={() => setJoining(!joining)}>
+          {t(joining ? "Cancel" : "Join another class")}
         </button>
-      </form>
+      )}
+      {(tutor || !joined || joining) && (
+        <form className="form spaced" onSubmit={(e) => void submit(e)}>
+          <label className="field">
+            {t(tutor ? "Class name" : "Class code")}
+            <input
+              value={value}
+              onChange={(e) => setValue(tutor ? e.target.value : e.target.value.toUpperCase())}
+              minLength={tutor ? 2 : 10}
+              maxLength={tutor ? 100 : 10}
+              autoComplete="off"
+              placeholder={t(tutor ? "e.g. Thursday English" : "10-character code")}
+              required
+            />
+          </label>
+          <button disabled={busy || loading}>
+            <Icon name={tutor ? "plus" : "arrow"} size={16} />
+            {t(busy ? "Saving…" : tutor ? "Create class" : "Join class")}
+          </button>
+        </form>
+      )}
       {(error || loadError) && (
         <p role="alert" className="message">
           {t(error || loadError)}
@@ -63,10 +75,11 @@ export function ClassConnections() {
       <div className="class-code-list">
         {state.classes.map((room) => (
           <article key={room.id}>
-            <div>
+            <Link className="class-title-link" href={`/classes/${room.id}`}>
               <strong>{room.title}</strong>
               {tutor && <code>{room.code}</code>}
-            </div>
+              <span className="cefr-caption">{t("Leaderboard & homework")} →</span>
+            </Link>
             {tutor ? (
               <button
                 className="secondary"
@@ -75,7 +88,7 @@ export function ClassConnections() {
                 {t("Copy code")}
               </button>
             ) : (
-              <Link href="/classroom" className="text-link">
+              <Link href={`/classes/${room.id}`} className="text-link">
                 {t("Open class")}
                 <Icon name="arrow" size={16} />
               </Link>

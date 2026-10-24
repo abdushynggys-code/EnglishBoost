@@ -3,6 +3,7 @@ import { usePlatform } from "../lib/platform";
 import { useI18n } from "../lib/i18n";
 import { courseLevels, levelNumber } from "../lib/course/levels";
 import { PageLoading } from "../components/PageLoading";
+import { DeveloperDiagnostics } from "../components/DeveloperDiagnostics";
 export function DeveloperPage() {
   const { state, loading } = usePlatform();
   const { t } = useI18n();
@@ -23,8 +24,21 @@ export function DeveloperPage() {
   return (
     <div className="stack">
       <section className="card">
+        <p className="eyebrow">{t("PRIVATE TESTING")}</p>
+        <h1>{t("Developer workspace")}</h1>
+        <p>{t("Open the regular demo for a quick tour, or configure an experimental demo below.")}</p>
+        <a
+          className="button spaced"
+          href="/developer/sandbox?mode=demo&level=A2&scenario=midway&role=student&screen=%2Fcourse"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t("Open demo")} ↗
+        </a>
+      </section>
+      <section className="card">
         <p className="eyebrow">{t("DEVELOPER WORKSPACE")}</p>
-        <h1>{t("Test before release")}</h1>
+        <h2>{t("Experimental demo")}</h2>
         <p>
           {t(
             "The sandbox uses temporary learning data and cannot save lessons, spend real coins or send assignments. Your real account stays separate.",
@@ -85,11 +99,12 @@ export function DeveloperPage() {
           className="button spaced"
           target="_blank"
           rel="noreferrer"
-          href={`/developer/sandbox?level=${level}&scenario=${scenario}&role=${role}&screen=${encodeURIComponent(screen)}&xp=${xp}&coins=${coins}`}
+          href={`/developer/sandbox?mode=experimental&level=${level}&scenario=${scenario}&role=${role}&screen=${encodeURIComponent(screen)}&xp=${xp}&coins=${coins}`}
         >
-          {t("Open isolated sandbox")} ↗
+          {t("Open experimental demo")} ↗
         </a>
       </section>
+      <DeveloperDiagnostics />
       <section className="card">
         <h2>{t("Release checks")}</h2>
         <p>

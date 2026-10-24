@@ -1,0 +1,48 @@
+import {
+  Sprout,
+  Leaf,
+  Flower2,
+  Sun,
+  Moon,
+  Star,
+  Sparkles,
+  Feather,
+  Shell,
+  Heart,
+  Mountain,
+  Cloud,
+  Flame,
+  Droplet,
+  Wind,
+  Orbit,
+  Zap,
+  Diamond,
+  Crown,
+  Infinity as InfinityMark,
+} from "lucide-react";
+const motifs = [
+  Sprout,
+  Leaf,
+  Flower2,
+  Sun,
+  Moon,
+  Star,
+  Sparkles,
+  Feather,
+  Shell,
+  Heart,
+  Mountain,
+  Cloud,
+  Flame,
+  Droplet,
+  Wind,
+  Orbit,
+  Zap,
+  Diamond,
+  Crown,
+  InfinityMark,
+];
+export function SparkMotif({ motif }: { motif: number }) {
+  const Shape = motifs[motif] ?? Sprout;
+  return <Shape aria-hidden="true" strokeWidth={1.65} />;
+}

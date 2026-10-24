@@ -81,7 +81,7 @@ export async function readNotification(id: string) {
   if (error) throw new Error(error.message);
 }
 export async function loadShop() {
-  const { data, error } = await supabase.from("shop_items").select("*").order("tier").returns<ShopItem[]>();
+  const { data, error } = await supabase.from("shop_items").select("*").order("tier").order("price").order("id").returns<ShopItem[]>();
   if (error) throw new Error(error.message);
   return data ?? [];
 }

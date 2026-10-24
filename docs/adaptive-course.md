@@ -26,6 +26,10 @@ The sequence uses the [Council of Europe framework](https://www.coe.int/en/web/c
 4. Students receive private notifications and submit their response through Homework.
 5. Review submissions and use the student course report to see level, completed lessons, lifetime XP and outstanding assignments.
 
+Every class opens at `/classes/:id`, with a class-only XP leaderboard and homework completion counts. Tutors see each assigned learner's submission status; students see their own assignment details. No email addresses or submitted answers are exposed to classmates. Class homework is attributed to a class in the database; older work is backfilled only when a single matching class is identifiable. Tutors can delete their own class after an in-app confirmation. Codes and memberships disappear, while learners keep their coursework, submissions and wallets.
+
+Membership, assignment, submission and wallet changes use Supabase Realtime, local mutation events, refresh on navigation/focus/reconnect, and a ten-second fallback while a page is visible. Refreshing in the background preserves the current screen and form. Tutor notifications announce joins and submitted homework; wallet changes update the learner's class activity so the roster can refresh without exposing private wallets.
+
 Existing editable content tools, individual assignments and live lesson controls remain available. Actual tutor privileges are assigned through the existing account allowlist, independently of the sign-in role preference. A student's own course does not depend on tutor approval or participation in a class.
 
 Notifications cover class joining, new assignments, tutor feedback and scheduled sessions. Realtime updates have a polling fallback. Notification reads are owner-only; tutors receive only reports for students linked to them.
@@ -38,7 +42,8 @@ Notifications cover class joining, new assignments, tutor feedback and scheduled
 - Coins per rewarded session are `max(1, floor(awarded XP / 10)) + min(5, floor(streak / 3))`.
 - Lifetime XP, coins, streaks and owned items survive a placement retake. Replays and repeated saves cannot grant the same lesson reward twice.
 - Fame begins at 70,000 XP and rises by one per further 10,000 XP.
-- Eleven tiers are visible from the start. Seed is free, Fire is Tier 2, and Black hole is Tier 10, unlocked at player level 150 / 37,101 XP. Later tiers have richer motion. Reduced-motion preferences disable decorative animation.
+- Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 designs each (200 regular Sparks). The original Seed remains free. Fire is Tier 2, and Black hole is Tier 10, unlocked at player level 150 / 37,101 XP. Later tiers have richer motion. Reduced-motion preferences disable decorative animation.
+- Tier numbers and XP requirements remain visible. Higher-tier Spark designs stay hidden until unlocked, both in the UI and through the catalog's RLS policy. Selecting a tier shows only that collection.
 - Tier 11 is Unknown: at least 70,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
 - Purchases lock the learner's wallet, check XP and coin requirements, deduct once and record ownership. Equipping an owned item does not charge again.
 
@@ -46,14 +51,17 @@ Supabase enforces ownership, lesson gates, reward amounts, duplicate protection 
 
 ## Private development sandbox
 
-There is no public demo route or demo sign-in link. Developer access is an additional per-account allowlist in `developer_accounts`, separate from student/tutor roles. No account is automatically added. When the owner identifies an account, grant access through a new migration and `npm run db:push`; never use an email match or browser setting as authorisation.
+There is no public demo route or demo sign-in link. Developer access is an additional per-account allowlist in `developer_accounts`, separate from student/tutor roles. The owner nominated `abdushynggys@mail.com`. A database trigger grants that account access only after Supabase verifies its authentication email, including future sign-ups, and revokes that grant if the authentication email changes. Browser email checks and user metadata cannot grant permissions.
 
 Authorised accounts get a Developer tools entry in Settings that opens a separate tab. The developer workspace can choose:
 
+- A regular demo or a configurable experimental demo; both use isolated, temporary learning data.
 - Student or tutor preview.
 - Starting course level and fresh / partly completed / completed path.
 - Entry screen: course, shop, classroom, teaching desk or Settings.
 - Temporary XP and coin balances for testing player levels and shop thresholds.
+
+The experimental demo includes temporary compact cards, a focus layout and paused animation controls. Connection tools run read-only checks and copy a diagnostic report containing no account details or keys. Leaving the sandbox returns to Settings and restores the real account.
 
 The sandbox uses in-memory course progress, fictional people and classes, and a sample workspace. A shared fetch guard blocks database, storage and function mutations. Profile language changes do not change the real preference cache. Real purchases and assignments are disabled. Exit sandbox restores the signed-in account. Unreleased UI can be placed behind this developer gate; deploying arbitrary new code still requires the normal reviewed build and publish process.
 

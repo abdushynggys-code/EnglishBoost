@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePlatform, assignClassWork } from "../lib/platform";
 import { useLearning } from "../lib/learningContext";
 import { useI18n } from "../lib/i18n";
@@ -8,6 +8,9 @@ export function TutorClassAssignment() {
   const { setNotice } = useLearning();
   const { t } = useI18n();
   const [classId, setClassId] = useState("");
+  useEffect(() => {
+    if (classId && !state.classes.some((room) => room.id === classId)) setClassId("");
+  }, [state.classes, classId]);
   const [level, setLevel] = useState(0);
   const [module, setModule] = useState(0);
   const [busy, setBusy] = useState(false);

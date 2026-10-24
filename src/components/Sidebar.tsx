@@ -1,23 +1,29 @@
-import { usePlatform } from '../lib/platform';
-import { Link, useLocation } from 'wouter';
-import { Icon } from './Icon';
-import { navigation, isPracticePath } from '../lib/navigation';
-import { useI18n } from '../lib/i18n';
-import { useLearning } from '../lib/learningContext';
-import { useNavigationDrawer } from '../lib/useNavigationDrawer';
+import { usePlatform } from "../lib/platform";
+import { Link, useLocation } from "wouter";
+import { Icon } from "./Icon";
+import { navigation, isPracticePath } from "../lib/navigation";
+import { useI18n } from "../lib/i18n";
+import { useLearning } from "../lib/learningContext";
+import { useNavigationDrawer } from "../lib/useNavigationDrawer";
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [location] = useLocation();
   const { t, preferences } = useI18n();
   const { profile } = useLearning();
-  const {state}=usePlatform();
-  const classAccess=profile?.role==='tutor'||state.classes.length>0;
-  const items=profile?.role==='tutor'?[{href:'/tutor',label:'Teaching desk',icon:'tutor' as const},...navigation.filter(item=>['/classroom','/course','/shop'].includes(item.href))]:navigation;
+  const { state } = usePlatform();
+  const classAccess = profile?.role === "tutor" || state.classes.length > 0;
+  const items =
+    profile?.role === "tutor"
+      ? [
+          { href: "/tutor", label: "Teaching desk", icon: "tutor" as const },
+          ...navigation.filter((item) => ["/classroom", "/course", "/shop"].includes(item.href)),
+        ]
+      : navigation;
   const drawer = useNavigationDrawer(open, onClose);
   return (
     <>
-      {open && <button className="sidebar-backdrop" tabIndex={-1} onClick={onClose} aria-label={t('Close navigation')} />}
-      <aside ref={drawer} className={`sidebar ${open ? 'is-open' : ''}`} aria-label={t('Main navigation')}>
+      {open && <button className="sidebar-backdrop" tabIndex={-1} onClick={onClose} aria-label={t("Close navigation")} />}
+      <aside ref={drawer} className={`sidebar ${open ? "is-open" : ""}`} aria-label={t("Main navigation")}>
         <Link href="/" className="brand" onClick={onClose}>
           <span className="brand-icon">
             <Icon name="book" size={29} />
@@ -26,45 +32,43 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             <strong>
               EnglishBoost<span className="brand-dot">.</span>
             </strong>
-            <small>{t('Your workspace')}</small>
+            <small>{t("Your workspace")}</small>
           </span>
         </Link>
 
-        <nav aria-label={t('Main navigation')}>
-          {items.filter(item=>classAccess||!['/classroom','/homework'].includes(item.href)).map((item) => {
-            const active =
-              item.href === '/'
-                ? location === '/'
-                : item.href === '/course'
-                  ? location.startsWith('/course') || location === '/placement'
-                : item.href === '/learn'
-                  ? isPracticePath(location)
-                  : location.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`nav-item ${active ? 'active' : ''}`}
-                aria-current={active ? 'page' : undefined}
-                onClick={onClose}
-              >
-                <Icon name={item.icon} size={20} />
-                <span>
-                  {t(
-                    item.href === '/book' && preferences.learning_track === 'language_arts'
-                      ? 'My learning'
-                      : item.label,
-                  )}
-                </span>
-                {active && <span className="active-dot" />}
-              </Link>
-            );
-          })}
+        <nav aria-label={t("Main navigation")}>
+          {items
+            .filter((item) => classAccess || !["/classroom", "/homework"].includes(item.href))
+            .map((item) => {
+              const active =
+                item.href === "/"
+                  ? location === "/"
+                  : item.href === "/classroom"
+                    ? location.startsWith("/classroom") || location.startsWith("/classes/")
+                    : item.href === "/course"
+                      ? location.startsWith("/course") || location === "/placement"
+                      : item.href === "/learn"
+                        ? isPracticePath(location)
+                        : location.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-item ${active ? "active" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                  onClick={onClose}
+                >
+                  <Icon name={item.icon} size={20} />
+                  <span>{t(item.href === "/book" && preferences.learning_track === "language_arts" ? "My learning" : item.label)}</span>
+                  {active && <span className="active-dot" />}
+                </Link>
+              );
+            })}
         </nav>
         <div className="sidebar-bottom">
-          <Link href="/settings" className={`nav-item ${location === '/settings' ? 'active' : ''}`} onClick={onClose}>
+          <Link href="/settings" className={`nav-item ${location === "/settings" ? "active" : ""}`} onClick={onClose}>
             <Icon name="settings" />
-            <span>{t('Settings')}</span>
+            <span>{t("Settings")}</span>
           </Link>
         </div>
       </aside>
