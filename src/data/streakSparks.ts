@@ -2,16 +2,16 @@ import type { ShopItem } from "../lib/platform";
 import { sparkCollections } from "./sparkCollections";
 export const sparkTiers = [
   { id: "seed", title: "Seed", xp: 0, price: 0, color: "#6a975c" },
-  { id: "fire", title: "Hearth", xp: 250, price: 40, color: "#e09238" },
-  { id: "wave", title: "Coast", xp: 700, price: 80, color: "#428ac0" },
-  { id: "comet", title: "Trailblazers", xp: 1500, price: 150, color: "#8b73c4" },
-  { id: "bloom", title: "Arcade", xp: 2600, price: 250, color: "#c57393" },
-  { id: "orbit", title: "Workshop", xp: 4200, price: 400, color: "#619b9f" },
-  { id: "aurora", title: "Studio", xp: 6700, price: 600, color: "#58a68f" },
-  { id: "storm", title: "Mythic", xp: 10400, price: 900, color: "#7c83bd" },
-  { id: "supernova", title: "Starforge", xp: 14900, price: 1400, color: "#c38a48" },
-  { id: "black-hole", title: "Singularity", xp: 21200, price: 2200, color: "#8c6cd0" },
-  { id: "unknown", title: "Unknown", xp: 40000, price: 0, color: "#b5ad83" },
+  { id: "fire", title: "Hearth", xp: 400, price: 40, color: "#e09238" },
+  { id: "wave", title: "Coast", xp: 1200, price: 80, color: "#428ac0" },
+  { id: "comet", title: "Trailblazers", xp: 2500, price: 140, color: "#8b73c4" },
+  { id: "bloom", title: "Arcade", xp: 4500, price: 220, color: "#c57393" },
+  { id: "orbit", title: "Workshop", xp: 7500, price: 320, color: "#619b9f" },
+  { id: "aurora", title: "Studio", xp: 12000, price: 450, color: "#58a68f" },
+  { id: "storm", title: "Mythic", xp: 18000, price: 650, color: "#7c83bd" },
+  { id: "supernova", title: "Starforge", xp: 27000, price: 900, color: "#c38a48" },
+  { id: "black-hole", title: "Singularity", xp: 40000, price: 1200, color: "#8c6cd0" },
+  { id: "unknown", title: "Unknown", xp: 70000, price: 0, color: "#b5ad83" },
 ] as const;
 const hues = [100, 30, 200, 160, 265, 210, 345, 280, 40, 255, 48];
 export const sparkColor = (tier: number, motif: number) =>

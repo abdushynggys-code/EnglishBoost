@@ -20,6 +20,6 @@ for(const [index,theme] of themes.entries()){
  }
 }
 const catalog=sandboxSparkCatalog();assert.equal(catalog.length,201);assert.equal(new Set(catalog.map(item=>item.id)).size,201);
-assert.deepEqual(sparkTiers.map(tier=>tier.xp),[0,250,700,1500,2600,4200,6700,10400,14900,21200,40000]);
+assert.deepEqual(sparkTiers.map(tier=>tier.xp),[0,400,1200,2500,4500,7500,12000,18000,27000,40000,70000]);
 for(const item of catalog){const appearance=sparkAppearance(item.id);assert.equal(appearance.tier,item.tier);assert.equal(sparkCollections[item.tier-1].names[appearance.motif],item.title);assert.equal(item.required_xp,sparkTiers[item.tier-1].xp);}
 console.log('Spark checks passed: 201 distinct names and base drawings, themed collections, stable ownership IDs and four languages.');

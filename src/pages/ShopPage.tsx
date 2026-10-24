@@ -133,7 +133,7 @@ export function ShopPage() {
             "Accuracy, daily streaks and focused completion add bonuses. Speed bonuses only apply between 45 seconds and 3 minutes; learning well comes first.",
           )}
         </p>
-        <p>{t("Fame starts at 40,000 XP, then rises every 10,000 XP. Player level 200 is about 60,000 XP.")}</p>
+        <p>{t("Fame starts at 60,000 XP, then rises every 10,000 XP. Player level 200 is about 60,000 XP.")}</p>
       </details>
     </div>
   );

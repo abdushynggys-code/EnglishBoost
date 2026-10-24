@@ -42,11 +42,11 @@ Notifications cover class joining, new assignments, tutor feedback and scheduled
 - A perfect scored session adds 20 XP. Consecutive learner-local study days add up to 20 XP. A server-timed run completed between 45 seconds and 3 minutes adds 10 XP; no bonus is awarded for rushing faster.
 - Coins per rewarded session are `max(1, floor(awarded XP / 10)) + min(5, floor(streak / 3))`.
 - Lifetime XP, coins, streaks and owned items survive a placement retake. Replays and repeated saves cannot grant the same lesson reward twice.
-- Fame begins at 40,000 XP and rises by one per further 10,000 XP. Unknown also becomes eligible at 40,000 XP.
-- Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 distinct designs each (200 regular Sparks): Garden, Hearth, Coast, Trailblazers, Arcade, Workshop, Studio, Mythic, Starforge and Singularity. Designs have individual names and unique base geometry, with a separately drawn rare reward in Tier 11. Names are available in all four languages. Artwork loads one collection at a time. Existing inventory IDs, prices, equipped choices and unlock requirements remain intact; the original free item is now First sprout.
+- Fame begins at 60,000 XP and rises by one per further 10,000 XP. Unknown becomes eligible at 70,000 XP.
+- Collectibles are called **Streak Sparks**. Tiers 1–10 have 20 distinct designs each (200 regular Sparks): Garden, Hearth, Coast, Trailblazers, Arcade, Workshop, Studio, Mythic, Starforge and Singularity. Designs have individual names and unique base geometry, with a separately drawn rare reward in Tier 11. Names are available in all four languages. Artwork loads one collection at a time. Existing inventory IDs and equipped choices remain intact; the original free item is now First sprout.
 - Tier numbers and XP requirements remain visible. Higher-tier Spark designs stay hidden until unlocked, both in the UI and through the catalog's RLS policy. Selecting a tier shows only that collection.
-- Tier 11 is Unknown: at least 40,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
-- Tiers 1–11 unlock at 0, 250, 700, 1,500, 2,600, 4,200, 6,700, 10,400, 14,900, 21,200 and 40,000 XP. Existing purchases remain owned; new coin prices scale with the earlier unlocks.
+- Tier 11 is Unknown: at least 70,000 XP, a free claim, exactly one worldwide owner. An atomic database update reserves the single slot. Account deletion does not reopen a claimed slot.
+- Tiers 1–11 unlock at 0, 400, 1,200, 2,500, 4,500, 7,500, 12,000, 18,000, 27,000, 40,000 and 70,000 XP. Existing purchases remain owned; new coin prices scale with the earlier unlocks.
 - Unknown's owner receives an animated gold legend bar throughout the app. Reduced motion keeps its effects static. Developer settings can preview temporary ownership in the isolated experimental sandbox.
 - Vocabulary questions include a complete usage sentence, and grammar clozes directly show the sentence to complete. The custom book-and-boost mark appears in navigation, the welcome page and the browser tab.
 - Purchases lock the learner's wallet, check XP and coin requirements, deduct once and record ownership. Equipping an owned item does not charge again.
@@ -80,3 +80,9 @@ The sandbox uses in-memory course progress, fictional people and classes, and a 
 - Browser checks exercise public samples and language switching, independent navigation, full lesson saves, placement, class joining, tutor assignments, all shop tiers, mobile widths, private developer entry and the absence of sandbox writes.
 
 Schema changes live in timestamped migrations. Use `npm run db:push -- --dry-run` and `npm run db:push -- --yes`; no manual SQL Editor setup is needed.
+
+## Progression balance ? 70,000-XP target
+
+`node scripts/check-economy.cjs` models one or two passed sessions per day: all 168 lessons from Level 1, then one daily advanced challenge, with a due review for the second daily session. It assumes one perfect score in four, consecutive study days and no speed bonus. These are planning estimates, not observed learner behaviour or promised completion dates. Starting at a higher course level, missed days, retakes and optional purchases change the result.
+
+In this model, Tier 2 arrives in four sessions; Tier 10 in about 257 days at one session daily or 147 days at two. Unknown takes about 428 or 267 days respectively. One base Spark from each regular tier is affordable at each unlock; optional variants provide further collection goals. The base prices are 0, 40, 80, 140, 220, 320, 450, 650, 900 and 1,200 coins. Regular XP rewards, accuracy rules, streak bonuses and replay protection stay unchanged. Fame begins at 60,000 XP, providing a milestone before Unknown at 70,000 XP.

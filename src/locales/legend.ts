@@ -1,8 +1,8 @@
 const phrases: Record<string, readonly [string, string, string]> = {
-  "A single worldwide claim. Requires at least 40,000 XP. First eligible learner to claim it wins.": [
-    "Nur einmal weltweit. Mindestens 40.000 XP. Wer berechtigt ist und zuerst zugreift, erhält es.",
-    "Один предмет на весь мир. Нужно минимум 40 000 XP. Получит первый подходящий ученик, который заберёт награду.",
-    "Әлемде жалғыз зат. Кемінде 40 000 XP керек. Шартқа сай болып, бірінші алған оқушыға беріледі.",
+  "A single worldwide claim. Requires at least 70,000 XP. First eligible learner to claim it wins.": [
+    "Nur einmal weltweit. Mindestens 70.000 XP. Wer berechtigt ist und zuerst zugreift, erhält es.",
+    "Один предмет на весь мир. Нужно минимум 70 000 XP. Получит первый подходящий ученик, который заберёт награду.",
+    "Әлемде жалғыз зат. Кемінде 70 000 XP керек. Шартқа сай болып, бірінші алған оқушыға беріледі.",
   ],
   "Unknown reward": ["Unbekannte Belohnung", "Награда «Неизвестность»", "«Белгісіз» марапаты"],
   "World legend": ["Weltlegende", "Легенда мира", "Әлем аңызы"],
