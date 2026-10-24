@@ -13,11 +13,13 @@ export function Streaker({ item, large = false }: { item?: string; large?: boole
       style={color ? ({ "--symbol": color } as React.CSSProperties) : undefined}
       aria-label={t("Streak Spark")}
     >
-      <span className="streaker-ring" />
-      <span className="streaker-core">
-        <SparkMotif family={family} motif={motif} />
+      <span className="streaker-visual" aria-hidden="true">
+        <span className="streaker-ring" />
+        <span className="streaker-core">
+          <SparkMotif family={family} motif={motif} />
+        </span>
       </span>
-      {!item && <strong>{state.streak}</strong>}
+      {!item && <strong className="streaker-count">{state.streak.toLocaleString()}</strong>}
     </span>
   );
 }
