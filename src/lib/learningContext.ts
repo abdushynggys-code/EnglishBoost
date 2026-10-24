@@ -16,7 +16,8 @@ export type LearningState = {
   setNotice: (message: string) => void;
   setProfile: Dispatch<SetStateAction<Profile | null>>;
   refresh: () => Promise<void>;
-  exploreDemo: () => Promise<void>;
+  exploreDemo: (role?: 'student'|'tutor') => Promise<void>;
+  exitSandbox: () => Promise<void>;
 };
 export const LearningContext = createContext<LearningState | null>(null);
 

@@ -1,3 +1,4 @@
+import { assertLiveMutation } from './sandbox';
 import type { AccountIntent } from './accountIntent';
 import { supabase } from './supabase';
 
@@ -21,5 +22,6 @@ export function signUpWithEmail(email: string, password: string, role: AccountIn
 }
 
 export function signOut() {
+  assertLiveMutation();
   return supabase.auth.signOut();
 }

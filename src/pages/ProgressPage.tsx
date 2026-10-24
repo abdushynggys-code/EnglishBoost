@@ -1,3 +1,6 @@
+import { CourseProgressPanel } from '../components/course/CourseProgressPanel';
+import { GameProgress } from '../components/GameProgress';
+import { usePlatform } from '../lib/platform';
 import { useI18n } from '../lib/i18n';
 import { PageHeading } from '../components/PageHeading';
 import { ProgressReport } from '../components/ProgressReport';
@@ -8,6 +11,7 @@ import { useLearning } from '../lib/learningContext';
 export function ProgressPage() {
   const { t } = useI18n();
   const { data, profile } = useLearning();
+  const {state}=usePlatform();
   return (
     <>
       <PageHeading
@@ -19,7 +23,8 @@ export function ProgressPage() {
           </span>
         }
       />
-      <ProgressReport data={data} />
+      <GameProgress /><CourseProgressPanel />
+      {state.classes.length>0&&<details className="card spaced"><summary>{t('Class practice')}</summary><ProgressReport data={data} /></details>}
       <CommunicationHistory attempts={data.conciseAttempts} />
       <Milestones />
     </>

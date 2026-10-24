@@ -1,4 +1,4 @@
-﻿import { supabase } from '../supabase';
+import { supabase } from '../supabase';
 import type { CourseState, LessonCompletion, PlacementResult, ReviewCard } from './types';
 
 export const emptyCourse = (): CourseState => ({ placement: null, completions: [], reviews: [] });
@@ -22,3 +22,5 @@ export async function saveLesson(completion: LessonCompletion, reviews: ReviewCa
   const { error } = await supabase.rpc('save_course_lesson', { completion: {...completion, timezone:Intl.DateTimeFormat().resolvedOptions().timeZone}, review_cards: reviews });
   if (error) throw new Error('Could not save your course. Please try again.');
 }
+
+export async function beginLesson(lesson:string){const {data,error}=await supabase.rpc('begin_lesson',{lesson});if(error)throw error;return data as string;}

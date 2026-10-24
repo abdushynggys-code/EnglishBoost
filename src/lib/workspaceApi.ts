@@ -1,3 +1,4 @@
+import { isSandboxMode } from './sandbox';
 import { supabase } from './supabase';
 import type { ConciseAttempt } from './summaryTypes';
 import type {
@@ -28,6 +29,7 @@ export async function loadProfile(userId: string) {
 }
 
 export async function loadWorkspace(userId: string): Promise<Workspace> {
+  if(isSandboxMode()){const {demoWorkspace}=await import('../data/workspace');return demoWorkspace();}
   const results = await Promise.all([
     supabase.from('lessons').select('*').order('week').returns<Lesson[]>(),
     supabase.from('quiz_questions').select('*').order('id').returns<Question[]>(),

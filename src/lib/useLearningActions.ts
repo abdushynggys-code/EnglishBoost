@@ -11,7 +11,7 @@ export function useLearningActions() {
         await persistRow(table, { ...row, user_id: session.user.id }, conflict);
       }
       setData(update);
-      setNotice(demo ? 'Saved for this demo visit. Sign in to save across devices.' : 'Saved to your workspace.');
+      setNotice(demo ? 'Saved in this sandbox only. Your real learning data stays separate.' : 'Saved to your workspace.');
       return true;
     } catch (cause) {
       setNotice(cause instanceof Error ? cause.message : 'Could not save. Please try again.');

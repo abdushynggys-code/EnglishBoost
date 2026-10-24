@@ -1,3 +1,5 @@
+import { ClassConnections } from '../components/ClassConnections';
+import { usePlatform } from '../lib/platform';
 import { useState } from 'react';
 import { PageHeading } from '../components/PageHeading';
 import { Card } from '../components/Card';
@@ -9,6 +11,7 @@ import { useI18n } from '../lib/i18n';
 
 export function SettingsPage() {
   const { profile, demo } = useLearning();
+  const {state}=usePlatform();
   const actions = useLearningActions();
   const { t } = useI18n();
   const [name, setName] = useState(profile?.full_name ?? (demo ? 'Alex Morgan' : ''));
@@ -30,6 +33,8 @@ export function SettingsPage() {
       <Card title={t('Language & learning')} className="settings-card">
         <PreferencesForm />
       </Card>
+      <ClassConnections />
+      {state.developer&&<section className="card spaced"><h2>{t('Developer tools')}</h2><p>{t('A separate space to test unreleased features.')}</p><a className="button" href="/developer" target="_blank" rel="noreferrer">{t('Open developer workspace')} ?</a></section>}
       <details className="card settings-card spaced">
         <summary>{t('Account details')}</summary>
         <div className="spaced">

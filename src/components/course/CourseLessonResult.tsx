@@ -1,11 +1,11 @@
-﻿import { Link } from 'wouter';
+import { Link } from 'wouter';
 import { useI18n } from '../../lib/i18n';
 import { Icon } from '../Icon';
 
 type Props = {
   score: number; total: number; passed: boolean; xp: number; replay: boolean;
   busy: boolean; saved: boolean; failed: boolean; checkpoint: boolean;
-  nextHref?: string; onSave: (destination?: string) => void; onRetry: () => void;
+  transcriptAssisted?: boolean; nextHref?: string; onSave: (destination?: string) => void; onRetry: () => void;
 };
 export function CourseLessonResult(props: Props) {
   const { t } = useI18n();
@@ -19,6 +19,7 @@ export function CourseLessonResult(props: Props) {
     {replay ? <p>{t('Replay practice. Your previous progress and XP are preserved.')}</p>
       : passed ? <span className="result-xp-reward"><Icon name="sparkles" size={17} />+{xp} XP</span>
       : <p>{t('Your completed lessons stay saved.')}</p>}
+    {props.transcriptAssisted&&<p>{t('Transcript answers count as reading practice. Listening remains unassessed.')}</p>}
     {failed && <p className="message" role="alert">{t('Could not save your course. Please try again.')}</p>}
     {!saved ? <div className="lesson-result-actions">
       <button disabled={busy} onClick={() => onSave(passed ? nextHref ?? '/course' : undefined)}>
@@ -27,7 +28,7 @@ export function CourseLessonResult(props: Props) {
         {passed && !busy && <Icon name="arrow" size={18} />}
       </button>
       {passed && nextHref && <button className="text-button" disabled={busy} onClick={() => onSave('/course')}>{t('Finish for now')}</button>}
-      {passed && <small>{t('Your progress saves when you continue.')}</small>}
+      {passed && <small>{t('Base reward. Accuracy and streak bonuses are added when saved.')}</small>}
     </div> : <div className="button-row spaced">
       {!passed && <button onClick={onRetry}>{t('Try again')}</button>}
       {passed && nextHref && <Link className="button" href={nextHref}>{t('Start next lesson')}<Icon name="arrow" size={18} /></Link>}

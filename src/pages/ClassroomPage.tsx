@@ -1,3 +1,5 @@
+import { ClassConnections } from '../components/ClassConnections';
+import { usePlatform } from '../lib/platform';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { PageHeading } from '../components/PageHeading';
@@ -15,6 +17,7 @@ export function ClassroomPage() {
   const { t } = useI18n();
   const { data, demo, session, profile, setNotice } = useLearning();
   const [, navigate] = useLocation();
+  const {state:connections}=usePlatform();
   const tutor = profile?.role === 'tutor';
   const [rooms, setRooms] = useState<ClassroomRoom[]>([]);
   const [students, setStudents] = useState<Profile[]>([]);
@@ -80,7 +83,8 @@ export function ClassroomPage() {
           tutor ? t('You control the lesson. Students follow along.') : t('Follow your tutor, then try it yourself.'),
         )}
       />
-      {demo ? (
+      <ClassConnections />
+      {!tutor&&!connections.classes.length&&!demo ? null : demo ? (
         <ClassroomPreview />
       ) : (
         <div className="stack">

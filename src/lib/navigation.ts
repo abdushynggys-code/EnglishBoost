@@ -3,10 +3,11 @@ import type { IconName } from '../components/Icon';
 export const navigation: { href: string; label: string; icon: IconName }[] = [
   { href: '/', label: 'Home', icon: 'home' },
   { href: '/course', label: 'My course', icon: 'target' },
-  { href: '/book', label: 'My Book', icon: 'book' },
+  { href: '/materials', label: 'Material library', icon: 'book' },
   { href: '/classroom', label: 'Live Classroom', icon: 'tutor' },
   { href: '/learn', label: 'Practice', icon: 'pen' },
   { href: '/homework', label: 'Homework', icon: 'homework' },
+  { href: '/shop', label: 'Streak shop', icon: 'sparkles' },
   { href: '/progress', label: 'My Progress', icon: 'chart' },
 ];
 export function isPracticePath(path: string) {

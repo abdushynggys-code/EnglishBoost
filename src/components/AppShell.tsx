@@ -16,14 +16,14 @@ export function AppShell({ children }: { children: ReactNode }) {
   const search = useSearch();
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   const { t } = useI18n();
-  const { data, loading, error, refresh, session, profile, demo, preview, exploreDemo, notice, setNotice } = useLearning();
+  const { data, loading, error, refresh, session, profile, demo, preview, notice, setNotice } = useLearning();
   const dataAvailable = data.lessons.length > 0;
   useEffect(() => {
     setMenuOpen(false);
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.getElementById('main-content')?.focus({ preventScroll: true });
   }, [location]);
-  if (location === '/sign-in' || location === '/demo') return <>{children}</>;
+  if (location === '/sign-in') return <>{children}</>;
   if (!session && !preview) {
     if (location === '/') return <>{children}</>;
     if (loading) return <PageLoading />;
@@ -50,9 +50,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               <h1>{t('Let’s reconnect your workspace')}</h1>
               <p>{error}</p>
               <button onClick={() => void refresh()}>{t('Try again')}</button>
-              <button className="secondary" onClick={exploreDemo}>
-                {t('Explore the demo')}
-              </button>
             </section>
           ) : pending ? (
             <section className="card error-state">
@@ -63,9 +60,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                 {t('Your tutoring content stays private.')}
               </p>
               <button onClick={() => void refresh()}>{t('Check approval')}</button>
-              <button className="secondary" onClick={exploreDemo}>
-                {t('Explore the demo')}
-              </button>
             </section>
           ) : (
             children
@@ -73,9 +67,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           {demo && (
             <div className="demo-notice">
               <Icon name="shield" size={15} />
-              <span>{t('Demo workspace · Sample learning data. Changes last for this visit.')}</span>
-              <Link href="/sign-in">
-                {t('Sign in to save')} <Icon name="arrow" size={13} />
+              <span>{t('Developer sandbox · Sample learning data. Changes last for this visit.')}</span>
+              <Link href="/developer">
+                {t('Developer tools')} <Icon name="arrow" size={13} />
               </Link>
             </div>
           )}

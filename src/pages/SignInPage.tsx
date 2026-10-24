@@ -6,7 +6,6 @@ import { useLearning } from '../lib/learningContext';
 import { useI18n } from '../lib/i18n';
 import { clearDestination, rememberedDestination, rememberDestination } from '../lib/authNavigation';
 import { ProductBrand } from '../components/welcome/ProductBrand';
-import { PublicLanguagePicker } from '../components/welcome/PublicLanguagePicker';
 import { Icon } from '../components/Icon';
 
 export function SignInPage() {
@@ -21,7 +20,7 @@ export function SignInPage() {
   if (session && loading) return <PageLoading />;
   if (session) return <Redirect to={profile?.role === 'tutor' && next === '/course' ? '/tutor' : next} replace />;
   return <div className="entry-sign-in">
-    <header className="welcome-nav"><ProductBrand /><PublicLanguagePicker /></header>
+    <header className="welcome-nav"><ProductBrand /></header>
     <main className="entry-sign-in-main">
       <aside className="entry-sign-in-copy">
         <p className="welcome-eyebrow"><span />{t('YOUR NEXT CHAPTER')}</p>
@@ -33,7 +32,6 @@ export function SignInPage() {
       <div className="entry-sign-in-form">
         {error && <p className="message" role="alert">{error}</p>}
         {loading ? <p role="status">{t('Opening your workspace…')}</p> : <Auth />}
-        <Link className="entry-preview-link" href="/demo">{t('Have a look around first')}</Link>
       </div>
     </main>
   </div>;

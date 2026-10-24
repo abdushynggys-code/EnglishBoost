@@ -1,13 +1,14 @@
 import { useI18n } from '../lib/i18n';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'wouter';
+import { Link,useLocation } from 'wouter';
 import { useLearning } from '../lib/learningContext';
 import { signOut } from '../lib/auth';
 import { Icon } from './Icon';
 
 export function ProfileMenu() {
   const { t } = useI18n();
-  const { profile, session, demo, setNotice } = useLearning();
+  const { profile, session, demo, preview, exitSandbox, setNotice } = useLearning();
+  const [,navigate]=useLocation();
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -40,7 +41,7 @@ export function ProfileMenu() {
         <span className="profile-summary">
           <strong>{name.split(' ')[0]}</strong>
           <small>
-            {demo ? t('Demo student') : profile?.role === 'tutor' ? t('Tutor account') : t('Student account')}
+            {demo ? t('Sandbox account') : profile?.role === 'tutor' ? t('Tutor account') : t('Student account')}
           </small>
         </span>
         <Icon name="down" size={14} />
@@ -57,7 +58,7 @@ export function ProfileMenu() {
               <Icon name="settings" size={16} />
               {t('Settings')}
             </Link>
-            {session ? (
+            {preview?<button onClick={()=>void exitSandbox().then(()=>navigate('/developer'))}><Icon name="back" size={16}/>{t('Exit sandbox')}</button>:session ? (
               <button onClick={() => void handleSignOut()}>
                 <Icon name="logout" size={16} />
                 {t('Sign out')}

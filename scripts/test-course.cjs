@@ -1,82 +1,26 @@
-﻿// Exercise the learning rules with real course content, without a database or browser.
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const ts = require('typescript');
-require.extensions['.ts'] = (module, filename) => module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'), {
-  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true},
-}).outputText,filename);
-const { estimatePlacement, nextReview, courseStats, isLessonUnlocked, shouldStretch } = require('../src/lib/course/progress.ts');
-const { nextPlacementQuestion } = require('../src/lib/course/placement.ts');
-const { buildCourseUnits, courseQuestionBank } = require('../src/data/course/units.ts');
-const { nextCourseStep } = require('../src/lib/course/nextStep.ts');
-const { safeAppDestination, signInPath } = require('../src/lib/authNavigation.ts');
-const { placementQuestions } = require('../src/data/course/placement.ts');
-function diagnose(correct, assisted=false) {
-  const answers=[];
-  while(answers.length<12) {
-    const question=nextPlacementQuestion(answers);
-    assert.ok(question,'Every assessment step needs a fresh question');
-    assert.ok(!answers.some(answer=>answer.question_id===question.id));
-    answers.push({question_id:question.id,skill:question.skill,level:question.level,correct,assisted,skipped:false});
-  }
-  assert.equal(nextPlacementQuestion(answers),null);
-  return estimatePlacement(answers);
-}
-assert.equal(placementQuestions.length,24);
-assert.equal(diagnose(true).level,'B1');
-assert.equal(diagnose(false).level,'A1');
-assert.deepEqual(diagnose(true,true).skill_levels,{grammar:null,vocabulary:null,reading:null,listening:null});
-assert.equal(estimatePlacement([]).level,'A1');
-let card;
-let today = new Date(2026,9,24,12);
-for(const interval of [1,3,7,14,28,28]) {
-  card=nextReview(card,'word',true,today);
-  const expected=new Date(today);expected.setDate(expected.getDate()+interval);
-  assert.equal(card.due_at,expected.toISOString());
-  today=expected;
-}
-card=nextReview(card,'word',false,today);
-assert.equal(card.stage,0);assert.equal(card.lapses,1);
-const completion=(id,passed=true)=>({lesson_id:id,passed,completed_at:new Date(2026,9,24,12).toISOString(),score:passed?5:3,total:5,xp:passed?10:0,attempts:1});
-for(const level of ['A1','A2','B1']) for(const interest of ['everyday','travel','stories','school']) {
-  const units=buildCourseUnits(level,interest);
-  const lessons=units.flatMap(unit=>unit.lessons);
-  assert.equal(lessons.length,28);
-  assert.equal(new Set(lessons.map(lesson=>lesson.id)).size,28);
-  assert.ok(isLessonUnlocked(units,[],lessons[0].id));
-  assert.ok(!isLessonUnlocked(units,[],lessons[1].id));
-  const firstSix=lessons.slice(0,6).map(lesson=>completion(lesson.id));
-  assert.ok(isLessonUnlocked(units,firstSix,lessons[6].id));
-  assert.ok(!isLessonUnlocked(units,[...firstSix,completion(lessons[6].id,false)],lessons[7].id));
-  assert.ok(isLessonUnlocked(units,[...firstSix,completion(lessons[6].id)],lessons[7].id));
-  for(const question of courseQuestionBank(units)) {
-    if(question.type==='order') assert.equal(question.options.slice().reverse().join(' '),question.answer);
-    else if(question.type!=='blank') assert.ok(question.options.includes(question.answer),question.id);
-    assert.ok(question.answer&&question.explanation);
-    assert.ok(!placementQuestions.some(item=>item.id===question.id));
-  }
-  assert.equal(new Set(units.map(unit=>unit.lessons[6].questions.find(q=>q.audio).audio)).size,4);
-}
-const wins=[completion('A2-everyday-unit1-day7'),completion('A2-everyday-unit2-day7'),completion('review:2026-10-24')];
-assert.ok(shouldStretch(wins));
-assert.ok(!shouldStretch(wins.map((win,index)=>index===0?{...win,attempts:2}:win)));
-assert.ok(!shouldStretch([...wins,completion('A2-everyday-unit3-day7',false)]));
-const stats=courseStats([completion('one'),{...completion('two'),completed_at:new Date(2026,9,23,12).toISOString()},completion('failed',false)],new Date(2026,9,24,17));
-assert.equal(stats.streak,2);assert.equal(stats.xp,20);assert.equal(stats.completed,2);
-
-const placement={id:'test',created_at:new Date().toISOString(),level:'A2',settings:{interest:'everyday',daily_minutes:10},answers:[],writing_sample:'',speaking_practised:false,skill_levels:{grammar:'A2',vocabulary:'A2',reading:'A2',listening:'A2'}};
-assert.equal(nextCourseStep({placement:null,completions:[],reviews:[]}),null);
-const course=buildCourseUnits('A2','everyday');const sequence=course.flatMap(unit=>unit.lessons);
-assert.equal(nextCourseStep({placement,completions:[],reviews:[]}).href,'/course/A2-everyday-unit1-day1');
-assert.equal(nextCourseStep({placement,completions:[completion(sequence[0].id)],reviews:[]}).lesson.id,sequence[1].id);
-const firstSix=sequence.slice(0,6).map(lesson=>completion(lesson.id));
-assert.equal(nextCourseStep({placement,completions:[...firstSix,completion(sequence[6].id,false)],reviews:[]}).lesson.id,sequence[6].id);
-assert.equal(nextCourseStep({placement,completions:sequence.map(lesson=>completion(lesson.id)),reviews:[]}),null);
-for(const invalid of ['https://example.com','//example.com','/\\example.com','/sign-in','javascript:alert(1)'])assert.equal(safeAppDestination(invalid),'/course');
-assert.equal(safeAppDestination('/course/A2-everyday-unit1-day2'),'/course/A2-everyday-unit1-day2');
-assert.equal(signInPath('/reading/story?from=course'),'/sign-in?next=%2Freading%2Fstory%3Ffrom%3Dcourse');
-
-const { flowPhrases } = require('../src/locales/flow.ts');
-for(const translations of Object.values(flowPhrases)) for(const text of translations) assert.ok(!/\?{2,}/.test(text),'Translation text lost its characters');
-assert.match(flowPhrases['Start next lesson'][2],/[\u0400-\u04ff]/);
-console.log('Course checks passed: placement, assisted answers, SRS, 12 course variants, lesson gates, checkpoints, difficulty, XP, streaks.');
+﻿const assert=require('node:assert/strict'),fs=require('node:fs'),ts=require('typescript');
+require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true}}).outputText,f);
+const {buildQuestionBank}=require('../src/data/course/questionBank.ts');
+const {buildCourseUnits,buildLearningPath}=require('../src/data/course/units.ts');
+const {courseLevels,questionCount}=require('../src/lib/course/levels.ts');
+const {nextPlacementQuestion,placementLength}=require('../src/lib/course/placement.ts');
+const {estimatePlacement,nextReview,isLessonUnlocked,courseStats,shouldStretch}=require('../src/lib/course/progress.ts');
+const {nextCourseStep}=require('../src/lib/course/nextStep.ts');
+const {gradeCourseAnswer}=require('../src/lib/course/scoring.ts');
+const {dueQuestions}=require('../src/lib/course/reviews.ts');
+const {gameLevel,xpForLevel,fameForXp}=require('../src/lib/gamification.ts');
+const {safeAppDestination,signInPath}=require('../src/lib/authNavigation.ts');
+const completion=(id,passed=true)=>({lesson_id:id,passed,completed_at:new Date().toISOString(),score:passed?30:10,total:30,xp:passed?100:0,attempts:1});
+for(const level of courseLevels){const bank=buildQuestionBank(level);assert.equal(bank.length,400);assert.equal(new Set(bank.map(q=>q.id)).size,400);for(const skill of ['grammar','vocabulary','reading','listening'])assert.equal(bank.filter(q=>q.skill===skill).length,100);for(const q of bank){assert.ok(q.options.includes(q.answer));assert.equal(new Set(q.options).size,q.options.length);assert.ok(q.explanation);assert.ok(!q.prompt.includes('{'));}
+ for(const interest of ['everyday','school','travel','stories']){const units=buildCourseUnits(level,interest,'one');const lessons=units.flatMap(u=>u.lessons);assert.equal(units.length,4);assert.equal(lessons.length,28);for(const lesson of lessons){assert.equal(lesson.questions.length,lesson.kind==='writing'?0:questionCount(level));assert.equal(new Set(lesson.questions.map(q=>q.id)).size,lesson.questions.length);for(const q of lesson.questions)if(q.type==='order')assert.deepEqual([...q.options].sort(),q.answer.split(' ').sort());}assert.ok(isLessonUnlocked(units,[],lessons[0].id));assert.ok(!isLessonUnlocked(units,[],lessons[1].id));assert.ok(isLessonUnlocked(units,[completion(lessons[0].id)],lessons[1].id));assert.notDeepEqual(lessons[0].questions.map(q=>q.id),buildCourseUnits(level,interest,'two')[0].lessons[0].questions.map(q=>q.id));}}
+function placement(mode){const answers=[];let question;while((question=nextPlacementQuestion(answers,'one'))){assert.ok(!answers.some(a=>a.question_id===question.id));answers.push({question_id:question.id,skill:question.skill,level:question.level,correct:mode!=='wrong',assisted:mode==='assisted',skipped:false});assert.ok(answers.length<=30);}assert.equal(answers.length,placementLength(answers));return {answers,...estimatePlacement(answers)};}
+assert.equal(placement('right').answers.length,15);assert.equal(placement('right').level,'C2');assert.equal(placement('wrong').answers.length,30);assert.equal(placement('wrong').level,'A1');assert.equal(placement('assisted').level,'A1');assert.notEqual(nextPlacementQuestion([],'one').id,nextPlacementQuestion([],'two').id);
+const path=buildLearningPath('A1','everyday','one');assert.equal(path.length,24);assert.equal(buildLearningPath('B2','travel').length,12);const completed=path.slice(0,4).flatMap(u=>u.lessons).map(l=>completion(l.id));assert.ok(isLessonUnlocked(path,completed,'A2-everyday-unit1-day1'));assert.ok(!isLessonUnlocked(path,completed.slice(0,-1),'A2-everyday-unit1-day1'));
+const mixed=[];for(let i=0;i<12;i++){const q=nextPlacementQuestion(mixed);mixed.push({question_id:q.id,skill:q.skill,level:q.level,correct:i<6,assisted:false,skipped:false});}assert.equal(placementLength(mixed),20);
+const profile={id:'one',level:'A1',settings:{interest:'everyday',daily_minutes:10}};assert.equal(nextCourseStep({placement:profile,completions:completed,reviews:[]}).href,'/course/A2-everyday-unit1-day1');assert.equal(nextCourseStep({placement:null,completions:[],reviews:[]}),null);assert.equal(nextCourseStep({placement:profile,completions:path.flatMap(u=>u.lessons).map(l=>completion(l.id)),reviews:[]}),null);
+let card;let date=new Date(2026,9,24,12);for(const days of [1,3,7,14,28,28]){card=nextReview(card,'word',true,date);const due=new Date(date);due.setDate(due.getDate()+days);assert.equal(card.due_at,due.toISOString());date=due;}assert.equal(nextReview(card,'word',false,date).stage,0);
+assert.equal(courseStats([completion('one')]).streak,1);assert.equal(courseStats([completion('one')]).xp,100);assert.ok(!shouldStretch([]));
+for(let level=1;level<=400;level++){assert.equal(gameLevel(xpForLevel(level)),level);if(level>1)assert.equal(gameLevel(xpForLevel(level)-1),level-1);}assert.equal(gameLevel(60000),201);assert.equal(fameForXp(69999),0);assert.equal(fameForXp(70000),1);assert.equal(fameForXp(80000),2);
+for(const invalid of ['https://example.com','//example.com','/\\example.com','/sign-in','javascript:alert(1)'])assert.equal(safeAppDestination(invalid),'/course');assert.equal(signInPath('/shop'),'/sign-in?next=%2Fshop');
+const audio=buildQuestionBank('C2').find(q=>q.audio);assert.deepEqual(gradeCourseAnswer(audio,audio.answer,true,true),{correct:true,independent:false,transcript:true});const grammar=buildQuestionBank('C2').find(q=>q.skill==='grammar');assert.equal(gradeCourseAnswer(grammar,grammar.answer,true,true).correct,false);assert.equal(gradeCourseAnswer(grammar,'wrong',false,true).correct,false);assert.equal(dueQuestions(path,[{item_id:grammar.id,lapses:1,due_at:new Date(0).toISOString()}]).length,1);
+console.log('Course checks passed: 2,400 questions, six levels, 24 variants, lesson sizes, per-learner variation, adaptive 15/20/30 placement, cross-level gates, next lesson, SRS, XP thresholds and fame.');

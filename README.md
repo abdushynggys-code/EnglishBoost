@@ -1,6 +1,6 @@
 # EnglishBoost
 
-A private English tutoring workspace for early middle-school learners, native English speakers practising language arts, and their tutor.
+An English learning app for independent learners and tutor-led classes, from first words to advanced communication.
 Built with **Vite, React 18, TypeScript, wouter, and Supabase**, with Vercel routing already configured.
 
 ## Run locally
@@ -13,24 +13,23 @@ npm run dev
 Open the local URL printed by Vite, usually `http://localhost:5173`.
 Use Node.js 22.12 or newer. Run `npm run build` before deploying.
 
-## Demo and real learning
+## Learning and account access
 
-The public dashboard is a **labeled demo** with sample results and an example student, Alex.
-Demo interactions work, but changes stay in memory for that visit and reset on refresh.
-Demo data is never copied into a real student’s progress.
+The public introduction offers three small practice samples. Students can sign in with Google or email and learn independently. Joining a tutor class is optional: enter its code in Settings to add classroom and homework navigation.
 
-Google and email/password sign-in are available at `/sign-in`.
-Approved signed-in users save their work to Supabase across devices.
-New students see an approval screen until their tutor approves their sign-in email.
+Actual tutor and developer privileges use separate server-side allowlists. The sign-in role choice never grants permissions. Authorised developers can open a private, isolated sandbox from Settings; there is no public demo.
 
 ## What works
 
-- An eight-week curriculum with lesson content, objectives, homework ideas, and completion tracking.
+- A six-level personal course with 24 modules, 168 lessons, adaptive assessment, 2,400 contextual question variants, SRS and advanced daily challenges.
+- Tutor class codes, ready-to-teach modules, class-wide assignments and private notifications.
+- Persistent player XP, coins, fame and an eleven-tier streak-symbol shop.
+- Supplemental eight-week school resources with lesson content, objectives and homework ideas.
 - First-visit language choice: English, Deutsch, Русский, or Қазақша. Interface labels follow that choice; English practice stays in English. Change the language and learning focus in Settings.
 - Access 2 Unit 1 practice based on the supplied pages: eight mapped lessons and base homework tasks, 30 questions, 50 vocabulary entries, and three adapted readings. Kazakh explanations accompany the new lessons and questions. See [content notes](docs/access2-homework.md).
 - “Get to the Point!”: main ideas, flexible sentence guides, relevant details, shortening, conversation, and response styles. Original/improved responses, self-checks, objective results, and tutor reviews are saved.
 - Adaptive communication suggestions use recent saved attempts. Written answers receive transparent self-check points and simple reminders; meaning is reviewed by the tutor. Multiple valid answers are welcome, and detailed answers are appropriate when the question needs them.
-- Live Classroom: tutors start a room for an assigned student, advance slides, launch grammar questions or summary practice, and read answers. Supabase Realtime sends updates, with polling while reconnecting. The demo is explicitly a preview.
+- Live Classroom: tutors start a room for an assigned student, advance slides, launch grammar questions or summary practice, and read answers. Supabase Realtime sends updates, with polling while reconnecting. A private developer preview is available for testing.
 - Grammar practice: choices, blanks, sentence correction, true/false, explanations, scores, retries, and saved attempts.
 - English/German/Russian/Kazakh vocabulary support, flashcards, matching and spelling games, theme filters, pronunciation, and review dates.
 - Reading passages with scored comprehension questions and written answers for tutor review.
@@ -81,8 +80,8 @@ npm run db:push -- --yes
 Enter the database password in your terminal if prompted. Hidden typing is normal.
 Apply future schema changes through new migrations rather than the SQL Editor.
 All student tables use Row Level Security. Tutors can read only students linked to them.
-Public starter content is seeded through migrations; the anonymous demo uses bundled copies.
-Language, learning focus, level, and sound preferences are cached locally and saved to the signed-in profile. Learning responses remain in Supabase; demo responses remain in memory only.
+Public starter content is seeded through migrations; the private developer sandbox uses bundled sample copies.
+Language, learning focus, level, and sound preferences are cached locally and saved to the signed-in profile. Learning responses remain in Supabase; sandbox responses remain in memory only.
 The new communication and classroom tables use RLS; students cannot set their tutor score or control classroom activities.
 
 For Google sign-in, enable Google in Supabase Authentication and configure its OAuth credentials.
@@ -91,7 +90,7 @@ Google’s authorized callback is your Supabase project’s `/auth/v1/callback` 
 
 ## Adaptive course
 
-Open `/course` or `/placement` for the multi-skill level check and 28-lesson learning path, with XP, streaks, weekly checkpoints, and spaced reviews. Read [the course rules](docs/adaptive-course.md). Run `npm run test:course` to check the learning logic.
+Open `/course` or `/placement` for the adaptive 15/20/30-question level check and connected six-level learning path, with XP, coins, checkpoints and spaced reviews. Read [the course rules](docs/adaptive-course.md). Run `npm run test:course` to check the learning logic.
 
 ## Scope and integrations
 
@@ -109,7 +108,7 @@ Open `/course` or `/placement` for the multi-skill level check and 28-lesson lea
 
 `src/pages/` contains routes; `src/components/` contains reusable screens and cards.
 `src/lib/` owns Supabase requests, types, and learning logic.
-`src/data/` contains demo curriculum content. `src/styles/` is split by component and screen size.
+`src/data/` contains course content, question-bank generators and private sandbox samples. `src/styles/` is split by component and screen size.
 The Inter font is served locally; its license is in `public/fonts/OFL.txt`.
 
 ## Deploy

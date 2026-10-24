@@ -1,4 +1,4 @@
-﻿const appRoutes = new Set(['/', '/course', '/placement', '/profile', '/settings', '/learn', '/book', '/classroom', '/lessons', '/practice', '/vocabulary', '/reading', '/writing', '/homework', '/progress', '/resources', '/tutor']);
+const appRoutes = new Set(['/', '/course', '/placement', '/profile', '/settings', '/learn', '/book', '/classroom', '/lessons', '/practice', '/vocabulary', '/reading', '/writing', '/homework', '/progress', '/resources', '/tutor', '/shop', '/developer', '/materials']);
 const destinationKey = 'englishboost-sign-in-next';
 
 export function safeAppDestination(value: string | null | undefined) {

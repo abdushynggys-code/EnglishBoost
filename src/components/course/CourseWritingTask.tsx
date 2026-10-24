@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useI18n } from '../../lib/i18n';
 import type { CourseLesson, CourseLevel } from '../../lib/course/types';
 
@@ -8,7 +8,7 @@ export function CourseWritingTask({ lesson, level, onComplete }: {
   const { t } = useI18n();
   const [writing, setWriting] = useState('');
   const [speaking, setSpeaking] = useState(false);
-  const minWords = level === 'A1' ? 5 : level === 'A2' ? 12 : 20;
+  const minWords = level === 'A1' ? 5 : level === 'A2' ? 12 : level==='B1'?25:level==='B2'?40:70;
   const wordCount = writing.trim().split(/\s+/).filter(Boolean).length;
   return (
     <section className="card course-expression">

@@ -1,18 +1,11 @@
-﻿import { useState } from 'react';
+import { useEffect,useRef,useState } from 'react';
 import { useI18n } from '../../lib/i18n';
 import { languageNames } from '../../lib/preferences';
 import type { Language } from '../../lib/preferences';
-
-export function PublicLanguagePicker() {
-  const { t, preferences, save } = useI18n();
-  const [busy, setBusy] = useState(false);
-  return <select className="public-language" aria-label={t('Language for explanations')} disabled={busy}
-    value={preferences.language} onChange={async (event) => {
-      setBusy(true);
-      await save({ ...preferences, language: event.target.value as Language });
-      setBusy(false);
-    }}>
-    {(Object.keys(languageNames) as Language[]).map((language) =>
-      <option key={language} value={language} lang={language}>{languageNames[language]}</option>)}
-  </select>;
+import { Icon } from '../Icon';
+export function PublicLanguagePicker(){
+ const {t,preferences,save}=useI18n();const [open,setOpen]=useState(false);const [busy,setBusy]=useState(false);const [error,setError]=useState(false);const root=useRef<HTMLDivElement>(null);const trigger=useRef<HTMLButtonElement>(null);
+ useEffect(()=>{if(!open)return;const outside=(e:PointerEvent)=>{if(!root.current?.contains(e.target as Node))setOpen(false);};const escape=(e:KeyboardEvent)=>{if(e.key==='Escape'){setOpen(false);trigger.current?.focus();}};document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);root.current?.querySelector<HTMLInputElement>('input:checked')?.focus();return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};},[open]);
+ async function choose(language:Language){setBusy(true);setError(false);try{const done=await save({...preferences,language});if(done){setOpen(false);trigger.current?.focus();}else setError(true);}finally{setBusy(false);}}
+ return <div className="language-popover" ref={root}><button ref={trigger} type="button" className="language-popover-trigger" aria-label={t('Language for explanations')} aria-expanded={open} aria-controls="public-language-options" onClick={()=>setOpen(!open)}>{languageNames[preferences.language]}<Icon name="down" size={15}/></button>{open&&<fieldset id="public-language-options" className="language-popover-options" disabled={busy}><legend className="sr-only">{t('Language for explanations')}</legend>{(Object.keys(languageNames) as Language[]).map(language=><label key={language} lang={language} className={language===preferences.language?'selected':''}><input type="radio" name="public-language" checked={language===preferences.language} onChange={()=>void choose(language)}/><span>{languageNames[language]}</span>{language===preferences.language&&<Icon name="check" size={15}/>}</label>)}{error&&<p role="alert">{t('Could not save your language. Please try again.')}</p>}</fieldset>}</div>;
 }

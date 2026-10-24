@@ -1,3 +1,6 @@
+import { experiencePhrases } from '../locales/experience';
+import { platformPhrases } from '../locales/platform';
+import { courseExpansionPhrases } from '../locales/courseExpansion';
 import { createContext, useContext } from 'react';
 import type { Preferences } from './preferences';
 import { commonPhrases } from '../locales/common';
@@ -29,7 +32,7 @@ const phrases: PhraseMap = {
   ...readingPhrases,
 };
 const normalizedPhrases = Object.fromEntries(Object.entries(phrases).map(([key, value]) => [key.toLowerCase(), value]));
-const polished = Object.fromEntries(Object.entries({ ...polishedPhrases, ...coursePhrases, ...flowPhrases }).map(([key, value]) => [key.toLowerCase(), value]));
+const polished = Object.fromEntries(Object.entries({ ...polishedPhrases, ...coursePhrases, ...flowPhrases, ...platformPhrases, ...courseExpansionPhrases, ...experiencePhrases }).map(([key, value]) => [key.toLowerCase(), value]));
 const languageIndex = { en: 0, de: 1, ru: 2, kk: 3 } as const;
 export type Translator = (text: string, values?: Record<string, string | number>) => string;
 export type LanguageContextValue = {

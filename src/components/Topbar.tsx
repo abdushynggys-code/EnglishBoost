@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { Icon } from './Icon';
 import { ProfileMenu } from './ProfileMenu';
 import { useI18n } from '../lib/i18n';
-import { languageNames } from '../lib/preferences';
+import { NotificationMenu } from './NotificationMenu';
+import { Streaker } from './Streaker';
 import { pageLabel } from '../lib/navigation';
 
 export function Topbar({ onMenu }: { onMenu: () => void }) {
@@ -21,9 +22,7 @@ export function Topbar({ onMenu }: { onMenu: () => void }) {
         <span className="mobile-topbar-brand">EnglishBoost.</span>
       </div>
       <div className="topbar-right">
-        <Link href="/settings" className="language-shortcut" aria-label={t('Language for explanations')}>
-          {languageNames[preferences.language]}
-        </Link>
+        <Streaker /><NotificationMenu />
         <ProfileMenu />
       </div>
     </header>

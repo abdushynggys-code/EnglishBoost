@@ -1,4 +1,6 @@
-﻿import { Link } from 'wouter';
+import { usePlatform } from '../lib/platform';
+import { GameProgress } from '../components/GameProgress';
+import { Link } from 'wouter';
 import { Card } from '../components/Card';
 import { HomeProgress } from '../components/HomeProgress';
 import { Icon } from '../components/Icon';
@@ -10,8 +12,8 @@ import { NextLessonCard } from '../components/course/NextLessonCard';
 export function HomePage() {
   const { t, preferences } = useI18n();
   const { data, profile, demo } = useLearning();
+  const {state}=usePlatform();const connected=profile?.role==='tutor'||state.classes.length>0;
   const name = profile?.full_name.trim().split(/\s+/)[0] || (demo ? 'Alex' : '');
-  const writing = preferences.learning_track === 'language_arts';
   const submitted = new Set(data.submissions.map((submission) => submission.homework_id));
   const pending = data.homework.filter((homework) => !submitted.has(homework.id))
     .sort((first, second) => first.due_at.localeCompare(second.due_at));
@@ -23,20 +25,20 @@ export function HomePage() {
         <p>{t('A little practice. Real progress.')}</p>
       </div>
       <NextLessonCard home />
-      <HomeProgress />
+      <GameProgress /><HomeProgress />
       <div className="home-section-heading">
         <div><h2>{t('Keep learning')}</h2><p>{t('Pick up where you left off.')}</p></div>
         <Link href="/learn" className="text-link">{t('Explore activities')}<Icon name="arrow" size={16} /></Link>
       </div>
       <div className="home-shortcuts">
-        <Link href="/book">
+        <Link href="/materials">
           <span className="shortcut-icon"><Icon name="book" size={24} /></span>
-          <div><strong>{t(writing ? 'My learning' : 'My Book')}</strong><small>{t(writing ? 'Open my learning' : 'Open my book')}</small></div>
+          <div><strong>{t('Material library')}</strong><small>{t('Explore a useful lesson')}</small></div>
           <Icon name="chevron" size={17} />
         </Link>
-        <Link href="/classroom">
+        <Link href={connected?'/classroom':'/settings'}>
           <span className="shortcut-icon"><Icon name="tutor" size={24} /></span>
-          <div><strong>{t('Live Classroom')}</strong><small>{t('Join your classroom')}</small></div>
+          <div><strong>{t(connected?'Live Classroom':'Learn your way')}</strong><small>{t(connected?'Join your classroom':'Independent learning, optional class code')}</small></div>
           <Icon name="chevron" size={17} />
         </Link>
         <Link href="/vocabulary">
@@ -45,7 +47,7 @@ export function HomePage() {
           <Icon name="chevron" size={17} />
         </Link>
       </div>
-      {pending.length > 0 && (
+      {connected && pending.length > 0 && (
         <Card title={t('Homework')} action={<Link href="/homework" className="text-link">{t('View all')}<Icon name="arrow" size={15} /></Link>}>
           <div className="quiet-assignment-list">
             {pending.slice(0, 2).map((homework) => (

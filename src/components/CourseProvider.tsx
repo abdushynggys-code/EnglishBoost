@@ -6,7 +6,7 @@ import { emptyCourse, loadCourse, saveLesson, savePlacement } from '../lib/cours
 import type { LessonCompletion, PlacementResult, ReviewCard } from '../lib/course/types';
 
 export function CourseProvider({ children }: { children: ReactNode }) {
-  const { demo, session, loading: workspaceLoading, setNotice } = useLearning();
+  const { demo, preview, session, loading: workspaceLoading, setNotice } = useLearning();
   const [state, setState] = useState(emptyCourse);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -25,10 +25,11 @@ export function CourseProvider({ children }: { children: ReactNode }) {
     finally { if (version === generation.current) { setLoading(false); setLoadedUser(userId); } }
   }, [userId]);
   useEffect(() => {
+    if(preview){setLoading(false);return;}
     setState(emptyCourse());
     if (!workspaceLoading) void refresh();
     return () => { generation.current++; };
-  }, [userId, workspaceLoading, refresh]);
+  }, [userId, workspaceLoading, refresh,preview]);
   async function place(result: PlacementResult) {
     const version = generation.current;
     try {
@@ -57,5 +58,5 @@ export function CourseProvider({ children }: { children: ReactNode }) {
       return true;
     } catch { setNotice('Could not save your course. Please try again.'); return false; }
   }
-  return <CourseContext.Provider value={{ state, loading: loading || workspaceLoading || (!!userId && loadedUser !== userId), error, refresh, savePlacement: place, saveLesson: complete }}>{children}</CourseContext.Provider>;
+  return <CourseContext.Provider value={{ state, loading: loading || workspaceLoading || (!!userId && loadedUser !== userId), error, refresh, setSandboxState:(next)=>{if(preview&&demo){generation.current++;setState(next);setLoading(false);}}, savePlacement: place, saveLesson: complete }}>{children}</CourseContext.Provider>;
 }

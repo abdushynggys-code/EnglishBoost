@@ -1,4 +1,4 @@
-export type CourseLevel = 'A1' | 'A2' | 'B1';
+export type CourseLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
 export type CourseSkill = 'grammar' | 'vocabulary' | 'reading' | 'listening';
 export type CourseInterest = 'everyday' | 'travel' | 'stories' | 'school';
 export type StudySettings = { daily_minutes: 5 | 10 | 15; interest: CourseInterest };
@@ -35,6 +35,7 @@ export type PlacementResult = {
 };
 export type LessonCompletion = {
   attempts?: number;
+  run_id?: string;
   response?: string;
   lesson_id: string;
   completed_at: string;

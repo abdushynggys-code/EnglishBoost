@@ -1,3 +1,4 @@
+import { GameProgress } from '../components/GameProgress';
 import { useI18n } from '../lib/i18n';
 import { Link } from 'wouter';
 import { ProfileCard } from '../components/ProfileCard';
@@ -16,6 +17,7 @@ export function ProfilePage() {
         title={t('A space that’s all yours.')}
         description={t('Your profile and your place in the EnglishBoost journey.')}
       />
+      <GameProgress />
       {session ? (
         <>
           <ProfileCard

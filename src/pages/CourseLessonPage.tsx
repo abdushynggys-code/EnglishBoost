@@ -1,8 +1,9 @@
-﻿import { useRef, useState } from 'react';
+import { buildQuestionBank,shuffled } from '../data/course/questionBank';
+import { useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { useCourse } from '../lib/course/context';
 import { useI18n } from '../lib/i18n';
-import { buildCourseUnits } from '../data/course/units';
+import { buildLearningPath } from '../data/course/units';
 import { isLessonUnlocked, localDay, shouldStretch } from '../lib/course/progress';
 import type { CourseLesson } from '../lib/course/types';
 import { dueQuestions } from '../lib/course/reviews';
@@ -18,11 +19,13 @@ export function CourseLessonPage({ params }: { params: { id: string } }) {
   if (loading) return <PageLoading />;
   if (error) return <section className="card error-state"><p>{t(error)}</p><button onClick={()=>void refresh()}>{t('Try again')}</button></section>;
   if (!state.placement) return <section className="card empty-state"><h1>{t('Find your starting point')}</h1><Link className="button" href="/placement">{t('Start level check')}</Link></section>;
-  const units = buildCourseUnits(state.placement.level,state.placement.settings.interest);
+  const units = buildLearningPath(state.placement.level,state.placement.settings.interest,state.placement.id);
   const review: CourseLesson = {id:`review:${localDay()}`,title:'Remember and review',description:'Revisit the words and patterns that are ready today.',kind:'review',questions:dueQuestions(units,state.reviews)};
   if (params.id==='review' && !reviewSnapshot.current && review.questions.length) reviewSnapshot.current=review;
-  const lesson = params.id==='review'?(reviewSnapshot.current ?? review):units.flatMap((unit)=>unit.lessons).find((item)=>item.id===params.id);
-  const available = lesson && (params.id==='review'?lesson.questions.length>0:isLessonUnlocked(units,state.completions,lesson.id));
+  const finished=state.completions.some(item=>item.lesson_id===`C2-${state.placement!.settings.interest}-unit4-day7`&&item.passed);
+  const challenge:CourseLesson={id:`challenge:${localDay()}`,kind:'checkpoint',title:'Beyond the path',description:'A fresh advanced challenge. One reward per day.',questions:shuffled(buildQuestionBank('C2'),`${state.placement.id}-${localDay()}-${run}`).slice(0,15).map(q=>q.skill==='grammar'?{...q,type:'blank',options:[]}:q)};
+  const lesson = params.id==='challenge'?challenge:params.id==='review'?(reviewSnapshot.current ?? review):units.flatMap((unit)=>unit.lessons).find((item)=>item.id===params.id);
+  const available = lesson && (params.id==='challenge'?finished:params.id==='review'?lesson.questions.length>0:isLessonUnlocked(units,state.completions,lesson.id));
   if (!lesson||!available) return <section className="card empty-state"><h1>{t(params.id==='review'?'No reviews due yet.':'Complete the previous lesson')}</h1><Link className="button" href="/course">{t('Back to my path')}</Link></section>;
   const stretch = shouldStretch(state.completions) && (lesson.kind==='grammar' || lesson.kind==='practice');
   const activeLesson = stretch ? {...lesson,questions:lesson.questions.map((question,index)=>index===0&&question.skill==='grammar'?{...question,type:'blank' as const,options:[]}:question)} : lesson;

@@ -7,7 +7,7 @@ import { useLearning } from '../lib/learningContext';
 import { useClickSound } from '../lib/useClickSound';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const { profile, session, demo, setProfile, setNotice } = useLearning();
+  const { profile, session, demo, preview, setProfile, setNotice } = useLearning();
   const [preferences, setPreferences] = useState(() => readPreferences() ?? defaultPreferences);
   const [onboarded, setOnboarded] = useState(() => !!readPreferences());
   const synced = useRef('');
@@ -16,7 +16,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     async (value: Preferences) => {
       try {
         if (session && profile && !demo) await savePreferences(session.user.id, value);
-        cachePreferences(value);
+        if(!preview)cachePreferences(value);
         setPreferences(value);
         setOnboarded(true);
         if (profile) setProfile((current) => current && { ...current, ...value });
@@ -26,7 +26,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         return false;
       }
     },
-    [session, profile, demo, setProfile, setNotice],
+    [session, profile, demo, preview, setProfile, setNotice],
   );
 
   useEffect(() => {

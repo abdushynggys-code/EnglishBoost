@@ -60,7 +60,7 @@ export function Auth() {
       <p className="auth-subtitle">
         {mode === 'signin'
           ? t('Sign in and pick up where you left off.')
-          : t(role === 'tutor' ? 'Create your account to get started. Tutor access requires approval.' : 'Create an account. Your tutor will approve your workspace.')}
+          : t(role === 'tutor' ? 'Create your account to get started. Tutor access requires approval.' : 'Create an account and start learning at your own pace.')}
       </p>
       <AccountRolePicker value={role} onChange={setRole} disabled={busy || googleBusy} />
       <button type="button" className="google-sign-in" onClick={handleGoogleSignIn} disabled={!role || busy || googleBusy}>

@@ -1,3 +1,4 @@
+import { usePlatform } from '../lib/platform';
 import { Link, useLocation } from 'wouter';
 import { Icon } from './Icon';
 import { navigation, isPracticePath } from '../lib/navigation';
@@ -9,6 +10,9 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
   const [location] = useLocation();
   const { t, preferences } = useI18n();
   const { profile } = useLearning();
+  const {state}=usePlatform();
+  const classAccess=profile?.role==='tutor'||state.classes.length>0;
+  const items=profile?.role==='tutor'?[{href:'/tutor',label:'Teaching desk',icon:'tutor' as const},...navigation.filter(item=>['/classroom','/course','/shop'].includes(item.href))]:navigation;
   const drawer = useNavigationDrawer(open, onClose);
   return (
     <>
@@ -27,7 +31,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         </Link>
 
         <nav aria-label={t('Main navigation')}>
-          {navigation.map((item) => {
+          {items.filter(item=>classAccess||!['/classroom','/homework'].includes(item.href)).map((item) => {
             const active =
               item.href === '/'
                 ? location === '/'
@@ -58,17 +62,6 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
           })}
         </nav>
         <div className="sidebar-bottom">
-          {profile?.role === 'tutor' && (
-            <Link
-              href="/tutor"
-              className={`nav-item ${location.startsWith('/tutor') ? 'active' : ''}`}
-              onClick={onClose}
-            >
-              <Icon name="tutor" />
-              <span>{t('Tutor Workspace')}</span>
-              <Icon name="external" size={14} />
-            </Link>
-          )}
           <Link href="/settings" className={`nav-item ${location === '/settings' ? 'active' : ''}`} onClick={onClose}>
             <Icon name="settings" />
             <span>{t('Settings')}</span>

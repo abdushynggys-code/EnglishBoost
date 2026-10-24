@@ -6,6 +6,7 @@ export type CourseContextValue = {
   loading: boolean;
   error: string;
   refresh: () => Promise<void>;
+  setSandboxState: (state:CourseState) => void;
   savePlacement: (result: PlacementResult) => Promise<boolean>;
   saveLesson: (completion: LessonCompletion, reviews: ReviewCard[]) => Promise<boolean>;
 };

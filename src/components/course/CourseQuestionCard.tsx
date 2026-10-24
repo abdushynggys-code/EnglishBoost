@@ -1,3 +1,4 @@
+import { normalizeAnswer } from '../../lib/course/scoring';
 ﻿import { useState } from 'react';
 import type { CourseQuestion } from '../../lib/course/types';
 import { useI18n } from '../../lib/i18n';
@@ -15,7 +16,7 @@ export function CourseQuestionCard({ question, onAnswer, assessment = false }: {
   const usedHelp = assisted || (!!question.audio && !listened);
   const [checked, setChecked] = useState(false);
   const [tokens, setTokens] = useState<number[]>([]);
-  const correct = response.trim().toLowerCase().replace(/[.!?]$/,'') === question.answer.toLowerCase().replace(/[.!?]$/,'');
+  const correct = normalizeAnswer(response) === normalizeAnswer(question.answer);
   function submit() { if (assessment) onAnswer(response, usedHelp, false); else setChecked(true); }
   return <section className="course-question" aria-labelledby="course-prompt">
     {question.passage && <p className="course-passage" lang="en">{question.passage}</p>}

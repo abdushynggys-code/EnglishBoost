@@ -38,18 +38,13 @@ export function PreferencesForm() {
       <div className="focus-choices">
         <button type="button" className={`focus-choice ${draft.learning_track === 'access2' ? 'selected' : ''}`}
           onClick={() => setDraft({ ...draft, learning_track: 'access2' })} aria-pressed={draft.learning_track === 'access2'}>
-          <Icon name="book" /><span><strong>{t('Learning English')}</strong><small>{t('School English · Access 2')}</small></span>
+          <Icon name="book" /><span><strong>{t('Learning English')}</strong><small>{t('Your personal English course')}</small></span>
         </button>
         <button type="button" className={`focus-choice ${draft.learning_track === 'language_arts' ? 'selected' : ''}`}
           onClick={() => setDraft({ ...draft, learning_track: 'language_arts' })} aria-pressed={draft.learning_track === 'language_arts'}>
           <Icon name="pen" /><span><strong>{t('Clear writing & summarizing')}</strong><small>{t('Language arts · including native speakers')}</small></span>
         </button>
       </div>
-      {draft.learning_track === 'access2' && <label className="field spaced">{t('Practice level')}
-        <select value={draft.learning_level} onChange={(event) => setDraft({ ...draft, learning_level: event.target.value as 'A2' | 'B1' })}>
-          <option value="A2">{t('Start gently · A1–A2')}</option><option value="B1">{t('Step up · B1')}</option>
-        </select>
-      </label>}
       <label className="sound-setting"><input type="checkbox" checked={draft.sound_effects}
         onChange={(event) => setDraft({ ...draft, sound_effects: event.target.checked })} />
         <span><strong>{t('Click sounds')}</strong><small>{t('Soft clicks and pops. Off by default.')}</small></span>

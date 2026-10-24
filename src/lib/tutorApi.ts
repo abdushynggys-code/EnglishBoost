@@ -1,7 +1,10 @@
+import { isSandboxMode } from './sandbox';
+import { sandboxProfile } from './sandboxFixtures';
 import { supabase } from './supabase';
 import type { Profile } from './types';
 
 export async function loadStudents() {
+  if(isSandboxMode())return [sandboxProfile('student')];
   const { data, error } = await supabase
     .from('tutor_students')
     .select('student:profiles!tutor_students_user_id_fkey(*)')
@@ -11,6 +14,7 @@ export async function loadStudents() {
 }
 
 export async function loadInvitations() {
+  if(isSandboxMode())return [];
   const { data, error } = await supabase
     .from('student_invitations')
     .select('email, created_at')

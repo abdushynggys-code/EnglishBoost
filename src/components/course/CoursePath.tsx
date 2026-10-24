@@ -1,4 +1,5 @@
-﻿import { Link } from 'wouter';
+import { levelNumber } from '../../lib/course/levels';
+import { Link } from 'wouter';
 import type { CourseUnit, LessonCompletion } from '../../lib/course/types';
 import { isLessonUnlocked } from '../../lib/course/progress';
 import { useI18n } from '../../lib/i18n';
@@ -11,8 +12,8 @@ export function CoursePath({ units, completions }: { units: CourseUnit[]; comple
   const nextId = units.flatMap((unit) => unit.lessons).find((lesson) => !completions.some((item) => item.lesson_id === lesson.id && item.passed))?.id;
   return <div className="course-path">{units.map((unit,index) => {
     const active = unit.lessons.some((lesson) => isLessonUnlocked(units,completions,lesson.id) && !completions.some((item)=>item.lesson_id===lesson.id&&item.passed));
-    return <details key={unit.id} className="course-unit" data-unit={index+1} open={active}>
-    <summary><span className="eyebrow">{t('Unit')} {index+1} · {unit.level}</span><h2>{t(unit.title)}</h2><p>{t(unit.description)}</p></summary>
+    return <details id={index%4===0?`course-level-${unit.level}`:undefined} key={unit.id} className="course-unit" data-unit={index+1} open={active}>
+    <summary><span className="eyebrow">{t('Level')} {levelNumber(unit.level)} · {t('Module')} {index%4+1}</span><h2>{t(unit.title)}</h2><span className="cefr-caption">{unit.level} · {t('CEFR reference')}</span><p>{t(unit.description)}</p></summary>
     <ol>{unit.lessons.map((lesson,day) => {
       const complete = completions.some((item) => item.lesson_id===lesson.id && item.passed);
       const open = isLessonUnlocked(units,completions,lesson.id);

@@ -1,3 +1,6 @@
+import { sandboxProfile } from '../lib/sandboxFixtures';
+import { supabase } from '../lib/supabase';
+import { setSandboxMode } from '../lib/sandbox';
 import { saveAccountIntent } from '../lib/accountIntent';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -49,6 +52,7 @@ export function LearningProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (authLoading) return;
+    setSandboxMode(false);
     setPreview(false);
     void refresh();
     return () => {
@@ -61,14 +65,18 @@ export function LearningProvider({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(timer);
   }, [notice]);
 
-  const exploreDemo = async () => {
+  const exploreDemo = async (role:'student'|'tutor'='student') => {
+    if (!userId) throw new Error('Developer access required');
+    const access=await supabase.from('developer_accounts').select('user_id').eq('user_id',userId).maybeSingle();
+    if(access.error||!access.data) throw new Error('Developer access required');
     const version = ++request.current;
     setLoading(true);
     try {
       const { demoWorkspace } = await import('../data/workspace');
       if (version !== request.current) return;
+      setSandboxMode(true);
       setPreview(true);
-      setProfile(null);
+      setProfile(sandboxProfile(role));
       setData(demoWorkspace());
       setError('');
       setLoadedUserId(userId);
@@ -94,6 +102,7 @@ export function LearningProvider({ children }: { children: ReactNode }) {
         refresh,
         setProfile,
         exploreDemo,
+        exitSandbox:async()=>{setSandboxMode(false);setPreview(false);await refresh();},
       }}
     >
       {children}

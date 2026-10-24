@@ -5,6 +5,7 @@ import type { IconName } from '../components/Icon';
 import { useI18n } from '../lib/i18n';
 
 const activities: { path: string; title: string; description: string; icon: IconName }[] = [
+  { path: '/materials',title:'Material library',description:'Choose any module for extra practice.',icon:'book' },
   { path: '/course', title: 'My course', description: 'One small lesson. One step forward.', icon: 'target' },
   { path: '/summarize', title: 'Get to the Point!', description: 'Say what matters. Keep your meaning.', icon: 'pen' },
   { path: '/vocabulary', title: 'Vocabulary Games', description: 'Learn words, then use them.', icon: 'vocabulary' },

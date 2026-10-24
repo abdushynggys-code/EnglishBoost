@@ -1,7 +1,7 @@
-﻿import type { CourseLevel, CourseSkill, CourseUnit, LessonCompletion, PlacementAnswer, ReviewCard } from './types';
+import type { CourseLevel, CourseSkill, CourseUnit, LessonCompletion, PlacementAnswer, ReviewCard } from './types';
 
 export const courseSkills: CourseSkill[] = ['grammar', 'vocabulary', 'reading', 'listening'];
-const levels: CourseLevel[] = ['A1', 'A2', 'B1'];
+const levels: CourseLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 export const localDay = (date = new Date()) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
 export function estimatePlacement(answers: PlacementAnswer[]) {
@@ -30,7 +30,7 @@ export function courseStats(completions: LessonCompletion[], now = new Date()) {
   if (!dates.has(localDay(day))) day.setDate(day.getDate() - 1);
   let streak = 0;
   while (dates.has(localDay(day))) { streak++; day.setDate(day.getDate() - 1); }
-  return { xp: passed.reduce((sum, completion) => sum + completion.xp, 0), streak, completed: passed.filter((c) => !c.lesson_id.startsWith('review:')).length };
+  return { xp: passed.reduce((sum, completion) => sum + completion.xp, 0), streak, completed: passed.filter((c) => !c.lesson_id.startsWith('review:')&&!c.lesson_id.startsWith('challenge:')).length };
 }
 
 export function isLessonUnlocked(units: CourseUnit[], completions: LessonCompletion[], lessonId: string) {
