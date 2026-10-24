@@ -13,6 +13,7 @@ import { readingPhrases } from '../locales/reading';
 import { kazakhPhrases } from '../locales/kk';
 import { polishedPhrases } from '../locales/polish';
 import { coursePhrases } from '../locales/course';
+import { flowPhrases } from '../locales/flow';
 
 export type PhraseMap = Record<string, readonly [string, string]>;
 const phrases: PhraseMap = {
@@ -28,7 +29,7 @@ const phrases: PhraseMap = {
   ...readingPhrases,
 };
 const normalizedPhrases = Object.fromEntries(Object.entries(phrases).map(([key, value]) => [key.toLowerCase(), value]));
-const polished = Object.fromEntries(Object.entries({ ...polishedPhrases, ...coursePhrases }).map(([key, value]) => [key.toLowerCase(), value]));
+const polished = Object.fromEntries(Object.entries({ ...polishedPhrases, ...coursePhrases, ...flowPhrases }).map(([key, value]) => [key.toLowerCase(), value]));
 const languageIndex = { en: 0, de: 1, ru: 2, kk: 3 } as const;
 export type Translator = (text: string, values?: Record<string, string | number>) => string;
 export type LanguageContextValue = {

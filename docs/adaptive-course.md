@@ -1,5 +1,9 @@
 ﻿# Adaptive English course
 
+New visitors see an interactive sample at `/`, then sign in before opening the app. Sign-in remembers the requested app route across email or Google authentication. `/demo` explicitly opens a temporary preview; anonymous visits no longer load sample learning data automatically.
+
+Home and the course path link directly to the first incomplete, unlocked lesson. Lesson results save before opening the next lesson; a failed save keeps the result available to retry. Finish for now saves and returns to the course path. Motion effects respect reduced-motion preferences.
+
 The course starts at `/placement`, with 12 adaptive questions across grammar, vocabulary, reading, and listening. It starts each skill at A2, adjusts the next question, and records assisted or skipped answers separately. A level needs two correct independent answers at that level or above. This gives a conservative starting estimate, not a CEFR certificate.
 
 Writing and speaking prompts are practice samples. The app does not invent a pronunciation or writing score. Listening uses the browser's English speech voice, requires completed playback for an independent answer, and offers a transcript when audio is unavailable.

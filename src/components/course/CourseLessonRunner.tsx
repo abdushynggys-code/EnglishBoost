@@ -1,15 +1,20 @@
-﻿import { useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'wouter';
 import { CourseQuestionCard } from './CourseQuestionCard';
 import { CourseWritingTask } from './CourseWritingTask';
 import { CourseLessonResult } from './CourseLessonResult';
 import { useI18n } from '../../lib/i18n';
 import { useCourse } from '../../lib/course/context';
+import { nextCourseStep } from '../../lib/course/nextStep';
 import { nextReview } from '../../lib/course/progress';
 import type { CourseLesson } from '../../lib/course/types';
 
 const normalize = (value: string) => value.trim().toLowerCase().replace(/[.!?]$/, '');
 export function CourseLessonRunner({ lesson, onRetry }: { lesson: CourseLesson; onRetry: () => void }) {
   const { t } = useI18n();
+  const [, navigate] = useLocation();
+  const mounted = useRef(true);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   const { state, saveLesson } = useCourse();
   const [intro, setIntro] = useState(!!lesson.text);
   const [answers, setAnswers] = useState<{ id: string; correct: boolean; independent: boolean }[]>([]);
@@ -24,7 +29,11 @@ export function CourseLessonRunner({ lesson, onRetry }: { lesson: CourseLesson; 
   const passed = lesson.kind !== 'checkpoint' || (total >= 5 && score / total >= 0.8);
   const xp = replay || !passed ? 0 : lesson.id.startsWith('review:') ? 5 : lesson.kind === 'checkpoint' ? 30 : 10;
 
-  async function finish() {
+  const next = passed ? nextCourseStep({ ...state, completions: [
+    ...state.completions.filter((item) => item.lesson_id !== lesson.id),
+    { lesson_id: lesson.id, completed_at: new Date().toISOString(), score, total, passed, xp },
+  ] }) : null;
+  async function finish(destination?: string) {
     setBusy(true);
     setFailed(false);
     const reviews = answers.map((answer) => nextReview(
@@ -34,6 +43,8 @@ export function CourseLessonRunner({ lesson, onRetry }: { lesson: CourseLesson; 
       lesson_id: lesson.id, completed_at: new Date().toISOString(), score, total, xp, passed,
       ...(writing ? { response: writing } : {}),
     }, reviews);
+    if (!mounted.current) return;
+    if (done && destination) { navigate(destination); return; }
     setBusy(false);
     setSaved(done);
     setFailed(!done);
@@ -65,5 +76,5 @@ export function CourseLessonRunner({ lesson, onRetry }: { lesson: CourseLesson; 
   );
   return <CourseLessonResult score={score} total={total} passed={passed} xp={xp} replay={replay}
     busy={busy} saved={saved} failed={failed} checkpoint={lesson.kind === 'checkpoint'}
-    onSave={() => void finish()} onRetry={onRetry} />;
+    nextHref={next?.href} onSave={(destination) => void finish(destination)} onRetry={onRetry} />;
 }

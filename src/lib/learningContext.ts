@@ -9,13 +9,14 @@ export type LearningState = {
   session: Session | null;
   profile: Profile | null;
   demo: boolean;
+  preview: boolean;
   loading: boolean;
   error: string;
   notice: string;
   setNotice: (message: string) => void;
   setProfile: Dispatch<SetStateAction<Profile | null>>;
   refresh: () => Promise<void>;
-  exploreDemo: () => void;
+  exploreDemo: () => Promise<void>;
 };
 export const LearningContext = createContext<LearningState | null>(null);
 

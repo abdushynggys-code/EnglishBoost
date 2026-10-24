@@ -5,12 +5,11 @@ import { Icon } from '../components/Icon';
 import { useI18n } from '../lib/i18n';
 import { useLearning } from '../lib/learningContext';
 import { shortDate } from '../lib/dateFormat';
-import { useCourse } from '../lib/course/context';
+import { NextLessonCard } from '../components/course/NextLessonCard';
 
 export function HomePage() {
   const { t, preferences } = useI18n();
   const { data, profile, demo } = useLearning();
-  const { state: course } = useCourse();
   const name = profile?.full_name.trim().split(/\s+/)[0] || (demo ? 'Alex' : '');
   const writing = preferences.learning_track === 'language_arts';
   const submitted = new Set(data.submissions.map((submission) => submission.homework_id));
@@ -23,29 +22,7 @@ export function HomePage() {
         <h1>{name ? t('Welcome, {name}.', { name }) : t('Welcome back.')}</h1>
         <p>{t('A little practice. Real progress.')}</p>
       </div>
-      <section className="home-focus" aria-labelledby="focus-title">
-        <div className="home-focus-copy">
-          <p className="eyebrow"><span className="focus-dot" />{t('Your next step')}</p>
-          <h2 id="focus-title">{t(course.placement ? 'Keep your momentum.' : 'Find your starting point')}</h2>
-          <p>{t('Find your starting level, then build your English in small daily lessons.')}</p>
-          <div className="home-focus-actions">
-            <Link href={course.placement ? '/course' : '/placement'} className="button">
-              {t(course.placement ? 'Continue learning' : 'Start level check')}<Icon name="arrow" size={17} />
-            </Link>
-            <span><Icon name="clock" size={15} />{t('At your own pace')}</span>
-          </div>
-        </div>
-        <div className="focus-art" aria-hidden="true">
-          <div className="focus-art-orbit" />
-          <div className="focus-art-page">
-            <span className="focus-art-icon"><Icon name={writing ? 'pen' : 'book'} size={36} /></span>
-            <span className="art-line" /><span className="art-line short" />
-            <span className="art-check"><Icon name="check" size={18} /><i /></span>
-            <span className="art-check"><Icon name="check" size={18} /><i /></span>
-          </div>
-          <span className="focus-art-badge"><Icon name="sparkles" size={24} /></span>
-        </div>
-      </section>
+      <NextLessonCard home />
       <HomeProgress />
       <div className="home-section-heading">
         <div><h2>{t('Keep learning')}</h2><p>{t('Pick up where you left off.')}</p></div>

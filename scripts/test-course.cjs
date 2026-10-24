@@ -8,6 +8,8 @@ require.extensions['.ts'] = (module, filename) => module._compile(ts.transpileMo
 const { estimatePlacement, nextReview, courseStats, isLessonUnlocked, shouldStretch } = require('../src/lib/course/progress.ts');
 const { nextPlacementQuestion } = require('../src/lib/course/placement.ts');
 const { buildCourseUnits, courseQuestionBank } = require('../src/data/course/units.ts');
+const { nextCourseStep } = require('../src/lib/course/nextStep.ts');
+const { safeAppDestination, signInPath } = require('../src/lib/authNavigation.ts');
 const { placementQuestions } = require('../src/data/course/placement.ts');
 function diagnose(correct, assisted=false) {
   const answers=[];
@@ -61,4 +63,20 @@ assert.ok(!shouldStretch(wins.map((win,index)=>index===0?{...win,attempts:2}:win
 assert.ok(!shouldStretch([...wins,completion('A2-everyday-unit3-day7',false)]));
 const stats=courseStats([completion('one'),{...completion('two'),completed_at:new Date(2026,9,23,12).toISOString()},completion('failed',false)],new Date(2026,9,24,17));
 assert.equal(stats.streak,2);assert.equal(stats.xp,20);assert.equal(stats.completed,2);
+
+const placement={id:'test',created_at:new Date().toISOString(),level:'A2',settings:{interest:'everyday',daily_minutes:10},answers:[],writing_sample:'',speaking_practised:false,skill_levels:{grammar:'A2',vocabulary:'A2',reading:'A2',listening:'A2'}};
+assert.equal(nextCourseStep({placement:null,completions:[],reviews:[]}),null);
+const course=buildCourseUnits('A2','everyday');const sequence=course.flatMap(unit=>unit.lessons);
+assert.equal(nextCourseStep({placement,completions:[],reviews:[]}).href,'/course/A2-everyday-unit1-day1');
+assert.equal(nextCourseStep({placement,completions:[completion(sequence[0].id)],reviews:[]}).lesson.id,sequence[1].id);
+const firstSix=sequence.slice(0,6).map(lesson=>completion(lesson.id));
+assert.equal(nextCourseStep({placement,completions:[...firstSix,completion(sequence[6].id,false)],reviews:[]}).lesson.id,sequence[6].id);
+assert.equal(nextCourseStep({placement,completions:sequence.map(lesson=>completion(lesson.id)),reviews:[]}),null);
+for(const invalid of ['https://example.com','//example.com','/\\example.com','/sign-in','javascript:alert(1)'])assert.equal(safeAppDestination(invalid),'/course');
+assert.equal(safeAppDestination('/course/A2-everyday-unit1-day2'),'/course/A2-everyday-unit1-day2');
+assert.equal(signInPath('/reading/story?from=course'),'/sign-in?next=%2Freading%2Fstory%3Ffrom%3Dcourse');
+
+const { flowPhrases } = require('../src/locales/flow.ts');
+for(const translations of Object.values(flowPhrases)) for(const text of translations) assert.ok(!/\?{2,}/.test(text),'Translation text lost its characters');
+assert.match(flowPhrases['Start next lesson'][2],/[\u0400-\u04ff]/);
 console.log('Course checks passed: placement, assisted answers, SRS, 12 course variants, lesson gates, checkpoints, difficulty, XP, streaks.');

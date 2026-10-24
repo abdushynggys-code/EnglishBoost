@@ -48,7 +48,7 @@ export function Auth() {
 
   return (
     <section className="card">
-      <h2>{mode === 'signin' ? t('Welcome to your next chapter.') : t('Your journey starts here.')}</h2>
+      <h1>{t(mode === 'signin' ? 'Sign in to keep learning' : 'Create your account')}</h1>
       <p className="auth-subtitle">
         {mode === 'signin'
           ? t('Sign in and pick up where you left off.')

@@ -1,28 +1,34 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link, Redirect, useLocation, useSearch } from 'wouter';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { Icon } from './Icon';
 import { useLearning } from '../lib/learningContext';
 import { useI18n } from '../lib/i18n';
-import { LanguageWelcome } from './LanguageWelcome';
+import { signInPath } from '../lib/authNavigation';
 import { MobileNavigation } from './MobileNavigation';
+import { PageLoading } from './PageLoading';
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const search = useSearch();
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const { t, onboarded } = useI18n();
-  const { data, loading, error, refresh, session, profile, demo, exploreDemo, notice, setNotice } = useLearning();
+  const { t } = useI18n();
+  const { data, loading, error, refresh, session, profile, demo, preview, exploreDemo, notice, setNotice } = useLearning();
   const dataAvailable = data.lessons.length > 0;
   useEffect(() => {
     setMenuOpen(false);
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.getElementById('main-content')?.focus({ preventScroll: true });
   }, [location]);
-  if (location === '/sign-in') return <>{children}</>;
-  if (!loading && !onboarded) return <LanguageWelcome />;
+  if (location === '/sign-in' || location === '/demo') return <>{children}</>;
+  if (!session && !preview) {
+    if (location === '/') return <>{children}</>;
+    if (loading) return <PageLoading />;
+    return <Redirect to={signInPath(location + (search ? `?${search}` : ''))} replace />;
+  }
   const pending = !demo && profile && !profile.approved && !['/profile', '/settings'].includes(location);
   return (
     <div className="app-shell">

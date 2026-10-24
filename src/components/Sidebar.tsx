@@ -31,6 +31,8 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             const active =
               item.href === '/'
                 ? location === '/'
+                : item.href === '/course'
+                  ? location.startsWith('/course') || location === '/placement'
                 : item.href === '/learn'
                   ? isPracticePath(location)
                   : location.startsWith(item.href);

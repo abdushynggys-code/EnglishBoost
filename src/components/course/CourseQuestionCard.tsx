@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react';
 import type { CourseQuestion } from '../../lib/course/types';
 import { useI18n } from '../../lib/i18n';
+import { Icon } from '../Icon';
 import { AudioPrompt } from './AudioPrompt';
 
 export function CourseQuestionCard({ question, onAnswer, assessment = false }: {
@@ -26,7 +27,7 @@ export function CourseQuestionCard({ question, onAnswer, assessment = false }: {
       <button className="text-button" disabled={checked} onClick={() => { setTokens([]); setResponse(''); }}>{t('Start again')}</button>
     </> : question.type === 'blank' ? <label className="field">{t('Your answer')}<input lang="en" value={response} disabled={checked} autoComplete="off" onChange={(event) => setResponse(event.target.value)} /></label> :
       <div className="course-options" role="radiogroup" aria-label={t('Answer options')}>
-        {question.options.map((option) => <button type="button" role="radio" aria-checked={response === option} key={option} disabled={checked} className={`course-option ${response === option ? 'selected' : ''}`} onClick={() => setResponse(option)} lang="en">{option}</button>)}
+        {question.options.map((option) => <button type="button" role="radio" aria-checked={response === option} key={option} disabled={checked} className={`course-option ${response === option ? 'selected' : ''} ${checked && option === question.answer ? 'answer-is-correct' : checked && response === option ? 'answer-needs-review' : ''}`} onClick={() => setResponse(option)} lang="en">{option}{checked && option === question.answer && <Icon name="check" size={18} />}</button>)}
       </div>}
     {checked && <div className={`course-feedback ${correct ? 'correct' : ''}`} role="status"><strong>{t(correct ? 'Correct' : 'Keep practising')}</strong><p lang="en">{question.explanation}</p>{!correct && <p lang="en">{question.answer}</p>}</div>}
     <div className="button-row spaced">

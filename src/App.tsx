@@ -8,7 +8,8 @@ import { CourseProvider } from './components/CourseProvider';
 const CoursePage = lazy(() => import('./pages/CoursePage').then((module) => ({ default: module.CoursePage })));
 const PlacementPage = lazy(() => import('./pages/PlacementPage').then((module) => ({ default: module.PlacementPage })));
 const CourseLessonPage = lazy(() => import('./pages/CourseLessonPage').then((module) => ({ default: module.CourseLessonPage })));
-const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })));
+const RootPage = lazy(() => import('./pages/RootPage').then((module) => ({ default: module.RootPage })));
+const DemoPage = lazy(() => import('./pages/DemoPage').then((module) => ({ default: module.DemoPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })));
 const SignInPage = lazy(() => import('./pages/SignInPage').then((module) => ({ default: module.SignInPage })));
 const ProfilePage = lazy(() => import('./pages/ProfilePage').then((module) => ({ default: module.ProfilePage })));
@@ -47,7 +48,8 @@ export default function App() {
         <AppShell>
           <Suspense fallback={<PageLoading />}>
             <Switch>
-              <Route path="/" component={HomePage} />
+              <Route path="/" component={RootPage} />
+              <Route path="/demo" component={DemoPage} />
               <Route path="/course" component={CoursePage} />
               <Route path="/placement" component={PlacementPage} />
               <Route path="/course/:id">{(params) => <CourseLessonPage key={params.id} params={params} />}</Route>

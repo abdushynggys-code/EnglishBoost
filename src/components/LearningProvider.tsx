@@ -23,10 +23,9 @@ export function LearningProvider({ children }: { children: ReactNode }) {
     setError('');
     try {
       if (!userId) {
-        const { demoWorkspace } = await import('../data/workspace');
         if (version !== request.current) return;
         setProfile(null);
-        setData(demoWorkspace());
+        setData(emptyWorkspace());
         return;
       }
       const nextProfile = await loadProfile(userId);
@@ -85,6 +84,7 @@ export function LearningProvider({ children }: { children: ReactNode }) {
         session,
         profile,
         demo: !session || preview,
+        preview,
         loading: authLoading || loading || (!!userId && loadedUserId !== userId),
         error: error || authError,
         notice,
