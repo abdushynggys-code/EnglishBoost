@@ -29,6 +29,7 @@ export type Lesson = {
   book_page?: string;
   activities_de?: string;
   activities_ru?: string;
+  activities_kk?: string;
 };
 export type Question = {
   id: string;
@@ -42,12 +43,15 @@ export type Question = {
   explanation: string;
   explanation_de?: string;
   explanation_ru?: string;
+  explanation_kk?: string;
 };
 export type Word = {
   id: string;
   word: string;
   translation: string;
   translation_ru?: string;
+  translation_kk?: string;
+  definition_kk?: string;
   definition_de?: string;
   definition_ru?: string;
   definition: string;
@@ -63,6 +67,7 @@ export type ReadingQuestion = {
   explanation: string;
   explanation_de?: string;
   explanation_ru?: string;
+  explanation_kk?: string;
 };
 export type Passage = { id: string; title: string; level: string; body: string; questions: ReadingQuestion[] };
 export type WritingAssignment = { id: string; title: string; instructions: string; min_words: number; format: string };

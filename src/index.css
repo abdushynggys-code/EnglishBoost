@@ -9,3 +9,8 @@
 @import './styles/preferences.css';
 @import './styles/communication.css';
 @import './styles/classroom-games.css';
+@import './styles/refined/shell.css';
+@import './styles/refined/home.css';
+@import './styles/refined/illustration.css';
+@import './styles/refined/responsive.css';
+@import './styles/course.css';

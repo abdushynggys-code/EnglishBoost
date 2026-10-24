@@ -23,13 +23,14 @@ const russianWords: Record<string, string> = {
   practise: 'практиковаться',
 };
 export function wordMeaning(word: Word, language: Language) {
+  if (language === 'kk') return word.translation_kk || word.definition_kk || translate(language, word.definition);
   if (language === 'de') return word.translation || word.definition_de || word.definition;
   if (language === 'ru') return word.translation_ru || russianWords[word.word] || word.definition_ru || word.definition;
   return word.definition;
 }
 export function wordDefinition(word: Word, language: Language) {
   return (
-    (language === 'de' ? word.definition_de : language === 'ru' ? word.definition_ru : '') ||
+    (language === 'de' ? word.definition_de : language === 'ru' ? word.definition_ru : language === 'kk' ? word.definition_kk : '') ||
     translate(language, word.definition)
   );
 }

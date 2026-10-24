@@ -9,7 +9,7 @@ import { countWords, writingAdvice } from '../lib/writing';
 import type { WritingAssignment } from '../lib/types';
 
 export function WritingEditor({ assignment }: { assignment: WritingAssignment }) {
-  const { t } = useI18n();
+  const { t, preferences } = useI18n();
   const { data } = useLearning();
   const saved = data.drafts.find((d) => d.assignment_id === assignment.id);
   const [body, setBody] = useState(saved?.body ?? '');
@@ -93,7 +93,7 @@ export function WritingEditor({ assignment }: { assignment: WritingAssignment })
                     <button key={version.at} onClick={() => setBody(version.body)}>
                       {t('Revision')} {i + 1} · {countWords(version.body)} {t('words')}
                       <span>
-                        {new Date(version.at).toLocaleString()} {t('· Restore')}
+                        {new Date(version.at).toLocaleString(preferences.language)} {t('· Restore')}
                       </span>
                     </button>
                   ))

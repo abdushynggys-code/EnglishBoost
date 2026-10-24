@@ -8,7 +8,7 @@ import { loadWorkspace } from '../lib/workspaceApi';
 import type { Profile, Workspace } from '../lib/types';
 
 export function TutorReviews() {
-  const { t } = useI18n();
+  const { t, preferences } = useI18n();
   const [students, setStudents] = useState<Profile[]>([]);
   const [selected, setSelected] = useState('');
   const [data, setData] = useState<Workspace | null>(null);
@@ -113,7 +113,7 @@ export function TutorReviews() {
                 <details className="tutor-row" key={attempt.id}>
                   <summary>
                     {attempt.title} · {attempt.score}/{attempt.total} ·{' '}
-                    {new Date(attempt.created_at).toLocaleDateString()}
+                    {new Date(attempt.created_at).toLocaleDateString(preferences.language)}
                   </summary>
                   <div className="spaced">
                     {attempt.answers.map((answer) => (

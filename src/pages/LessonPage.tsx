@@ -7,6 +7,7 @@ import { Icon } from '../components/Icon';
 import { useLearning } from '../lib/learningContext';
 import { useLearningActions } from '../lib/useLearningActions';
 import { lessonExplanation } from '../lib/lessonLanguage';
+import { isPracticeLink } from '../lib/practicePath';
 
 export function LessonPage({ params }: { params: { id: string } }) {
   const { t, preferences } = useI18n();
@@ -34,7 +35,9 @@ export function LessonPage({ params }: { params: { id: string } }) {
         {t('Your lesson plan')}
       </Link>
       <PageHeading
-        eyebrow={`WEEK ${lesson.week} OF 8 · ${lesson.duration} MINUTES`}
+        eyebrow={lesson.book_unit
+          ? `${lesson.book_unit} · ${t('Book page')} ${lesson.book_page}`
+          : `${t('Week')} ${lesson.week} / 8 · ${lesson.duration} ${t('minutes')}`}
         title={t(lesson.title)}
         description={t(lesson.description)}
       />
@@ -56,7 +59,7 @@ export function LessonPage({ params }: { params: { id: string } }) {
                 className="button primary"
                 href={
                   lesson.practice_path &&
-                  ['/summarize', '/practice', '/vocabulary', '/reading', '/writing'].includes(lesson.practice_path)
+                  isPracticeLink(lesson.practice_path)
                     ? lesson.practice_path
                     : lesson.skill === 'Reading'
                       ? '/reading'
@@ -104,7 +107,8 @@ export function LessonPage({ params }: { params: { id: string } }) {
           <Card title={t('Take it a little further')}>
             <span className="eyebrow">{t('HOMEWORK IDEA')}</span>
             <p className="spaced">{t(lesson.homework)}</p>
-            <Link className="text-link spaced" href="/writing">
+            <Link className="text-link spaced" href={data.writing.some((work) => work.id === lesson.id)
+              ? `/writing?assignment=${lesson.id}` : '/writing'}>
               {t('Open writing workshop')} <Icon name="arrow" size={15} />
             </Link>
           </Card>

@@ -5,9 +5,10 @@ import { Icon } from './Icon';
 import { useLearning } from '../lib/learningContext';
 import { assignWork, loadStudents } from '../lib/tutorApi';
 import type { Profile } from '../lib/types';
+import { HomeworkAssignmentFields } from './HomeworkAssignmentFields';
 export function TutorAssignment() {
   const { t } = useI18n();
-  const { data, setNotice } = useLearning();
+  const { setNotice } = useLearning();
   const [students, setStudents] = useState<Profile[]>([]);
   const [student, setStudent] = useState('');
   const [kind, setKind] = useState('homework');
@@ -83,47 +84,7 @@ export function TutorAssignment() {
             </select>
           </label>
           {kind === 'homework' ? (
-            <>
-              <div className="form-grid">
-                <label className="field">
-                  {t('Title')}
-                  <input name="title" required />
-                </label>
-                <label className="field">
-                  {t('Due date')}
-                  <input name="due" type="date" required />
-                </label>
-                <label className="field">
-                  {t('Lesson')}
-                  <select name="lesson">
-                    {data.lessons.map((l) => (
-                      <option value={l.id} key={l.id}>
-                        {t('Week')} {l.week}: {l.title}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="field">
-                  {t('Assigned practice')}
-                  <select name="practice">
-                    <option value="">{t('No linked exercise')}</option>
-                    <option value="/summarize">{t('Get to the Point!')}</option>
-                    <option value="/practice">{t('Mixed grammar quiz')}</option>
-                    <option value="/vocabulary">{t('Vocabulary flashcards')}</option>
-                    <option value="/reading">{t('Reading practice')}</option>
-                    <option value="/writing">{t('Writing workshop')}</option>
-                  </select>
-                </label>
-              </div>
-              <label className="field">
-                {t('Instructions')}
-                <textarea rows={5} name="instructions" required />
-              </label>
-              <label className="field">
-                {t('Learning material link (optional)')}
-                <input name="material" type="url" placeholder={t('https://…')} pattern="https?://.*" />
-              </label>
-            </>
+            <HomeworkAssignmentFields />
           ) : (
             <div className="form-grid">
               <label className="field">

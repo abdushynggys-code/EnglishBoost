@@ -6,14 +6,19 @@ import { starterWords } from './starterWords';
 import { starterQuestions } from './starterQuestions';
 import { starterReading } from './starterReading';
 import type { Workspace } from '../lib/types';
+import { accessLessons } from './access2/lessons';
+import { accessQuestions } from './access2/questions';
+import { accessWords } from './access2/vocabulary';
+import { accessPassages } from './access2/reading';
+import { accessWriting } from './access2/writing';
 
 export function emptyWorkspace(): Workspace {
   return {
-    lessons,
-    questions: [...starterQuestions, ...questions],
-    vocabulary: [...starterWords, ...vocabulary],
-    passages: [starterReading, ...passages],
-    writing: writingAssignments,
+    lessons: [...accessLessons, ...lessons],
+    questions: [...accessQuestions, ...starterQuestions, ...questions],
+    vocabulary: [...accessWords, ...starterWords, ...vocabulary],
+    passages: [...accessPassages, starterReading, ...passages],
+    writing: [...accessWriting, ...writingAssignments],
     lessonProgress: [],
     attempts: [],
     wordProgress: [],

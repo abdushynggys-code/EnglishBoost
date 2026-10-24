@@ -4,6 +4,10 @@ import { Route, Switch } from 'wouter';
 import { LearningProvider } from './components/LearningProvider';
 import { AppShell } from './components/AppShell';
 import { LanguageProvider } from './components/LanguageProvider';
+import { CourseProvider } from './components/CourseProvider';
+const CoursePage = lazy(() => import('./pages/CoursePage').then((module) => ({ default: module.CoursePage })));
+const PlacementPage = lazy(() => import('./pages/PlacementPage').then((module) => ({ default: module.PlacementPage })));
+const CourseLessonPage = lazy(() => import('./pages/CourseLessonPage').then((module) => ({ default: module.CourseLessonPage })));
 const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => ({ default: module.NotFoundPage })));
 const SignInPage = lazy(() => import('./pages/SignInPage').then((module) => ({ default: module.SignInPage })));
@@ -39,10 +43,14 @@ export default function App() {
   return (
     <LearningProvider>
       <LanguageProvider>
+        <CourseProvider>
         <AppShell>
           <Suspense fallback={<PageLoading />}>
             <Switch>
               <Route path="/" component={HomePage} />
+              <Route path="/course" component={CoursePage} />
+              <Route path="/placement" component={PlacementPage} />
+              <Route path="/course/:id">{(params) => <CourseLessonPage key={params.id} params={params} />}</Route>
               <Route path="/sign-in" component={SignInPage} />
               <Route path="/profile" component={ProfilePage} />
               <Route path="/book" component={BookPage} />
@@ -66,6 +74,7 @@ export default function App() {
             </Switch>
           </Suspense>
         </AppShell>
+        </CourseProvider>
       </LanguageProvider>
     </LearningProvider>
   );

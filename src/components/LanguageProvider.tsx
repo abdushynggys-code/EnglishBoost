@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { LanguageContext, translate } from '../lib/i18n';
 import { cachePreferences, defaultPreferences, readPreferences, savePreferences } from '../lib/preferences';
@@ -56,5 +56,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     (text: string, values?: Record<string, string | number>) => translate(preferences.language, text, values),
     [preferences.language],
   );
-  return <LanguageContext.Provider value={{ preferences, onboarded, save, t }}>{children}</LanguageContext.Provider>;
+  const value = useMemo(() => ({ preferences, onboarded, save, t }), [preferences, onboarded, save, t]);
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

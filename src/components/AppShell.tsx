@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Sidebar } from './Sidebar';
@@ -12,27 +12,33 @@ import { MobileNavigation } from './MobileNavigation';
 export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
   const { t, onboarded } = useI18n();
-  const { loading, error, refresh, session, profile, demo, exploreDemo, notice, setNotice } = useLearning();
-  useEffect(() => setMenuOpen(false), [location]);
-  if (!loading && !onboarded) return <LanguageWelcome />;
+  const { data, loading, error, refresh, session, profile, demo, exploreDemo, notice, setNotice } = useLearning();
+  const dataAvailable = data.lessons.length > 0;
+  useEffect(() => {
+    setMenuOpen(false);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.getElementById('main-content')?.focus({ preventScroll: true });
+  }, [location]);
   if (location === '/sign-in') return <>{children}</>;
+  if (!loading && !onboarded) return <LanguageWelcome />;
   const pending = !demo && profile && !profile.approved && !['/profile', '/settings'].includes(location);
   return (
     <div className="app-shell">
       <a href="#main-content" className="skip-link">
         {t('Skip to content')}
       </a>
-      <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <Sidebar open={menuOpen} onClose={closeMenu} />
       <div className="main-shell">
         <Topbar onMenu={() => setMenuOpen(true)} />
-        <main className="main-content" id="main-content">
+        <main className="main-content" id="main-content" tabIndex={-1}>
           {loading ? (
             <div className="loading-state">
               <Icon name="loading" className="spin" size={28} />
               <p>{t('Opening your workspace…')}</p>
             </div>
-          ) : error && session ? (
+          ) : error && (session || !dataAvailable) ? (
             <section className="card error-state">
               <Icon name="help" size={30} />
               <h1>{t('Let’s reconnect your workspace')}</h1>

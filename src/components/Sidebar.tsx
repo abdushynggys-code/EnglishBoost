@@ -3,15 +3,17 @@ import { Icon } from './Icon';
 import { navigation, isPracticePath } from '../lib/navigation';
 import { useI18n } from '../lib/i18n';
 import { useLearning } from '../lib/learningContext';
+import { useNavigationDrawer } from '../lib/useNavigationDrawer';
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [location] = useLocation();
   const { t, preferences } = useI18n();
   const { profile } = useLearning();
+  const drawer = useNavigationDrawer(open, onClose);
   return (
     <>
-      {open && <button className="sidebar-backdrop" onClick={onClose} aria-label={t('Close navigation')} />}
-      <aside className={`sidebar ${open ? 'is-open' : ''}`}>
+      {open && <button className="sidebar-backdrop" tabIndex={-1} onClick={onClose} aria-label={t('Close navigation')} />}
+      <aside ref={drawer} className={`sidebar ${open ? 'is-open' : ''}`} aria-label={t('Main navigation')}>
         <Link href="/" className="brand" onClick={onClose}>
           <span className="brand-icon">
             <Icon name="book" size={29} />
@@ -44,7 +46,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                 <span>
                   {t(
                     item.href === '/book' && preferences.learning_track === 'language_arts'
-                      ? t('My learning')
+                      ? 'My learning'
                       : item.label,
                   )}
                 </span>
@@ -61,7 +63,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
               onClick={onClose}
             >
               <Icon name="tutor" />
-              <span>{t(profile?.role === 'tutor' ? t('Tutor Workspace') : t('For Tutors'))}</span>
+              <span>{t('Tutor Workspace')}</span>
               <Icon name="external" size={14} />
             </Link>
           )}

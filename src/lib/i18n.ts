@@ -10,6 +10,9 @@ import { interfacePhrases } from '../locales/interface';
 import { feedbackPhrases } from '../locales/feedback';
 import { writingPhrases } from '../locales/writing';
 import { readingPhrases } from '../locales/reading';
+import { kazakhPhrases } from '../locales/kk';
+import { polishedPhrases } from '../locales/polish';
+import { coursePhrases } from '../locales/course';
 
 export type PhraseMap = Record<string, readonly [string, string]>;
 const phrases: PhraseMap = {
@@ -25,6 +28,8 @@ const phrases: PhraseMap = {
   ...readingPhrases,
 };
 const normalizedPhrases = Object.fromEntries(Object.entries(phrases).map(([key, value]) => [key.toLowerCase(), value]));
+const polished = Object.fromEntries(Object.entries({ ...polishedPhrases, ...coursePhrases }).map(([key, value]) => [key.toLowerCase(), value]));
+const languageIndex = { en: 0, de: 1, ru: 2, kk: 3 } as const;
 export type Translator = (text: string, values?: Record<string, string | number>) => string;
 export type LanguageContextValue = {
   preferences: Preferences;
@@ -45,7 +50,9 @@ export function translate(
   text: string,
   values: Record<string, string | number> = {},
 ) {
-  let result = language === 'en' ? text : (normalizedPhrases[text.toLowerCase()]?.[language === 'de' ? 0 : 1] ?? text);
+  let result = polished[text.toLowerCase()]?.[languageIndex[language]] ?? (language === 'en' ? text : language === 'kk'
+    ? (kazakhPhrases[text.toLowerCase()] ?? text)
+    : (normalizedPhrases[text.toLowerCase()]?.[language === 'de' ? 0 : 1] ?? text));
   for (const [key, value] of Object.entries(values)) result = result.split(`{${key}}`).join(String(value));
   return result;
 }

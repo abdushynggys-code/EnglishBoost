@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearch } from 'wouter';
 import { PageHeading } from '../components/PageHeading';
 import { WritingEditor } from '../components/WritingEditor';
 import { Card } from '../components/Card';
@@ -8,9 +9,10 @@ import { useI18n } from '../lib/i18n';
 export function WritingPage() {
   const { t, preferences } = useI18n();
   const { data } = useLearning();
+  const requested = new URLSearchParams(useSearch()).get('assignment');
   const [selected, setSelected] = useState('');
   const assignment =
-    data.writing.find((w) => w.id === selected) ??
+    data.writing.find((w) => w.id === (selected || requested)) ??
     (preferences.learning_track === 'access2' && preferences.learning_level === 'A2'
       ? data.writing.find((w) => w.id === 'w3')
       : undefined) ??
@@ -26,7 +28,7 @@ export function WritingPage() {
               <select value={assignment.id} onChange={(e) => setSelected(e.target.value)}>
                 {data.writing.map((w) => (
                   <option key={w.id} value={w.id}>
-                    {w.title}
+                    {t(w.title)}
                   </option>
                 ))}
               </select>

@@ -5,8 +5,9 @@ import { Card } from './Card';
 import { Icon } from './Icon';
 import { topicAccuracy, activityDays } from '../lib/progress';
 import type { Workspace } from '../lib/types';
+import { shortDate, shortWeekday } from '../lib/dateFormat';
 export function ProgressReport({ data }: { data: Workspace }) {
-  const { t } = useI18n();
+  const { t, preferences } = useI18n();
   const accuracy = topicAccuracy(data);
   const weak = accuracy.filter((t) => t.accuracy < 70).sort((a, b) => a.accuracy - b.accuracy);
   const scored = data.attempts.filter((a) => a.total > 0);
@@ -61,7 +62,7 @@ export function ProgressReport({ data }: { data: Workspace }) {
                 <div className="chart-labels">
                   {scores.map((a) => (
                     <span key={a.id}>
-                      {new Date(a.created_at).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
+                      {shortDate(new Date(a.created_at), preferences.language)}
                     </span>
                   ))}
                 </div>
@@ -79,7 +80,7 @@ export function ProgressReport({ data }: { data: Workspace }) {
                 {accuracy.map((topic) => (
                   <div key={topic.topic}>
                     <div className="topic-label">
-                      <span>{topic.topic}</span>
+                      <span>{t(topic.topic)}</span>
                       <span>
                         {topic.accuracy}% · {topic.total} {t('answers')}
                       </span>
@@ -113,7 +114,7 @@ export function ProgressReport({ data }: { data: Workspace }) {
                       <Icon name="circle" size={6} />
                     )}
                   </span>
-                  {day.toLocaleDateString('en-GB', { weekday: 'short' })}
+                  {shortWeekday(day, preferences.language)}
                 </div>
               ))}
             </div>
@@ -123,10 +124,9 @@ export function ProgressReport({ data }: { data: Workspace }) {
               <div className="stack">
                 {weak.slice(0, 3).map((topic) => (
                   <div key={topic.topic}>
-                    <h3>{topic.topic}</h3>
+                    <h3>{t(topic.topic)}</h3>
                     <p className="spaced" style={{ marginTop: 5 }}>
-                      {t('You’re at')} {topic.accuracy}
-                      {t('% accuracy from')} {topic.total} {t('answers. A little more practice will help.')}
+                      {t('{accuracy}% correct across {count} answers. Keep practising this topic.', { accuracy: topic.accuracy, count: topic.total })}
                     </p>
                     <Link className="text-link spaced" href={`/practice?topic=${encodeURIComponent(topic.topic)}`}>
                       {t('Practise this topic')} <Icon name="arrow" size={14} />

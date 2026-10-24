@@ -29,6 +29,7 @@ export function contentFields(kind: ContentKind, data: Workspace): FieldDefiniti
       { key: 'activities', label: 'Lesson content and activities', type: 'textarea' },
       { key: 'activities_de', label: 'German explanation (optional)', type: 'textarea', optional: true },
       { key: 'activities_ru', label: 'Russian explanation (optional)', type: 'textarea', optional: true },
+      { key: 'activities_kk', label: 'Kazakh explanation (optional)', type: 'textarea', optional: true },
       { key: 'book_unit', label: 'Textbook unit (optional)', optional: true },
       { key: 'book_page', label: 'Textbook page (optional)', optional: true },
       {
@@ -63,11 +64,14 @@ export function contentFields(kind: ContentKind, data: Workspace): FieldDefiniti
       { key: 'explanation', label: 'Explanation', type: 'textarea' },
       { key: 'explanation_de', label: 'German explanation (optional)', type: 'textarea', optional: true },
       { key: 'explanation_ru', label: 'Russian explanation (optional)', type: 'textarea', optional: true },
+      { key: 'explanation_kk', label: 'Kazakh explanation (optional)', type: 'textarea', optional: true },
     ],
     vocabulary: [
       { key: 'word', label: 'English word' },
       { key: 'translation', label: 'German translation (optional)', optional: true },
       { key: 'translation_ru', label: 'Russian translation (optional)', optional: true },
+      { key: 'translation_kk', label: 'Kazakh translation (optional)', optional: true },
+      { key: 'definition_kk', label: 'Kazakh explanation (optional)', type: 'textarea', optional: true },
       { key: 'definition_de', label: 'German explanation (optional)', type: 'textarea', optional: true },
       { key: 'definition_ru', label: 'Russian explanation (optional)', type: 'textarea', optional: true },
       { key: 'definition', label: 'English definition', type: 'textarea' },

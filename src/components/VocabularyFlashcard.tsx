@@ -55,7 +55,7 @@ export function VocabularyFlashcard({
                   ? t('German translation')
                   : preferences.language === 'ru'
                     ? t('Russian translation')
-                    : t('Meaning in English'),
+                    : preferences.language === 'kk' ? t('Kazakh translation') : t('Meaning in English'),
               )}
             </small>
             <strong>{wordMeaning(word, preferences.language)}</strong>

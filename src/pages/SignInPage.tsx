@@ -1,12 +1,12 @@
 import { useI18n } from '../lib/i18n';
 import { Link, Redirect } from 'wouter';
 import { Auth } from '../components/Auth';
-import { useAuthSession } from '../lib/useAuthSession';
+import { useLearning } from '../lib/learningContext';
 import { Icon } from '../components/Icon';
 
 export function SignInPage() {
   const { t } = useI18n();
-  const { session, loading, error } = useAuthSession();
+  const { session, loading, error } = useLearning();
 
   if (loading)
     return (

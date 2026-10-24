@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 
-export type Language = 'en' | 'de' | 'ru';
+export type Language = 'en' | 'de' | 'ru' | 'kk';
 export type Preferences = {
   language: Language;
   learning_track: 'access2' | 'language_arts';
@@ -13,7 +13,7 @@ export const defaultPreferences: Preferences = {
   learning_level: 'A2',
   sound_effects: false,
 };
-export const languageNames: Record<Language, string> = { en: 'English', de: 'Deutsch', ru: 'Русский' };
+export const languageNames: Record<Language, string> = { en: 'English', de: 'Deutsch', ru: 'Русский', kk: 'Қазақша' };
 const preferenceKey = 'englishboost-preferences';
 
 export function readPreferences(): Preferences | null {
@@ -23,7 +23,7 @@ export function readPreferences(): Preferences | null {
       !value ||
       typeof value !== 'object' ||
       !('language' in value) ||
-      !['en', 'de', 'ru'].includes(String(value.language))
+      !['en', 'de', 'ru', 'kk'].includes(String(value.language))
     )
       return null;
     const saved = value as Partial<Preferences>;

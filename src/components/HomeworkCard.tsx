@@ -7,6 +7,8 @@ import { useLearning } from '../lib/learningContext';
 import { useLearningActions } from '../lib/useLearningActions';
 import { safeUrl } from '../lib/calendar';
 import type { Homework } from '../lib/types';
+import { isPracticeLink } from '../lib/practicePath';
+import { shortDate } from '../lib/dateFormat';
 
 export function HomeworkCard({ homework }: { homework: Homework }) {
   const { t, preferences } = useI18n();
@@ -38,18 +40,14 @@ export function HomeworkCard({ homework }: { homework: Homework }) {
           <span className={`status-badge ${submission ? 'green' : overdue ? 'purple' : 'blue'}`}>
             {reviewIsCurrent ? t('Reviewed') : submission ? t('Submitted') : overdue ? t('Overdue') : t('To do')}
           </span>
-          <h2>{homework.title}</h2>
+          <h2>{t(homework.title)}</h2>
         </div>
         <span className="homework-due">
           <Icon name="calendar" size={14} />
-          {t('Due')}{' '}
-          {new Date(`${homework.due_at}T12:00:00`).toLocaleDateString(preferences.language, {
-            day: 'numeric',
-            month: 'long',
-          })}
+          {t('Due {date}', { date: shortDate(new Date(`${homework.due_at}T12:00:00`), preferences.language) })}
         </span>
       </div>
-      <p>{homework.instructions}</p>
+      <p>{t(homework.instructions)}</p>
       <div className="homework-materials">
         <Link href={`/lessons/${homework.lesson_id}`}>
           <Icon name="book" size={15} />
@@ -61,9 +59,7 @@ export function HomeworkCard({ homework }: { homework: Homework }) {
             {t('Learning material')}
           </a>
         )}
-        {['/practice', '/vocabulary', '/reading', '/writing', '/summarize'].some(
-          (path) => homework.practice_path === path || homework.practice_path.startsWith(`${path}?`),
-        ) && (
+        {isPracticeLink(homework.practice_path) && (
           <Link
             href={
               homework.practice_path.startsWith('/summarize')

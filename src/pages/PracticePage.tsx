@@ -60,8 +60,8 @@ export function PracticePage() {
                   {t('Grammar topic')}
                   <select value={topic} onChange={(e) => setTopic(e.target.value)}>
                     <option value="All topics">{t('All topics')}</option>
-                    {topics.map((t) => (
-                      <option key={t}>{t}</option>
+                    {topics.map((topicName) => (
+                      <option key={topicName} value={topicName}>{t(topicName)}</option>
                     ))}
                   </select>
                 </label>

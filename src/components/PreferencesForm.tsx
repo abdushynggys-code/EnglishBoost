@@ -5,6 +5,7 @@ import type { Language } from '../lib/preferences';
 import { Icon } from './Icon';
 
 export function PreferencesForm({ onboarding = false }: { onboarding?: boolean }) {
+  const Heading = onboarding ? 'h1' : 'h2';
   const { preferences, save } = useI18n();
   const [draft, setDraft] = useState(preferences);
   const [step, setStep] = useState(1);
@@ -25,7 +26,7 @@ export function PreferencesForm({ onboarding = false }: { onboarding?: boolean }
     <div className="preferences-form">
       {(!onboarding || step === 1) && (
         <>
-          <h2>{t('What language feels most comfortable?')}</h2>
+          <Heading>{t('What language feels most comfortable?')}</Heading>
           <p>{t('Choose a language for instructions and feedback.')}</p>
           <div className="language-choices">
             {(Object.keys(languageNames) as Language[]).map((language) => (
@@ -48,7 +49,7 @@ export function PreferencesForm({ onboarding = false }: { onboarding?: boolean }
       )}
       {(!onboarding || step === 2) && (
         <div className="preference-focus">
-          <h2>{t('What would you like to work on?')}</h2>
+          <Heading>{t('What would you like to work on?')}</Heading>
           <div className="focus-choices">
             <button
               type="button"

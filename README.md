@@ -26,13 +26,13 @@ New students see an approval screen until their tutor approves their sign-in ema
 ## What works
 
 - An eight-week curriculum with lesson content, objectives, homework ideas, and completion tracking.
-- First-visit language choice: English, Deutsch, or Русский. Instructions, starter explanations, and feedback labels follow that choice; English practice stays in English. Change the language and learning focus in Settings.
-- An Access 2 learning path with original A1–A2 starter practice, plus a language-arts path for native speakers. Exact Cornelsen unit/page mapping awaits the textbook photo and can be entered in the tutor lesson editor.
+- First-visit language choice: English, Deutsch, Русский, or Қазақша. Interface labels follow that choice; English practice stays in English. Change the language and learning focus in Settings.
+- Access 2 Unit 1 practice based on the supplied pages: eight mapped lessons and base homework tasks, 30 questions, 50 vocabulary entries, and three adapted readings. Kazakh explanations accompany the new lessons and questions. See [content notes](docs/access2-homework.md).
 - “Get to the Point!”: main ideas, flexible sentence guides, relevant details, shortening, conversation, and response styles. Original/improved responses, self-checks, objective results, and tutor reviews are saved.
 - Adaptive communication suggestions use recent saved attempts. Written answers receive transparent self-check points and simple reminders; meaning is reviewed by the tutor. Multiple valid answers are welcome, and detailed answers are appropriate when the question needs them.
 - Live Classroom: tutors start a room for an assigned student, advance slides, launch grammar questions or summary practice, and read answers. Supabase Realtime sends updates, with polling while reconnecting. The demo is explicitly a preview.
 - Grammar practice: choices, blanks, sentence correction, true/false, explanations, scores, retries, and saved attempts.
-- English/German/Russian vocabulary support, flashcards, matching and spelling games, theme filters, pronunciation, and review dates.
+- English/German/Russian/Kazakh vocabulary support, flashcards, matching and spelling games, theme filters, pronunciation, and review dates.
 - Reading passages with scored comprehension questions and written answers for tutor review.
 - Writing prompts, word counts, a review checklist, drafts, up to 20 saved revisions, and tutor feedback.
 - Homework assignments, due dates, material links, submissions, revisions, and tutor scores.
@@ -88,6 +88,10 @@ The new communication and classroom tables use RLS; students cannot set their tu
 For Google sign-in, enable Google in Supabase Authentication and configure its OAuth credentials.
 Allow `http://localhost:5173/sign-in` and your deployed `/sign-in` URL under Authentication → URL Configuration.
 Google’s authorized callback is your Supabase project’s `/auth/v1/callback` URL.
+
+## Adaptive course
+
+Open `/course` or `/placement` for the multi-skill level check and 28-lesson learning path, with XP, streaks, weekly checkpoints, and spaced reviews. Read [the course rules](docs/adaptive-course.md). Run `npm run test:course` to check the learning logic.
 
 ## Scope and integrations
 

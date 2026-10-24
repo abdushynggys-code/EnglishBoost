@@ -5,6 +5,7 @@ import type { IconName } from '../components/Icon';
 import { useI18n } from '../lib/i18n';
 
 const activities: { path: string; title: string; description: string; icon: IconName }[] = [
+  { path: '/course', title: 'My course', description: 'One small lesson. One step forward.', icon: 'target' },
   { path: '/summarize', title: 'Get to the Point!', description: 'Say what matters. Keep your meaning.', icon: 'pen' },
   { path: '/vocabulary', title: 'Vocabulary Games', description: 'Learn words, then use them.', icon: 'vocabulary' },
   { path: '/practice', title: 'Grammar Lab', description: 'Short explanations. A little practice.', icon: 'file' },
@@ -18,8 +19,8 @@ export function PracticeHubPage() {
     <>
       <PageHeading
         eyebrow="ENGLISHBOOST"
-        title={t('Choose one small challenge.')}
-        description={t('Start with something familiar. Build from there.')}
+        title={t('Choose your practice.')}
+        description={t('One skill at a time, at your own pace.')}
       />
       <div className="practice-hub-grid">
         {activities.map((activity) => (

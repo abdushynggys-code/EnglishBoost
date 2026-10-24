@@ -10,6 +10,7 @@ export function BookPage() {
   const { t, preferences } = useI18n();
   const native = preferences.learning_track === 'language_arts';
   const mapped = data.lessons.filter((lesson) => lesson.book_unit);
+  const visibleLessons = !native && mapped.length ? mapped : data.lessons;
   return (
     <>
       <PageHeading
@@ -38,7 +39,7 @@ export function BookPage() {
       )}
       <Card title={t(mapped.length ? t('Book practice') : t('Starter topics'))} className="spaced">
         <div className="book-topic-list">
-          {data.lessons.map((lesson) => (
+          {visibleLessons.map((lesson) => (
             <Link href={`/lessons/${lesson.id}`} key={lesson.id}>
               <span className="book-topic-icon">
                 <Icon name={lesson.skill === 'Writing' ? 'pen' : 'book'} size={20} />
@@ -64,7 +65,11 @@ export function BookPage() {
         </div>
       </Card>
       {!native && (
-        <p className="book-disclaimer">{t('These are original practice topics, not copied textbook exercises.')}</p>
+        <div className="stack spaced">
+          <Link href="/homework" className="button secondary">{t('Base homework · Access 2')}</Link>
+          <p className="book-disclaimer">{t('Practice adapted from the supplied Access 2 Unit 1 pages. Use your book alongside these activities.')}</p>
+          <p className="muted">{t('More pages can be added later through your tutor’s content editor.')}</p>
+        </div>
       )}
     </>
   );

@@ -103,7 +103,7 @@ export function QuestionCard({
                 ? question.explanation_de
                 : preferences.language === 'ru'
                   ? question.explanation_ru
-                  : '') || t(question.explanation)}
+                  : preferences.language === 'kk' ? question.explanation_kk : '') || t(question.explanation)}
             </p>
             {question.selfReview && (
               <small>{t('Written answers are saved for tutor review and excluded from the automatic score.')}</small>

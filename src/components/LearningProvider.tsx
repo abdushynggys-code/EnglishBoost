@@ -3,14 +3,14 @@ import type { ReactNode } from 'react';
 import { LearningContext } from '../lib/learningContext';
 import { useAuthSession } from '../lib/useAuthSession';
 import { loadProfile, loadWorkspace } from '../lib/workspaceApi';
-import { demoWorkspace, emptyWorkspace } from '../data/workspace';
+import { emptyWorkspace } from '../lib/emptyWorkspace';
 import type { Profile } from '../lib/types';
 
 export function LearningProvider({ children }: { children: ReactNode }) {
   const { session, loading: authLoading, error: authError } = useAuthSession();
-  const [data, setData] = useState(demoWorkspace);
+  const [data, setData] = useState(emptyWorkspace);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [preview, setPreview] = useState(false);
@@ -19,16 +19,16 @@ export function LearningProvider({ children }: { children: ReactNode }) {
   const userId = session?.user.id;
   const refresh = useCallback(async () => {
     const version = ++request.current;
-    if (!userId) {
-      setProfile(null);
-      setData(demoWorkspace());
-      setLoading(false);
-      setLoadedUserId(undefined);
-      return;
-    }
     setLoading(true);
     setError('');
     try {
+      if (!userId) {
+        const { demoWorkspace } = await import('../data/workspace');
+        if (version !== request.current) return;
+        setProfile(null);
+        setData(demoWorkspace());
+        return;
+      }
       const nextProfile = await loadProfile(userId);
       const workspace = nextProfile.approved ? await loadWorkspace(userId) : emptyWorkspace();
       if (version !== request.current) return;
@@ -47,23 +47,35 @@ export function LearningProvider({ children }: { children: ReactNode }) {
   }, [userId]);
 
   useEffect(() => {
+    if (authLoading) return;
     setPreview(false);
     void refresh();
     return () => {
       request.current++;
     };
-  }, [refresh]);
+  }, [refresh, authLoading]);
   useEffect(() => {
     if (!notice) return;
     const timer = window.setTimeout(() => setNotice(''), 5000);
     return () => window.clearTimeout(timer);
   }, [notice]);
 
-  const exploreDemo = () => {
-    setPreview(true);
-    setProfile(null);
-    setData(demoWorkspace());
-    setError('');
+  const exploreDemo = async () => {
+    const version = ++request.current;
+    setLoading(true);
+    try {
+      const { demoWorkspace } = await import('../data/workspace');
+      if (version !== request.current) return;
+      setPreview(true);
+      setProfile(null);
+      setData(demoWorkspace());
+      setError('');
+      setLoadedUserId(userId);
+    } catch {
+      if (version === request.current) setNotice('Could not load your workspace.');
+    } finally {
+      if (version === request.current) setLoading(false);
+    }
   };
   return (
     <LearningContext.Provider

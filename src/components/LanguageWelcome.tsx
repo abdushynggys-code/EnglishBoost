@@ -9,7 +9,7 @@ export function LanguageWelcome() {
         <strong>EnglishBoost.</strong>
       </div>
       <section className="onboarding-card">
-        <p className="eyebrow">ENGLISH · DEUTSCH · РУССКИЙ</p>
+        <p className="eyebrow">ENGLISH · DEUTSCH · РУССКИЙ · ҚАЗАҚША</p>
         <PreferencesForm onboarding />
       </section>
     </main>

@@ -17,6 +17,7 @@ export function TutorReadingQuestions({ passageId, onClose }: { passageId: strin
   const [explanation, setExplanation] = useState('');
   const [explanationDe, setExplanationDe] = useState('');
   const [explanationRu, setExplanationRu] = useState('');
+  const [explanationKk, setExplanationKk] = useState('');
   const [busy, setBusy] = useState(false);
   function edit(question: ReadingQuestion) {
     setEditing(question);
@@ -26,6 +27,7 @@ export function TutorReadingQuestions({ passageId, onClose }: { passageId: strin
     setExplanation(question.explanation);
     setExplanationDe(question.explanation_de ?? '');
     setExplanationRu(question.explanation_ru ?? '');
+    setExplanationKk(question.explanation_kk ?? '');
   }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -49,6 +51,7 @@ export function TutorReadingQuestions({ passageId, onClose }: { passageId: strin
           explanation,
           explanation_de: explanationDe,
           explanation_ru: explanationRu,
+          explanation_kk: explanationKk,
         },
         session.user.id,
       );
@@ -60,6 +63,7 @@ export function TutorReadingQuestions({ passageId, onClose }: { passageId: strin
       setExplanation('');
       setExplanationDe('');
       setExplanationRu('');
+      setExplanationKk('');
       setNotice(t('Reading question saved.'));
     } catch (cause) {
       setNotice(cause instanceof Error ? cause.message : 'Could not save question.');
@@ -127,6 +131,10 @@ export function TutorReadingQuestions({ passageId, onClose }: { passageId: strin
           <label className="field">
             {t('Russian explanation (optional)')}
             <textarea value={explanationRu} onChange={(event) => setExplanationRu(event.target.value)} />
+          </label>
+          <label className="field">
+            {t('Kazakh explanation (optional)')}
+            <textarea value={explanationKk} onChange={(event) => setExplanationKk(event.target.value)} />
           </label>
           <button disabled={busy}>
             <Icon name="save" size={16} />
