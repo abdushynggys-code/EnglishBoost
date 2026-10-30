@@ -10,6 +10,7 @@ const tabs = [
   { id: "overview", title: "Plan & teach" },
   { id: "classes", title: "Classes & assignments" },
   { id: "library", title: "Material library" },
+  { id: "ai-course", title: "AI book course" },
   { id: "students", title: "Students & reports" },
   { id: "reviews", title: "Review work" },
   { id: "content", title: "My editable material" },

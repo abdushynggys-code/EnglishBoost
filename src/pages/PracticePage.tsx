@@ -15,7 +15,7 @@ export function PracticePage() {
   const lessonId = params.get('lesson');
   const [topic, setTopic] = useState(params.get('topic') || 'All topics');
   const [difficulty, setDifficulty] = useState(
-    preferences.learning_track === 'access2' && preferences.learning_level === 'A2' ? 'Beginner' : 'All levels',
+    !lessonId && preferences.learning_track === 'access2' && preferences.learning_level === 'A2' ? 'Beginner' : 'All levels',
   );
   const [started, setStarted] = useState(false);
   const [run, setRun] = useState(0);

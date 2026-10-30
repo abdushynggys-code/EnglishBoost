@@ -7,6 +7,7 @@ import { TutorStudents } from "./TutorStudents";
 import { TutorContent } from "./TutorContent";
 import { TutorAssignment } from "./TutorAssignment";
 import { TutorReviews } from "./TutorReviews";
+import { TutorBookCourse } from "./TutorBookCourse";
 import { Card } from "./Card";
 import { Icon } from "./Icon";
 import { useI18n } from "../lib/i18n";
@@ -43,6 +44,7 @@ export function TutorWorkspaceSection({ view }: { view: string }) {
       </>
     );
   if (view === "library") return <TutorMaterialLibrary />;
+  if (view === "ai-course") return <TutorBookCourse />;
   if (view === "students")
     return (
       <>
