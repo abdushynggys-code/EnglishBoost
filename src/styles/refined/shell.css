@@ -76,7 +76,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
 @media (prefers-reduced-motion: no-preference) {
   .calm-home, .practice-hub-grid, .page-heading { animation: page-arrive 220ms ease-out; }
   @keyframes page-arrive {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translate3d(0, 6px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
   }
 }

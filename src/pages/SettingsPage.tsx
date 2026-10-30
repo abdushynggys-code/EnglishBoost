@@ -8,6 +8,7 @@ import { useLearning } from "../lib/learningContext";
 import { useLearningActions } from "../lib/useLearningActions";
 import { PreferencesForm } from "../components/PreferencesForm";
 import { useI18n } from "../lib/i18n";
+import { AppearancePicker } from "../components/AppearancePicker";
 
 export function SettingsPage() {
   const { profile, demo } = useLearning();
@@ -27,7 +28,10 @@ export function SettingsPage() {
   return (
     <>
       <PageHeading title={t("Make this space yours.")} description={t("Your goals, your pace, your learning journey.")} />
-      <Card title={t("Language & learning")} className="settings-card">
+      <Card title={t("Theme")} className="settings-card">
+        <AppearancePicker />
+      </Card>
+      <Card title={t("Language & learning")} className="settings-card spaced">
         <PreferencesForm />
       </Card>
       <ClassConnections />

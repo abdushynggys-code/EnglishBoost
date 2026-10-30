@@ -4,7 +4,8 @@ const compile=(module,file)=>module._compile(ts.transpileModule(fs.readFileSync(
 require.extensions['.ts']=compile;require.extensions['.tsx']=compile;
 const {sparkCollections}=require('../src/data/sparkCollections.ts');
 const {sandboxSparkCatalog,sparkAppearance,sparkTiers}=require('../src/data/streakSparks.ts');
-const {translate}=require('../src/lib/i18n.ts');
+const {translate,loadTranslations}=require('../src/lib/i18n.ts');
+loadTranslations().then(()=>{
 const themes=['Garden','Hearth','Coast','Trailblazers','Arcade','Workshop','Studio','Mythic','Starforge','Singularity','Unknown'];
 const names=new Set(),geometry=new Set();
 for(const [index,theme] of themes.entries()){
@@ -23,3 +24,4 @@ const catalog=sandboxSparkCatalog();assert.equal(catalog.length,201);assert.equa
 assert.deepEqual(sparkTiers.map(tier=>tier.xp),[0,400,1200,2500,4500,7500,12000,18000,27000,40000,70000]);
 for(const item of catalog){const appearance=sparkAppearance(item.id);assert.equal(appearance.tier,item.tier);assert.equal(sparkCollections[item.tier-1].names[appearance.motif],item.title);assert.equal(item.required_xp,sparkTiers[item.tier-1].xp);}
 console.log('Spark checks passed: 201 distinct names and base drawings, themed collections, stable ownership IDs and four languages.');
+}).catch((cause)=>{console.error(cause);process.exitCode=1;});
