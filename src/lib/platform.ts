@@ -75,6 +75,19 @@ export async function assignClassWork(classId: string, title: string, instructio
   if (error) throw new Error(error.message);
   return data as number;
 }
+export async function assignGroupWork(classId: string, studentIds: string[], title: string, instructions: string, due: string, path: string) {
+  assertLiveMutation();
+  const { data, error } = await supabase.rpc("assign_group_work", {
+    class_uuid: classId,
+    student_uuids: studentIds,
+    work_title: title,
+    work_instructions: instructions,
+    due_date: due,
+    practice: path,
+  });
+  if (error) throw new Error(error.message);
+  return data as number;
+}
 export async function readNotification(id: string) {
   assertLiveMutation();
   const { error } = await supabase.from("notifications").update({ read_at: new Date().toISOString() }).eq("id", id);

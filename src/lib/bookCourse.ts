@@ -1,9 +1,9 @@
 import { supabase } from './supabase';
 import type { Lesson, Question } from './types';
+import { encodeCourseImage } from './courseImages';
 
 export type SourceBook = { id: string; name: string; identity_notes: string; created_at: string };
 export type AssessmentKind = 'quiz' | 'easy_test' | 'hard_test';
-type CourseImage = { role: 'front_cover' | 'back_cover' | 'material'; mimeType: string; data: string };
 type GeneratedCourse = {
   book_identity: string;
   extracted_text: string;
@@ -24,19 +24,6 @@ export async function loadSourceBooks() {
   return data ?? [];
 }
 
-async function imagePart(file: File, role: CourseImage['role']): Promise<CourseImage> {
-  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-    throw new Error('Use JPG, PNG, or WebP images.');
-  }
-  if (file.size > 4_000_000) throw new Error(`${file.name} is larger than 4 MB. Compress it first.`);
-  const bytes = new Uint8Array(await file.arrayBuffer());
-  let binary = '';
-  for (let start = 0; start < bytes.length; start += 32_768) {
-    binary += String.fromCharCode(...bytes.subarray(start, start + 32_768));
-  }
-  return { role, mimeType: file.type, data: btoa(binary) };
-}
-
 function questionCount(kind: AssessmentKind) {
   if (kind === 'easy_test') return 20;
   if (kind === 'hard_test') return 10;
@@ -55,9 +42,9 @@ export async function createBookCourse(input: {
 }) {
   const count = questionCount(input.assessmentKind);
   const images = await Promise.all([
-    ...(input.front ? [imagePart(input.front, 'front_cover')] : []),
-    ...(input.back ? [imagePart(input.back, 'back_cover')] : []),
-    ...input.materials.map((file) => imagePart(file, 'material')),
+    ...(input.front ? [encodeCourseImage(input.front, 'front_cover')] : []),
+    ...(input.back ? [encodeCourseImage(input.back, 'back_cover')] : []),
+    ...input.materials.map((file) => encodeCourseImage(file, 'material')),
   ]);
   const { data, error } = await supabase.functions.invoke<GenerateResponse>('ai', {
     body: {

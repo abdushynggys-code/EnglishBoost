@@ -58,6 +58,9 @@ export type Word = {
   example: string;
   theme: string;
   difficulty: string;
+  class_id?: string | null;
+  student_id?: string | null;
+  source?: 'manual' | 'extracted' | 'support';
 };
 export type ReadingQuestion = {
   id: string;

@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { usePlatform, assignClassWork } from "../lib/platform";
+import { useState } from "react";
+import { assignGroupWork } from "../lib/platform";
 import { useLearning } from "../lib/learningContext";
 import { useI18n } from "../lib/i18n";
 import { courseLevels, moduleTopics, levelNumber } from "../lib/course/levels";
-export function TutorClassAssignment() {
-  const { state } = usePlatform();
+import { SelectMenu } from "./SelectMenu";
+import { Icon } from "./Icon";
+export function TutorClassAssignment({ classId, studentIds }: { classId: string; studentIds: string[] }) {
   const { setNotice } = useLearning();
   const { t } = useI18n();
-  const [classId, setClassId] = useState("");
-  useEffect(() => {
-    if (classId && !state.classes.some((room) => room.id === classId)) setClassId("");
-  }, [state.classes, classId]);
   const [level, setLevel] = useState(0);
   const [module, setModule] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -22,8 +19,9 @@ export function TutorClassAssignment() {
     const form = e.currentTarget;
     const fields = new FormData(form);
     try {
-      const count = await assignClassWork(
+      const count = await assignGroupWork(
         classId,
+        studentIds,
         String(fields.get("title")),
         String(fields.get("instructions")),
         String(fields.get("due")),
@@ -41,48 +39,16 @@ export function TutorClassAssignment() {
     }
   }
   return (
-    <section className="card spaced">
-      <h2>{t("Assign a module to your class")}</h2>
-      <p>{t("Use a ready-made lesson, then add your own instructions and due date.")}</p>
+    <section className="card">
+      <h2>{t("Add the next class activity")}</h2>
+      <p>{t("Choose the next learning module, add clear instructions, and set its due date.")}</p>
       <form className="form spaced" onSubmit={(e) => void submit(e)}>
-        <label className="field">
-          {t("Class")}
-          <select required value={classId} onChange={(e) => setClassId(e.target.value)}>
-            <option value="">{t("Choose a class")}</option>
-            {state.classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.title}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="assignment-audience"><Icon name="user" size={17} />{t("Assigning to {count} selected learners", { count: studentIds.length })}</div>
         <div className="form-grid">
-          <label className="field">
-            {t("Level")}
-            <select
-              value={level}
-              onChange={(e) => {
-                setLevel(Number(e.target.value));
-                setModule(0);
-              }}
-            >
-              {courseLevels.map((l, i) => (
-                <option key={l} value={i}>
-                  {t("Level")} {levelNumber(l)} · {l}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="field">
-            {t("Module")}
-            <select value={module} onChange={(e) => setModule(Number(e.target.value))}>
-              {moduleTopics[level].map((name, i) => (
-                <option key={name} value={i}>
-                  {t(name)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <SelectMenu label={t("Level")} value={String(level)} onChange={(value) => { setLevel(Number(value)); setModule(0); }}
+            options={courseLevels.map((item, index) => ({ value: String(index), label: `${t("Level")} ${levelNumber(item)} · ${item}` }))} />
+          <SelectMenu label={t("Module")} value={String(module)} onChange={(value) => setModule(Number(value))}
+            options={moduleTopics[level].map((name, index) => ({ value: String(index), label: t(name) }))} />
         </div>
         <label className="field">
           {t("Title")}
@@ -101,7 +67,7 @@ export function TutorClassAssignment() {
           {t("Due date")}
           <input type="date" name="due" min={new Date().toLocaleDateString("en-CA")} required />
         </label>
-        <button disabled={busy || !classId}>{t(busy ? "Saving…" : "Assign to class")}</button>
+        <button disabled={busy || !studentIds.length}>{t(busy ? "Saving…" : "Add to class plan")}</button>
         {error && (
           <p role="alert" className="message">
             {t(error)}

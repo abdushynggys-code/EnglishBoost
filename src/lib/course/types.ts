@@ -34,6 +34,12 @@ export type PlacementResult = {
   writing_sample: string;
   speaking_practised: boolean;
   settings: StudySettings;
+  personalization?: {
+    summary: string;
+    focus_modules: string[];
+    source: "tutor_photos";
+    updated_at: string;
+  };
 };
 export type LessonCompletion = {
   attempts?: number;

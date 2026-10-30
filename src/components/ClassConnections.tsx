@@ -30,6 +30,26 @@ export function ClassConnections() {
       setBusy(false);
     }
   }
+  const connectionForm = (
+    <form className="form spaced" onSubmit={(e) => void submit(e)}>
+      <label className="field">
+        {t(tutor ? "Class name" : "Class code")}
+        <input
+          value={value}
+          onChange={(e) => setValue(tutor ? e.target.value : e.target.value.toUpperCase())}
+          minLength={tutor ? 2 : 10}
+          maxLength={tutor ? 100 : 10}
+          autoComplete="off"
+          placeholder={t(tutor ? "e.g. Thursday English" : "10-character code")}
+          required
+        />
+      </label>
+      <button disabled={busy || loading}>
+        <Icon name={tutor ? "plus" : "arrow"} size={16} />
+        {t(busy ? "Saving…" : tutor ? "Create class" : "Join class")}
+      </button>
+    </form>
+  );
   return (
     <section className="card class-connections">
       <h2>{t(tutor || joined ? "Your classes" : "Learn your way")}</h2>
@@ -47,26 +67,7 @@ export function ClassConnections() {
           {t(joining ? "Cancel" : "Join another class")}
         </button>
       )}
-      {(tutor || !joined || joining) && (
-        <form className="form spaced" onSubmit={(e) => void submit(e)}>
-          <label className="field">
-            {t(tutor ? "Class name" : "Class code")}
-            <input
-              value={value}
-              onChange={(e) => setValue(tutor ? e.target.value : e.target.value.toUpperCase())}
-              minLength={tutor ? 2 : 10}
-              maxLength={tutor ? 100 : 10}
-              autoComplete="off"
-              placeholder={t(tutor ? "e.g. Thursday English" : "10-character code")}
-              required
-            />
-          </label>
-          <button disabled={busy || loading}>
-            <Icon name={tutor ? "plus" : "arrow"} size={16} />
-            {t(busy ? "Saving…" : tutor ? "Create class" : "Join class")}
-          </button>
-        </form>
-      )}
+      {(!joined || joining) && connectionForm}
       {(error || loadError) && (
         <p role="alert" className="message">
           {t(error || loadError)}
@@ -96,6 +97,13 @@ export function ClassConnections() {
           </article>
         ))}
       </div>
+      {tutor && joined && (
+        <details className="quiet-create-class spaced">
+          <summary>{t("Create another class")}</summary>
+          <p>{t("Add another group only when you need a separate class code.")}</p>
+          {connectionForm}
+        </details>
+      )}
     </section>
   );
 }

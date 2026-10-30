@@ -8,6 +8,8 @@
 
 import { buildCoursePrompt } from './coursePrompt.ts';
 import type { AssessmentKind, CourseImage, GeneratedCourse } from './coursePrompt.ts';
+import { buildPersonalizationPrompt } from './personalizedPrompt.ts';
+import type { GeneratedPersonalization, StudentContext } from './personalizedPrompt.ts';
 
 const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 const MODEL = 'gemini-3.5-flash-lite';
@@ -31,6 +33,12 @@ type CourseRequest = {
   bookIdentity?: unknown;
   assessmentKind?: unknown;
   questionCount?: unknown;
+  images?: unknown;
+};
+
+type PersonalizationRequest = {
+  mode: 'personalize_student_course';
+  student?: unknown;
   images?: unknown;
 };
 
@@ -145,6 +153,75 @@ async function generateCourse(body: CourseRequest) {
   return course.accepted ? json({ course }) : json({ rejected: true, reason: course.reason });
 }
 
+function validStudent(value: unknown): value is StudentContext {
+  if (!value || typeof value !== 'object') return false;
+  const student = value as Partial<StudentContext>;
+  return typeof student.name === 'string' && student.name.length <= 100
+    && (student.currentLevel === null || ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].includes(student.currentLevel ?? ''))
+    && (student.currentSkills === null || (typeof student.currentSkills === 'object' && student.currentSkills !== null))
+    && (student.currentInterest === null || typeof student.currentInterest === 'string')
+    && (student.personalizationSummary === null || typeof student.personalizationSummary === 'string')
+    && Number.isInteger(student.xp) && (student.xp ?? -1) >= 0
+    && Number.isInteger(student.completedAssignments) && Number.isInteger(student.pendingAssignments);
+}
+
+function parsePersonalization(text: string, currentLevel: string | null): GeneratedPersonalization | null {
+  try {
+    const value = JSON.parse(text.replace(/^```json\s*|\s*```$/g, '')) as GeneratedPersonalization;
+    if (typeof value.accepted !== 'boolean' || typeof value.reason !== 'string') return null;
+    if (!value.accepted) return value;
+    const plan = value.plan;
+    const lesson = value.lesson;
+    const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+    const skills = ['grammar', 'vocabulary', 'reading', 'listening'] as const;
+    if (!plan || !lesson || !levels.includes(plan.level) || !['everyday', 'travel', 'stories', 'school'].includes(plan.interest)) return null;
+    if (currentLevel && Math.abs(levels.indexOf(plan.level) - levels.indexOf(currentLevel)) > 1) return null;
+    if (!plan.skill_levels || !skills.every((skill) => Object.hasOwn(plan.skill_levels, skill)
+      && (plan.skill_levels[skill] === null || levels.includes(plan.skill_levels[skill]!)))) return null;
+    if (typeof plan.summary !== 'string' || plan.summary.length < 20 || !Array.isArray(plan.focus_modules)
+      || plan.focus_modules.length < 2 || plan.focus_modules.length > 4) return null;
+    if (!Array.isArray(value.vocabulary) || value.vocabulary.length < 6 || value.vocabulary.length > 12
+      || !value.vocabulary.every((item) => item && typeof item.word === 'string' && item.word.length <= 80
+        && typeof item.translation_de === 'string' && typeof item.translation_ru === 'string' && typeof item.translation_kk === 'string'
+        && typeof item.definition === 'string' && typeof item.example === 'string' && ['extracted', 'support'].includes(item.source))) return null;
+    if (!Array.isArray(lesson.objectives) || !lesson.objectives.length || !Array.isArray(lesson.questions) || lesson.questions.length !== 10) return null;
+    if (typeof lesson.title !== 'string' || typeof lesson.description !== 'string' || typeof lesson.activities !== 'string'
+      || typeof lesson.homework !== 'string' || typeof lesson.book_unit !== 'string' || typeof lesson.book_page !== 'string'
+      || typeof lesson.duration !== 'number' || lesson.duration < 5 || lesson.duration > 180) return null;
+    if (!['Grammar', 'Vocabulary', 'Reading', 'Writing', 'Speaking'].includes(lesson.skill)
+      || !['Beginner', 'Intermediate'].includes(lesson.difficulty)) return null;
+    const validQuestions = lesson.questions.every((question) => question && typeof question.prompt === 'string'
+      && typeof question.answer === 'string' && typeof question.explanation === 'string' && Array.isArray(question.options)
+      && ['choice', 'blank', 'correction', 'boolean'].includes(question.type)
+      && (!['choice', 'boolean'].includes(question.type) || (question.options.length >= 2 && question.options.includes(question.answer))));
+    return validQuestions ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+async function generatePersonalization(body: PersonalizationRequest) {
+  const student = validStudent(body.student) ? body.student : null;
+  const images = Array.isArray(body.images) && body.images.every(validImage) ? body.images : [];
+  const totalBytes = images.reduce((sum, image) => sum + image.data.length, 0);
+  if (!student) return json({ error: 'Choose a valid learner.' }, 400);
+  if (!images.length || images.some((image) => image.role !== 'material')) return json({ error: 'Add at least one assignment photo.' }, 400);
+  if (images.length > 6 || totalBytes > 15_000_000) return json({ error: 'Use at most 6 compressed images under 15 MB total.' }, 400);
+  const parts: Array<{ text: string } | { inlineData: { mimeType: string; data: string } }> = [{ text: buildPersonalizationPrompt(student) }];
+  for (const image of images) parts.push({ text: 'IMAGE ROLE: MATERIAL' }, { inlineData: { mimeType: image.mimeType, data: image.data } });
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents: [{ parts }], generationConfig: { temperature: 0.1, maxOutputTokens: 16_000, responseMimeType: 'application/json' } }),
+  });
+  const data = (await response.json()) as GeminiResponse;
+  if (!response.ok) return json({ error: 'AI could not read these photos. Try clearer, smaller images.' }, 502);
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  const personalization = typeof text === 'string' ? parsePersonalization(text, student.currentLevel) : null;
+  if (!personalization) return json({ error: 'AI returned an incomplete learning plan. Try clearer photos.' }, 502);
+  return personalization.accepted ? json({ personalization }) : json({ rejected: true, reason: personalization.reason });
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json({ error: 'Используй POST-запрос' }, 405);
@@ -155,10 +232,14 @@ Deno.serve(async (req) => {
       return json({ error: 'AI пока не настроен. Попроси наставника проверить секрет.' }, 503);
     }
 
-    const body = (await req.json()) as { prompt?: unknown; system?: unknown; mode?: unknown } | CourseRequest;
+    const body = (await req.json()) as { prompt?: unknown; system?: unknown; mode?: unknown } | CourseRequest | PersonalizationRequest;
     if ('mode' in body && body.mode === 'course_from_images') {
       if (!await hasTutorAccess(req)) return json({ error: 'Approved tutor access is required.' }, 403);
       return await generateCourse(body);
+    }
+    if ('mode' in body && body.mode === 'personalize_student_course') {
+      if (!await hasTutorAccess(req)) return json({ error: 'Approved tutor access is required.' }, 403);
+      return await generatePersonalization(body);
     }
     const textBody = body as { prompt?: unknown; system?: unknown };
     const prompt = typeof textBody.prompt === 'string' ? textBody.prompt.trim() : '';

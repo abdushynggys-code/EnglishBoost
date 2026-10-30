@@ -1,6 +1,5 @@
 import { Link } from "wouter";
-import { ClassConnections } from "./ClassConnections";
-import { TutorClassAssignment } from "./TutorClassAssignment";
+import { TutorClassHub } from "./TutorClassHub";
 import { TutorMaterialLibrary } from "./TutorMaterialLibrary";
 import { TutorCourseReports } from "./TutorCourseReports";
 import { TutorStudents } from "./TutorStudents";
@@ -36,13 +35,7 @@ export function TutorWorkspaceSection({ view }: { view: string }) {
         <TutorMaterialLibrary />
       </>
     );
-  if (view === "classes")
-    return (
-      <>
-        <ClassConnections />
-        <TutorClassAssignment />
-      </>
-    );
+  if (view === "classes") return <TutorClassHub />;
   if (view === "library") return <TutorMaterialLibrary />;
   if (view === "ai-course") return <TutorBookCourse />;
   if (view === "students")

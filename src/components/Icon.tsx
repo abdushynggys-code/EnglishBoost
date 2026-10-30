@@ -42,6 +42,8 @@ import {
   ShieldCheck,
   LoaderCircle,
   Trophy,
+  Camera,
+  Images,
 } from 'lucide-react';
 
 const icons = {
@@ -88,6 +90,8 @@ const icons = {
   shield: ShieldCheck,
   loading: LoaderCircle,
   trophy: Trophy,
+  camera: Camera,
+  images: Images,
 };
 export type IconName = keyof typeof icons;
 

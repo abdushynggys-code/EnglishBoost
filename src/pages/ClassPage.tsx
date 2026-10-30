@@ -8,7 +8,12 @@ import type { ClassOverview } from "../lib/classes";
 import { useLiveSync } from "../lib/liveSync";
 import { ClassLeaderboard } from "../components/ClassLeaderboard";
 import { ClassHomework } from "../components/ClassHomework";
+import { ClassBadges } from "../components/ClassBadges";
 import { PageLoading } from "../components/PageLoading";
+import { ClassStudentRoster } from "../components/ClassStudentRoster";
+import { PhotoCourseAssignment } from "../components/PhotoCourseAssignment";
+import { TutorClassAssignment } from "../components/TutorClassAssignment";
+import { ClassVocabularyManager } from "../components/ClassVocabularyManager";
 export function ClassPage({ params }: { params: { id: string } }) {
   const { state, loading, refresh, error: platformError } = usePlatform();
   const { session, profile, preview, refresh: refreshWorkspace } = useLearning();
@@ -20,6 +25,9 @@ export function ClassPage({ params }: { params: { id: string } }) {
   const [error, setError] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [vocabularyVersion, setVocabularyVersion] = useState(0);
+  const selectionInitialized = useRef(false);
   const request = useRef(0);
   async function reload() {
     if (!room) return;
@@ -28,6 +36,14 @@ export function ClassPage({ params }: { params: { id: string } }) {
       const next = await loadClassOverview(room.id);
       if (version === request.current) {
         setOverview(next);
+        setSelectedIds((current) => {
+          const available = new Set(next.members.map((member) => member.user_id));
+          if (!selectionInitialized.current) {
+            selectionInitialized.current = true;
+            return next.members.map((member) => member.user_id);
+          }
+          return current.filter((id) => available.has(id));
+        });
         setError("");
       }
     } catch (cause) {
@@ -36,6 +52,8 @@ export function ClassPage({ params }: { params: { id: string } }) {
   }
   useEffect(() => {
     setOverview(null);
+    selectionInitialized.current = false;
+    setSelectedIds([]);
     void reload();
     return () => {
       request.current++;
@@ -115,10 +133,29 @@ export function ClassPage({ params }: { params: { id: string } }) {
         </p>
       )}
       {overview ? (
-        <>
-          <ClassLeaderboard members={overview.members} userId={profile?.id} />
-          <ClassHomework work={overview.work} tutor={owner} />
-        </>
+        owner ? (
+          <>
+            <div className="class-management-grid">
+              <div className="stack">
+                <ClassStudentRoster members={overview.members} selectedIds={selectedIds} onChange={setSelectedIds} />
+                <ClassBadges classId={room.id} />
+              </div>
+              <div className="stack">
+                <PhotoCourseAssignment classId={room.id} students={overview.members} selectedIds={selectedIds}
+                  onComplete={() => { void reload(); setVocabularyVersion((value) => value + 1); }} />
+                <TutorClassAssignment classId={room.id} studentIds={selectedIds} />
+                <ClassVocabularyManager key={vocabularyVersion} classId={room.id} members={overview.members} selectedIds={selectedIds} />
+              </div>
+            </div>
+            <ClassHomework work={overview.work} tutor onChanged={() => void reload()} />
+          </>
+        ) : (
+          <>
+            <ClassLeaderboard members={overview.members} userId={profile?.id} />
+            <ClassBadges classId={room.id} userId={profile?.id} />
+            <ClassHomework work={overview.work} tutor={false} />
+          </>
+        )
       ) : (
         !error && <PageLoading />
       )}

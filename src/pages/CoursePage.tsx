@@ -67,6 +67,16 @@ export function CoursePage() {
       </div>
       <GameProgress />
       <NextLessonCard />
+      {placement.personalization && (
+        <section className="card personalized-path-note">
+          <Icon name="sparkles" />
+          <div>
+            <strong>{t("Your tutor personalized this path")}</strong>
+            <p>{placement.personalization.summary}</p>
+            <div>{placement.personalization.focus_modules.map((module) => <span key={module}>{module}</span>)}</div>
+          </div>
+        </section>
+      )}
       {due > 0 && (
         <Link className="course-review-link" href="/course/review">
           <Icon name="retry" />
